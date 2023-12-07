@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Item } = require('../models');
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 require("dotenv").config();
@@ -52,6 +52,19 @@ async function getAllItems() {
   }
 }
 
+async function addGroup(userId, groupId){
+  const user = await getItemById(userId)
+  const updatedGroups = [...user.groups, groupId]
+  const updatedUser = await updateItemById(user, { groups: updatedGroups }, { new: true})
+  return updatedUser
+}
+
+async function addGroupsToUser(arrOfUsers, groupId){
+  await arrOfUsers.map( async user => await addGroup(user._id, groupId ))
+}
+
+
+
 async function getItemById(id) {
   try {
     return await Model.findById(id);
@@ -96,5 +109,6 @@ module.exports = {
   updateUserById: updateItemById,
   deleteUserById: deleteItemById,
   authenticate,
-  verifyUser
+  verifyUser,
+  addGroup
 }

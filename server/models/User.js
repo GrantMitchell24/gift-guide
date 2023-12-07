@@ -1,5 +1,8 @@
 const { Schema, model } = require('mongoose');
+const itemSchema = require("./Item")
 const bcrypt = require("bcrypt")
+
+
 
 const userSchema = new Schema({
   email: {
@@ -27,10 +30,7 @@ const userSchema = new Schema({
     required: [true, 'Username required'],
     unique: true,
   },
-  items: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Item',
-  }],
+  items: [itemSchema],
   groups: [{
     type: Schema.Types.ObjectId,
     ref: 'Group',

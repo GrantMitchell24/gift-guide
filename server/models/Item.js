@@ -1,4 +1,4 @@
-const { Schema, Model } = require('mongoose');
+const { Schema } = require('mongoose');
 
 
 const itemSchema = new Schema({
@@ -25,15 +25,16 @@ const itemSchema = new Schema({
     type: String,
     required: false,
   },
-  user_id: {
-    type: Schema.Types.ObjectId,
-    required: true,
-  },
+  // user_id: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: "User",
+  //   required: true,
+  // },
 
 },{
   timestamps: true
 });
 
-const Item = model('Item', itemSchema);
+//const Item = model('Item', itemSchema);
 
 module.exports = itemSchema;
