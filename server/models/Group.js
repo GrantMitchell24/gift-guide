@@ -4,7 +4,7 @@ const { Schema, model } = require('mongoose');
 const groupSchema = new Schema({
   group_members: [
     {
-      type: Schema.Types.ObjectId,
+      type: Schema.Types.Array,
       ref: 'User',
     },
   ],
@@ -23,5 +23,5 @@ const groupSchema = new Schema({
 
 const Group = model('Group', groupSchema);
 
-module.exports = groupSchema;
+module.exports = Group;
 
