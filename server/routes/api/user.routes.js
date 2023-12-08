@@ -10,7 +10,10 @@ const {
   updateUserById, 
   deleteUserById, 
   authenticate, 
-  verifyUser 
+  verifyUser,
+  createUserItem,
+  updateUserItem,
+  deleteUserItem
 } = require('../../controllers/user.controller');
 
 
@@ -86,9 +89,43 @@ router.post("/auth", async (req, res) => {
   }
 })
 
+// Create an item in the User's item subdocument
+router.put("/:userId/item", async(req, res) => {
+  try {
+    const userInfo = await createUserItem(req.params.userId, req.body)
+    const payload = stripPassword(userInfo)
+    res.status(200).json({result: "Item added to user", payload})
+  } catch (err) {
+    res.status(500).json({ result: "error adding item to user", payload: err.message})
+  }
+})
+
+// Update an item in the User's item subdocument
+router.put("/:userId/item/:itemId", async(req, res) => {
+  try {
+    const userInfo = await updateUserItem(req.params.userId, req.params.itemId, req.body)
+    const payload = stripPassword(userInfo)
+    res.status(200).json({result: "Item updated", payload})
+  } catch (err) {
+    res.status(500).json({ result: "error updating item", payload: err.message})
+  }
+})
+
+// Delete an item in the User's item subdocument
+router.delete("/:userId/item/:itemId", async(req, res) => {
+  try {
+    const userInfo = await deleteUserItem(req.params.userId, req.params.itemId)
+    const payload = stripPassword(userInfo)
+    res.status(200).json({result: "Item deleted", payload})
+  } catch (err) {
+    res.status(500).json({ result: "error deleting item", payload: err.message})
+  }
+})
+
+
 router.put("/:id", async (req, res) => {
   try {
-    const user = await updateUserById(req.params.id, req.body)
+    const user = await updateUserById(req.params.userId, req.params.itemId, req.body)
     const payload = stripPassword(user)
     res.status(200).json({ result: "success", payload })
   } catch(err){
