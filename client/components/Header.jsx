@@ -32,7 +32,13 @@ export default function Header() {
     // </Navbar>
 
     <Box>
-      <Flex flexDir="column" justify-content="space-between" w="100%">
+      <Flex
+        as="nav"
+        flexDir="column"
+        justify-content="space-between"
+        align-items="center"
+        w="100%"
+      >
         <Heading>The Gift Guide</Heading>
         {user?._id !== undefined && <Text href="/private">Private Page</Text>}
 
