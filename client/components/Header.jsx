@@ -6,7 +6,9 @@ import { useAppCtx } from "../utils/AppProvider";
 
 //import from Chakra
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
-import { Link } from "@chakra-ui/react";
+// import { Link } from "@chakra-ui/react";
+import { Link as ReactRouterLink } from "react-router-dom";
+import { Link as ChakraLink } from "@chakra-ui/react";
 
 export default function Header() {
   const { user } = useAppCtx();
@@ -41,12 +43,16 @@ export default function Header() {
         w="100%"
       >
         <Heading>The Gift Guide</Heading>
-        {user?._id !== undefined && <Link href="/private">Private Page</Link>}
+        {user?._id !== undefined && (
+          <ChakraLink as={ReactRouterLink} href="/private">
+            Private Page
+          </ChakraLink>
+        )}
 
         {user?._id !== undefined ? (
-          <Link href="/logout">Logout</Link>
+          <ChakraLink href="/logout">Logout</ChakraLink>
         ) : (
-          <Link href="/auth">Login</Link>
+          <ChakraLink href="/auth">Login</ChakraLink>
         )}
       </Flex>
     </Box>

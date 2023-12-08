@@ -11,7 +11,7 @@ import { HomePage, AuthPage, Logout, PrivatePage } from "./pages/";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 //import Box from Chakra
-import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 
 //app.jsx function
 export default function App() {

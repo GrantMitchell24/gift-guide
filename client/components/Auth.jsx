@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useAppCtx } from "../utils/AppProvider";
 
-//import Box from Chakra
+//import design from Chakra
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Input } from "@chakra-ui/react";
+import { Button, ButtonGroup } from "@chakra-ui/react";
 
 export default function Auth({ usage = "signup" }) {
   const appCtx = useAppCtx();
@@ -41,17 +43,18 @@ export default function Auth({ usage = "signup" }) {
   }, [appCtx]);
 
   return (
-    <Box>
-      <Flex>
+    <Box flexDir="column">
+      <Flex flexDir="column">
         <form onSubmit={handleFormSubmit}>
           <Box>
-            <h2>{usage === "signup" ? "Signup" : "Login"}</h2>
+            <Heading>{usage === "signup" ? "Signup" : "Login"}</Heading>
             <Box>
-              <Flex>
+              <Flex flexDir="column">
                 <Box>
-                  <Flex>
-                    <label className="d-block">Email Address</label>
-                    <input
+                  <Flex flexDir="column">
+                    <Text className="d-block">Email Address</Text>
+                    <Input
+                      placeholder="joe@gmail.com"
                       type="text"
                       name="email"
                       value={userData.email}
@@ -61,18 +64,21 @@ export default function Auth({ usage = "signup" }) {
                 </Box>
 
                 <Box>
-                  <Text className="d-block">Password</Text>
-                  <input
-                    type="password"
-                    name="password"
-                    value={userData.password}
-                    onChange={handleInputChange}
-                  />
+                  <Flex flexDir="column">
+                    <Text className="d-block">Password</Text>
+                    <Input
+                      placeholder="secret"
+                      type="password"
+                      name="password"
+                      value={userData.password}
+                      onChange={handleInputChange}
+                    />
+                  </Flex>
                 </Box>
               </Flex>
             </Box>
             <Flex>
-              <button className="mt-2">Submit Info</button>
+              <Button colorScheme="green">Submit Info</Button>
             </Flex>
           </Box>
         </form>
