@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AppProvider from "./utils/AppProvider";
 
 //import components
-import { Header, ProtectedRoute, Footer } from "./components";
+import { Header, ProtectedRoute, Footer, NavBar } from "./components";
 
 //import pages for utilization in app.jsx
 import { HomePage, AuthPage, Logout, PrivatePage } from "./pages/";
