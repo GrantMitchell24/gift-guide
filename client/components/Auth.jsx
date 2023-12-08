@@ -47,11 +47,11 @@ export default function Auth({ usage = "signup" }) {
       <Flex flexDir="column" align="center" w="100%">
         <form onSubmit={handleFormSubmit}>
           <Box>
-            <Heading size="md">
+            <Heading size="md" align="center">
               {usage === "signup" ? "Signup" : "Login"}
             </Heading>
             <Box>
-              <Flex flexDir="column" align="center">
+              <Flex flexDir="column" align="center" p="10px">
                 <Box>
                   <Flex flexDir="column">
                     <Text className="d-block">Email Address</Text>
@@ -68,7 +68,7 @@ export default function Auth({ usage = "signup" }) {
                 </Box>
 
                 <Box>
-                  <Flex flexDir="column">
+                  <Flex flexDir="column" p="10px">
                     <Text className="d-block">Password</Text>
                     <Input
                       color="teal"
@@ -83,8 +83,11 @@ export default function Auth({ usage = "signup" }) {
                 </Box>
               </Flex>
             </Box>
-            <Flex>
-              <Button colorScheme="green">Submit Info</Button>
+
+            <Flex flexDir="row" justifyContent="center" align="center">
+              <Button align="center" colorScheme="green" p="5px">
+                Submit Info
+              </Button>
             </Flex>
           </Box>
         </form>

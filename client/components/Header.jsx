@@ -5,8 +5,7 @@
 import { useAppCtx } from "../utils/AppProvider";
 
 //import from Chakra
-import { Box, Flex, Heading, Text } from "@chakra-ui/react";
-// import { Link } from "@chakra-ui/react";
+import { Box, Flex, Heading, Button } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
 
@@ -34,7 +33,7 @@ export default function Header() {
     //   </Container>
     // </Navbar>
 
-    <Box>
+    <Box m="10px">
       <Flex
         as="nav"
         flexDir="column"
@@ -42,18 +41,24 @@ export default function Header() {
         align-items="center"
         w="100%"
       >
-        <Heading>The Gift Guide</Heading>
-        {user?._id !== undefined && (
-          <ChakraLink as={ReactRouterLink} href="/private">
-            Private Page
-          </ChakraLink>
-        )}
+        <Box>
+          <Heading>The Gift Guide</Heading>
+        </Box>
+        <Box>
+          {user?._id !== undefined && (
+            <ChakraLink as={ReactRouterLink} href="/private">
+              Private Page
+            </ChakraLink>
+          )}
 
-        {user?._id !== undefined ? (
-          <ChakraLink href="/logout">Logout</ChakraLink>
-        ) : (
-          <ChakraLink href="/auth">Login</ChakraLink>
-        )}
+          {user?._id !== undefined ? (
+            <ChakraLink href="/logout">Logout</ChakraLink>
+          ) : (
+            <ChakraLink href="/auth">
+              <Button colorScheme="green">Login</Button>
+            </ChakraLink>
+          )}
+        </Box>
       </Flex>
     </Box>
   );
