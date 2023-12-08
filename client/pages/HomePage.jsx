@@ -7,9 +7,9 @@ export default function HomePage() {
     <>
       <Box flexDir="row" m="10px">
         <Flex flexDir="column" align="left" w="100%">
-          <AvatarGroup spacing="1rem">
+          {/* <AvatarGroup spacing="1rem">
             <Avatar bg="green" />
-          </AvatarGroup>
+          </AvatarGroup> */}
           <Heading size="lg">Home Page</Heading>
           <Text>The home page can be accessed by everyone.</Text>
         </Flex>
