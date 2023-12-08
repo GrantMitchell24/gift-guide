@@ -8,7 +8,10 @@ import { Header, ProtectedRoute } from "./components";
 import { HomePage, AuthPage, Logout, PrivatePage } from "./pages/";
 
 //import bootstrap - may need to remove?
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
+
+//import Box from Chakra
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 //app.jsx function
 export default function App() {
@@ -16,23 +19,25 @@ export default function App() {
     <AppProvider>
       <BrowserRouter>
         <Header />
-        <div className="container pt-5">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/auth" element={<AuthPage />} />
+        <Box>
+          <Flex>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/auth" element={<AuthPage />} />
 
-            <Route
-              path="/private"
-              element={
-                <ProtectedRoute>
-                  <PrivatePage />
-                </ProtectedRoute>
-              }
-            />
+              <Route
+                path="/private"
+                element={
+                  <ProtectedRoute>
+                    <PrivatePage />
+                  </ProtectedRoute>
+                }
+              />
 
-            <Route path="/logout" element={<Logout />} />
-          </Routes>
-        </div>
+              <Route path="/logout" element={<Logout />} />
+            </Routes>
+          </Flex>
+        </Box>
       </BrowserRouter>
     </AppProvider>
   );

@@ -1,12 +1,18 @@
+//import Box from Chakra
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 
-
-
-export default function PrivatePage(){
-
+export default function PrivatePage() {
   return (
     <>
-      <h1>Private Page</h1>
-      <p>This is an example of a page that would require an authenticated user.</p>
+      <Box>
+        <Flex>
+          <Heading>Private Page</Heading>
+          <Text>
+            This is an example of a page that would require an authenticated
+            user.
+          </Text>
+        </Flex>
+      </Box>
     </>
-  )
+  );
 }
