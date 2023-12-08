@@ -2,6 +2,7 @@ const { User, Item } = require('../models');
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 require("dotenv").config();
+// const { deleteUserFromGroup } = require("./group.controller")
 
 const Model = User;
 
@@ -52,18 +53,6 @@ async function getAllUsers() {
   }
 }
 
-// async function addGroup(userId, groupId){
-//   const user = await getItemById(userId)
-//   const updatedGroups = [...user.groups, groupId]
-//   const updatedUser = await updateItemById(user, { groups: updatedGroups }, { new: true})
-//   return updatedUser
-// }
-
-// async function addGroupsToUser(arrOfUsers, groupId){
-//   await arrOfUsers.map( async user => await addGroup(user._id, groupId ))
-// }
-
-
 
 async function getUserById(id) {
   try {
@@ -94,15 +83,23 @@ async function updateUserById(id, data) {
   }
 }
 
-async function deleteUserById(id) {
-  try {
-    return await Model.findByIdAndDelete(id);
-  } catch (err) {
-    throw new Error(err)
-  }
-}
 
+//------------------------------------------------
+// In works
+//------------------------------------------------
+// async function deleteUserById(userId) {
+//   try {
+//     const user = await getUserById(userId)
+//     user.groups.forEach( async (groupId) => await deleteUserFromGroup(groupId, userId))
 
+//     await Model.findByIdAndDelete(userId);
+//     return "User Deleted"
+//   } catch (err) {
+//     throw new Error(err)
+//   }
+// }
+
+// Create an Item in the User's Item subdocument
 async function createUserItem(id, itemInfo) {
   try {
     const item = await User.findOneAndUpdate(
@@ -117,6 +114,7 @@ async function createUserItem(id, itemInfo) {
 
 }
 
+// Update an Item in the User's Item subdocument
 async function updateUserItem(userId, itemId, itemInfo) {
   try {
     const payload = await User.findOneAndUpdate(
@@ -142,12 +140,12 @@ async function updateUserItem(userId, itemId, itemInfo) {
   }
 }
 
-
+// Delete an Item in the User's Item subdocument
 async function deleteUserItem(userId, itemId) {
   try {
     const payload = await User.findOneAndUpdate(
       { '_id': userId, },
-      { $pull: { items: {'_id': itemId} } },
+      { $pull: { items: { '_id': itemId } } },
       { new: true }
     )
     return payload
@@ -156,6 +154,47 @@ async function deleteUserItem(userId, itemId) {
   }
 }
 
+// ------------------------------------------------------
+// Idea from Gary
+// ------------------------------------------------------
+// async function addGroupToUser(userId, groupId){
+//   const user = await getUserById(userId)
+//   const updatedGroups = [...user.groups, groupId]
+//   const updatedUser = await updateItemById(user, { groups: updatedGroups }, { new: true})
+//   return updatedUser
+// }
+
+// async function addGroupsToUser(arrOfUsers, groupId){
+//   await arrOfUsers.map( async user => await addGroup(user._id, groupId ))
+// }
+// ------------------------------------------------------
+// ------------------------------------------------------
+
+async function addGroupToUser(userId, groupId) {
+  try {
+    const payload = await User.findOneAndUpdate(
+      { _id: userId },
+      { $addToSet: { groups: groupId } },
+      { runValidators: true, new: true }
+    )
+    return payload
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+async function deleteGroupFromUser(userId, groupId) {
+  try {
+    const payload = await User.findOneAndUpdate(
+      { _id: userId },
+      { $pull: { groups: groupId } },
+      { runValidators: true, new: true }
+    )
+    return payload
+  } catch (err) {
+    throw new Error(err)
+  }
+}
 
 
 module.exports = {
@@ -163,11 +202,12 @@ module.exports = {
   getUserById,
   createUser,
   updateUserById,
-  deleteUserById,
   authenticate,
   verifyUser,
   createUserItem,
   updateUserItem,
-  deleteUserItem
-  // addGroup
+  deleteUserItem,
+  addGroupToUser,
+  deleteGroupFromUser,
+  // deleteUserById
 }

@@ -3,17 +3,19 @@ const jwt = require("jsonwebtoken")
 require("dotenv").config();
 
 // Import any controllers needed here
-const { 
-  getAllUsers, 
-  getUserById, 
-  createUser, 
-  updateUserById, 
-  deleteUserById, 
-  authenticate, 
+const {
+  getAllUsers,
+  getUserById,
+  createUser,
+  updateUserById,
+  deleteUserById,
+  authenticate,
   verifyUser,
   createUserItem,
   updateUserItem,
-  deleteUserItem
+  deleteUserItem,
+  addGroupToUser,
+  deleteGroupFromUser
 } = require('../../controllers/user.controller');
 
 
@@ -24,14 +26,14 @@ But in doing so, this will destructure the mongoose object itself, so we apply t
 toObject() method to prevent that from happening
 */
 
-function stripPassword(user){
+function stripPassword(user) {
   const { password, ...payload } = user.toObject()
   return payload
 }
 
 
-function createToken(email, id){
-  return jwt.sign({ email: email, id: id }, process.env.JWT_SECRET )
+function createToken(email, id) {
+  return jwt.sign({ email: email, id: id }, process.env.JWT_SECRET)
 }
 
 // Declare the routes that point to the controllers above
@@ -39,7 +41,7 @@ router.get("/", async (req, res) => {
   try {
     const payload = await getAllUsers()
     res.status(200).json({ result: "success", payload })
-  } catch(err){
+  } catch (err) {
     res.status(500).json({ result: "error", payload: err.message })
   }
 })
@@ -47,7 +49,7 @@ router.get("/", async (req, res) => {
 
 router.get("/verify", async (req, res) => {
   const user = await verifyUser(req)
-  if( !user ){
+  if (!user) {
     res.status(401).json({ result: "invalid login" })
   } else {
     const token = createToken(user.email, user._id)
@@ -62,7 +64,7 @@ router.get("/:id", async (req, res) => {
     const user = await getUserById(req.params.id)
     const payload = stripPassword(user)
     res.status(200).json({ result: "success", payload })
-  } catch(err){
+  } catch (err) {
     res.status(500).json({ result: "error", payload: err.message })
   }
 })
@@ -73,7 +75,7 @@ router.post("/", async (req, res) => {
     const token = createToken(user.email, user._id)
     const payload = stripPassword(user)
     res.cookie("auth-cookie", token).json({ result: "success", payload })
-  } catch(err){
+  } catch (err) {
     res.status(500).json({ result: "error", payload: err.message })
   }
 })
@@ -84,41 +86,51 @@ router.post("/auth", async (req, res) => {
     const token = createToken(user.email, user._id)
     const payload = stripPassword(user)
     res.cookie("auth-cookie", token).json({ result: "success", payload })
-  }catch(err){
-    res.status(500).json({ result: "error", payload: "Could not authenticate user"})
+  } catch (err) {
+    res.status(500).json({ result: "error", payload: "Could not authenticate user" })
   }
 })
 
 // Create an item in the User's item subdocument
-router.put("/:userId/item", async(req, res) => {
+router.put("/:userId/item", async (req, res) => {
   try {
     const userInfo = await createUserItem(req.params.userId, req.body)
     const payload = stripPassword(userInfo)
-    res.status(200).json({result: "Item added to user", payload})
+    res.status(200).json({ result: "Item added to user", payload })
   } catch (err) {
-    res.status(500).json({ result: "error adding item to user", payload: err.message})
+    res.status(500).json({ result: "error adding item to user", payload: err.message })
   }
 })
 
 // Update an item in the User's item subdocument
-router.put("/:userId/item/:itemId", async(req, res) => {
+router.put("/:userId/item/:itemId", async (req, res) => {
   try {
     const userInfo = await updateUserItem(req.params.userId, req.params.itemId, req.body)
     const payload = stripPassword(userInfo)
-    res.status(200).json({result: "Item updated", payload})
+    res.status(200).json({ result: "Item updated", payload })
   } catch (err) {
-    res.status(500).json({ result: "error updating item", payload: err.message})
+    res.status(500).json({ result: "error updating item", payload: err.message })
   }
 })
 
 // Delete an item in the User's item subdocument
-router.delete("/:userId/item/:itemId", async(req, res) => {
+router.delete("/:userId/item/:itemId", async (req, res) => {
   try {
     const userInfo = await deleteUserItem(req.params.userId, req.params.itemId)
     const payload = stripPassword(userInfo)
-    res.status(200).json({result: "Item deleted", payload})
+    res.status(200).json({ result: "Item deleted", payload })
   } catch (err) {
-    res.status(500).json({ result: "error deleting item", payload: err.message})
+    res.status(500).json({ result: "error deleting item", payload: err.message })
+  }
+})
+
+router.delete("/:userId/:groupId", async (req, res) => {
+  try {
+    const user = await deleteGroupFromUser(req.params.userId, req.params.groupId)
+    const payload = stripPassword(user)
+    res.status(200).json({ result: "success", payload })
+  } catch (err) {
+    res.status(500).json({ result: "error", payload: err.message })
   }
 })
 
@@ -128,7 +140,7 @@ router.put("/:id", async (req, res) => {
     const user = await updateUserById(req.params.userId, req.params.itemId, req.body)
     const payload = stripPassword(user)
     res.status(200).json({ result: "success", payload })
-  } catch(err){
+  } catch (err) {
     res.status(500).json({ result: "error", payload: err.message })
   }
 })
@@ -137,7 +149,7 @@ router.delete("/:id", async (req, res) => {
   try {
     const payload = await deleteUserById(req.params.id)
     res.status(200).json({ result: "success", payload })
-  } catch(err){
+  } catch (err) {
     res.status(500).json({ result: "error", payload: err.message })
   }
 })
