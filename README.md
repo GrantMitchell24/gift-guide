@@ -61,6 +61,8 @@ Links to individuals Githubs include:
 
 Third party products utilized include "XYZ".
 
+"Chakra for Beginners" course was taken to learn more about Chakra utilization with React (https://www.chakrauiforbeginners.com/).
+
 <a id="license"></a>
 
 ## License

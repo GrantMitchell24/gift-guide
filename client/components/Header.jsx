@@ -4,8 +4,9 @@
 // import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useAppCtx } from "../utils/AppProvider";
 
-//import Box from Chakra
+//import from Chakra
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Link } from "@chakra-ui/react";
 
 export default function Header() {
   const { user } = useAppCtx();
@@ -40,12 +41,12 @@ export default function Header() {
         w="100%"
       >
         <Heading>The Gift Guide</Heading>
-        {user?._id !== undefined && <Text href="/private">Private Page</Text>}
+        {user?._id !== undefined && <Link href="/private">Private Page</Link>}
 
         {user?._id !== undefined ? (
-          <Text href="/logout">Logout</Text>
+          <Link href="/logout">Logout</Link>
         ) : (
-          <Text href="/auth">Login</Text>
+          <Link href="/auth">Login</Link>
         )}
       </Flex>
     </Box>
