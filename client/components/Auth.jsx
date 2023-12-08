@@ -43,18 +43,22 @@ export default function Auth({ usage = "signup" }) {
   }, [appCtx]);
 
   return (
-    <Box flexDir="column">
-      <Flex flexDir="column">
+    <Box>
+      <Flex flexDir="column" align="center" w="100%">
         <form onSubmit={handleFormSubmit}>
           <Box>
-            <Heading>{usage === "signup" ? "Signup" : "Login"}</Heading>
+            <Heading size="md">
+              {usage === "signup" ? "Signup" : "Login"}
+            </Heading>
             <Box>
-              <Flex flexDir="column">
+              <Flex flexDir="column" align="center">
                 <Box>
                   <Flex flexDir="column">
                     <Text className="d-block">Email Address</Text>
                     <Input
-                      placeholder="joe@gmail.com"
+                      color="teal"
+                      placeholder="email@gmail.com"
+                      _placeholder={{ color: "inherit" }}
                       type="text"
                       name="email"
                       value={userData.email}
@@ -67,7 +71,9 @@ export default function Auth({ usage = "signup" }) {
                   <Flex flexDir="column">
                     <Text className="d-block">Password</Text>
                     <Input
-                      placeholder="secret"
+                      color="teal"
+                      placeholder="Enter password"
+                      _placeholder={{ color: "inherit" }}
                       type="password"
                       name="password"
                       value={userData.password}
