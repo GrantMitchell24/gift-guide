@@ -1,8 +1,7 @@
-const { User, Item } = require('../models');
+const { User } = require('../models');
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 require("dotenv").config();
-// const { deleteUserFromGroup } = require("./group.controller")
 
 const Model = User;
 
@@ -86,14 +85,27 @@ async function updateUserById(id, data) {
 
 //------------------------------------------------
 // In works
+// When deleting user
+// 1) Remove user Id from all the groups they are in
+// 2) Delete all groups where they are the admin
+// 3) Delete user
 //------------------------------------------------
-// async function deleteUserById(userId) {
-//   try {
-//     const user = await getUserById(userId)
-//     user.groups.forEach( async (groupId) => await deleteUserFromGroup(groupId, userId))
+async function deleteUserById(userId) {
+  try {
+    // const user = await getUserById(userId)
+    // await user.groups.forEach( async (groupId) => await deleteUserFromGroup(groupId, userId))
 
-//     await Model.findByIdAndDelete(userId);
-//     return "User Deleted"
+    await Model.findByIdAndDelete(userId);
+    return "User Deleted"
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+// OG Delete User
+// async function deleteItemById(id) {
+//   try {
+//     return await Model.findByIdAndDelete(id);
 //   } catch (err) {
 //     throw new Error(err)
 //   }
@@ -202,6 +214,7 @@ module.exports = {
   getUserById,
   createUser,
   updateUserById,
+  deleteUserById,
   authenticate,
   verifyUser,
   createUserItem,
@@ -209,5 +222,4 @@ module.exports = {
   deleteUserItem,
   addGroupToUser,
   deleteGroupFromUser,
-  // deleteUserById
 }
