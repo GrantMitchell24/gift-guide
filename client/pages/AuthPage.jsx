@@ -8,12 +8,12 @@ export default function AuthPage() {
   return (
     <Box>
       <Flex flexDir="row" justifyContent="space-evenly" align="center">
-        <Box p="20px">
+        {/* <Box p="20px">
           <Auth usage="signup" />
-        </Box>
+        </Box> */}
 
         <Box p="20px">
-          <Auth usage="login" />
+          <Auth />
         </Box>
       </Flex>
     </Box>
