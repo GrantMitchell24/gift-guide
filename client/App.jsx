@@ -1,11 +1,17 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import AppProvider from './utils/AppProvider';
-import { Header, ProtectedRoute } from './components';
-import { HomePage, AuthPage, Logout, PrivatePage } from './pages/'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AppProvider from "./utils/AppProvider";
 
-export default function App(){
+//import components
+import { Header, ProtectedRoute } from "./components";
 
+//import pages for utilization in app.jsx
+import { HomePage, AuthPage, Logout, PrivatePage } from "./pages/";
+
+//import bootstrap - may need to remove?
+import "bootstrap/dist/css/bootstrap.min.css";
+
+//app.jsx function
+export default function App() {
   return (
     <AppProvider>
       <BrowserRouter>
@@ -15,16 +21,19 @@ export default function App(){
             <Route path="/" element={<HomePage />} />
             <Route path="/auth" element={<AuthPage />} />
 
-            <Route path="/private" element={
-              <ProtectedRoute>
-                <PrivatePage />
-              </ProtectedRoute>
-            }/>
+            <Route
+              path="/private"
+              element={
+                <ProtectedRoute>
+                  <PrivatePage />
+                </ProtectedRoute>
+              }
+            />
 
             <Route path="/logout" element={<Logout />} />
           </Routes>
         </div>
       </BrowserRouter>
     </AppProvider>
-  )
+  );
 }
