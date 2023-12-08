@@ -1,66 +1,97 @@
-import { useEffect, useState } from "react"
-import { useAppCtx } from "../utils/AppProvider"
+import { useEffect, useState } from "react";
+import { useAppCtx } from "../utils/AppProvider";
 
+//import design from Chakra
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Input } from "@chakra-ui/react";
+import { Button, ButtonGroup } from "@chakra-ui/react";
 
-export default function Auth({usage="signup"}){
+export default function Auth({ usage = "signup" }) {
+  const appCtx = useAppCtx();
 
-  const appCtx = useAppCtx()
+  const [userData, setUserData] = useState({ email: "", password: "" });
 
-  const [ userData, setUserData ] = useState({ email: "", password: "" })
-
-  function handleInputChange(e){
-    setUserData({...userData, [e.target.name]: e.target.value })
+  function handleInputChange(e) {
+    setUserData({ ...userData, [e.target.name]: e.target.value });
   }
 
-  async function handleFormSubmit(e){
-    e.preventDefault()
-    const apiPath = (usage === "signup") ? "/" : "/auth"
-    const finalPath = `/api/user${apiPath}`
+  async function handleFormSubmit(e) {
+    e.preventDefault();
+    const apiPath = usage === "signup" ? "/" : "/auth";
+    const finalPath = `/api/user${apiPath}`;
 
     try {
       const query = await fetch(finalPath, {
         method: "POST",
         body: JSON.stringify(userData),
         headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      const response = await query.json()
-      console.log(response)
-      if( response.result === "success" ){
-        window.location.href = "/"
+          "Content-Type": "application/json",
+        },
+      });
+      const response = await query.json();
+      console.log(response);
+      if (response.result === "success") {
+        window.location.href = "/";
       }
-    } catch(err){
-      console.log(err.message)
+    } catch (err) {
+      console.log(err.message);
     }
   }
 
   useEffect(() => {
-    setUserData({...userData, email: appCtx.user.email || "" })
-  },[appCtx])
-
+    setUserData({ ...userData, email: appCtx.user.email || "" });
+  }, [appCtx]);
 
   return (
-    <div>
-      <form onSubmit={handleFormSubmit}>
-        <div>
-          <h2>{ usage === "signup" ? "Signup" : "Login" }</h2>
-          <div>
-            <div>
-              <label className="d-block">Email Address</label>
-              <input type="text" name="email" value={userData.email} onChange={handleInputChange} />
-            </div>
+    <Box>
+      <Flex flexDir="column" align="center" w="100%">
+        <form onSubmit={handleFormSubmit}>
+          <Box>
+            <Heading size="md" align="center">
+              {usage === "signup" ? "Signup" : "Login"}
+            </Heading>
+            <Box>
+              <Flex flexDir="column" align="center" p="10px">
+                <Box>
+                  <Flex flexDir="column">
+                    <Text className="d-block">Email Address</Text>
+                    <Input
+                      color="teal"
+                      placeholder="email@gmail.com"
+                      _placeholder={{ color: "inherit" }}
+                      type="text"
+                      name="email"
+                      value={userData.email}
+                      onChange={handleInputChange}
+                    />
+                  </Flex>
+                </Box>
 
-            <div>
-              <label className="d-block">Password</label>
-              <input type="password" name="password" value={userData.password} onChange={handleInputChange} />
-            </div>
-          </div>
+                <Box>
+                  <Flex flexDir="column" p="10px">
+                    <Text className="d-block">Password</Text>
+                    <Input
+                      color="teal"
+                      placeholder="Enter password"
+                      _placeholder={{ color: "inherit" }}
+                      type="password"
+                      name="password"
+                      value={userData.password}
+                      onChange={handleInputChange}
+                    />
+                  </Flex>
+                </Box>
+              </Flex>
+            </Box>
 
-          <button className="mt-2">Submit Info</button>
-        </div>
-      </form>
-    </div>
-  )
-
+            <Flex flexDir="row" justifyContent="center" align="center">
+              <Button align="center" colorScheme="green" p="5px">
+                Submit Info
+              </Button>
+            </Flex>
+          </Box>
+        </form>
+      </Flex>
+    </Box>
+  );
 }
