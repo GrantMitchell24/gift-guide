@@ -1,18 +1,21 @@
-import { useState, useEffect } from "react"
-import Auth from "../components/Auth"
+import { useState, useEffect } from "react";
+import Auth from "../components/Auth";
 
-export default function AuthPage(){
+//import Box from Chakra
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 
-
+export default function AuthPage() {
   return (
-    <div className="d-flex gap-5">
-      <div>
-        <Auth usage="signup" />
-      </div>
+    <Box>
+      <Flex>
+        <Box>
+          <Auth usage="signup" />
+        </Box>
 
-      <div>
-        <Auth usage="login" />
-      </div>
-    </div>
-  )
+        <Box>
+          <Auth usage="login" />
+        </Box>
+      </Flex>
+    </Box>
+  );
 }

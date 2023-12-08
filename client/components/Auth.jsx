@@ -61,7 +61,7 @@ export default function Auth({ usage = "signup" }) {
                 </Box>
 
                 <Box>
-                  <label className="d-block">Password</label>
+                  <Text className="d-block">Password</Text>
                   <input
                     type="password"
                     name="password"
