@@ -2,6 +2,8 @@
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { Tooltip } from "@chakra-ui/react";
 
+import { NavBar } from "../components";
+
 export default function PrivatePage() {
   return (
     <>
@@ -12,9 +14,9 @@ export default function PrivatePage() {
             This is an example of a page that would require an authenticated
             user.
           </Text>
-          <Tooltip hasArrow label="Search places" bg="gray.300" color="black">
-            <SearchIcon />
-          </Tooltip>
+          {/* <Tooltip hasArrow label="Search places" bg="gray.300" color="black">
+          </Tooltip> */}
+          <NavBar/>
         </Flex>
       </Box>
     </>
