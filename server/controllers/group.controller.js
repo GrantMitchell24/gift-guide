@@ -5,7 +5,7 @@ const Model = Group;
 
 async function getAllGroups() {
   try {
-    return await Model.find();
+    return await Model.find().populate({path: "admin_id", select: "_id email name username"}).populate({path: "group_members", select: "_id email name username"});
   } catch (err) {
     throw new Error(err)
   }
@@ -13,7 +13,7 @@ async function getAllGroups() {
 
 async function getAllGroupsByAdmin(userId) {
   try {
-    return await Model.find({admin_id: userId});
+    return await Model.find({admin_id: userId}).populate({path: "admin_id", select: "_id email name username"}).populate({path: "group_members", select: "_id email name username"});
   } catch (err) {
     throw new Error(err)
   }
@@ -21,7 +21,8 @@ async function getAllGroupsByAdmin(userId) {
 
 async function getGroupById(id) {
   try {
-    return await Model.findById(id);
+    return await Model.findById(id)
+      .populate({path: "admin_id", select: "_id email name username"}).populate({path: "group_members", select: "_id email name username"});
   } catch (err) {
     throw new Error(err)
   }
@@ -71,6 +72,7 @@ async function deleteUserFromGroup(groupId, userId) {
     throw new Error(err)
   }
 }
+
 
 async function updateGroupById(id, data) {
   try {
