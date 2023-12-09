@@ -72,6 +72,7 @@ async function deleteUserFromGroup(groupId, userId) {
   }
 }
 
+
 async function updateGroupById(id, data) {
   try {
     return await Model.findByIdAndUpdate(

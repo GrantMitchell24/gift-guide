@@ -1,7 +1,8 @@
-const { User } = require('../models');
+const { User, Group } = require('../models');
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 require("dotenv").config();
+
 
 const Model = User;
 
@@ -90,26 +91,22 @@ async function updateUserById(id, data) {
 // 2) Delete all groups where they are the admin
 // 3) Delete user
 //------------------------------------------------
-async function deleteUserById(userId) {
-  try {
-    // const user = await getUserById(userId)
-    // await user.groups.forEach( async (groupId) => await deleteUserFromGroup(groupId, userId))
+// async function deleteUserById(userId) {
+//   try {
+//     const user = await getUserById(userId)
+//     await user.groups.forEach( async (groupId) => await deleteUserFromGroupOnly(groupId, userId))
 
-    await Model.findByIdAndDelete(userId);
-    return "User Deleted"
-  } catch (err) {
-    throw new Error(err)
-  }
-}
 
-// OG Delete User
-// async function deleteItemById(id) {
+// async function deleteUserById(id) {
 //   try {
 //     return await Model.findByIdAndDelete(id);
 //   } catch (err) {
 //     throw new Error(err)
 //   }
 // }
+
+
+
 
 // Create an Item in the User's Item subdocument
 async function createUserItem(id, itemInfo) {
@@ -214,7 +211,6 @@ module.exports = {
   getUserById,
   createUser,
   updateUserById,
-  deleteUserById,
   authenticate,
   verifyUser,
   createUserItem,

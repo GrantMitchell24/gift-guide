@@ -9,7 +9,7 @@ const {
   updateGroupById, 
   deleteGroupById,
   addUserToGroup ,
-  deleteUserFromGroup
+  deleteUserFromGroup,
 } = require('../../controllers/group.controller');
 
 // Declare the routes that point to the controllers above
@@ -58,6 +58,7 @@ router.put("/:groupId/:userId", async (req, res) => {
     res.status(500).json({ result: "error", payload: err.message })
   }
 })
+
 
 router.delete("/:groupId/:userId", async (req, res) => {
   try {

@@ -8,7 +8,6 @@ const {
   getUserById,
   createUser,
   updateUserById,
-  deleteUserById,
   authenticate,
   verifyUser,
   createUserItem,
@@ -18,6 +17,9 @@ const {
   deleteGroupFromUser
 } = require('../../controllers/user.controller');
 
+const {
+  deleteUserById
+} = require('../../controllers/deleteUser.controller');
 
 /*
 Here we remove the password (even though it's encrypted) from the response.
