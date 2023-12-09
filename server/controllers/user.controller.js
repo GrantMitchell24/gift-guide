@@ -1,4 +1,4 @@
-const { User, Group } = require('../models');
+const { User } = require('../models');
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 require("dotenv").config();
@@ -47,7 +47,7 @@ async function authenticate(data) {
 
 async function getAllUsers() {
   try {
-    return await Model.find();
+    return await Model.find().populate({path: "groups", select: "_id title"});
   } catch (err) {
     throw new Error(err)
   }
@@ -56,7 +56,7 @@ async function getAllUsers() {
 
 async function getUserById(id) {
   try {
-    return await Model.findById(id);
+    return await Model.findById(id).populate({path: "groups", select: "_id title"});
   } catch (err) {
     throw new Error(err)
   }
@@ -82,30 +82,6 @@ async function updateUserById(id, data) {
     throw new Error(err)
   }
 }
-
-
-//------------------------------------------------
-// In works
-// When deleting user
-// 1) Remove user Id from all the groups they are in
-// 2) Delete all groups where they are the admin
-// 3) Delete user
-//------------------------------------------------
-// async function deleteUserById(userId) {
-//   try {
-//     const user = await getUserById(userId)
-//     await user.groups.forEach( async (groupId) => await deleteUserFromGroupOnly(groupId, userId))
-
-
-// async function deleteUserById(id) {
-//   try {
-//     return await Model.findByIdAndDelete(id);
-//   } catch (err) {
-//     throw new Error(err)
-//   }
-// }
-
-
 
 
 // Create an Item in the User's Item subdocument
