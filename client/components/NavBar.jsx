@@ -13,16 +13,16 @@ import {
   DrawerCloseButton,
 } from "@chakra-ui/react";
 
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
-} from "@chakra-ui/react";
+// import {
+//   Menu,
+//   MenuButton,
+//   MenuList,
+//   MenuItem,
+//   MenuItemOption,
+//   MenuGroup,
+//   MenuOptionGroup,
+//   MenuDivider,
+// } from "@chakra-ui/react";
 
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
@@ -32,6 +32,8 @@ import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
 
 import { Input, IconButton } from "@chakra-ui/react";
+
+import { Divider } from "@chakra-ui/react";
 
 export default function NavBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -57,14 +59,20 @@ export default function NavBar() {
             <Box>
               <Flex flexDir="column">
                 <Box>
-                  <Flex flexDir="column" padding-bottom="5px">
-                    <Heading fontSize="medium">Welcome, NAME</Heading>
+                  <Flex
+                    flexDir="column"
+                    padding-bottom="5px"
+                    justifyContent="space-evenly"
+                  >
+                    <Heading fontSize="medium">Your Gift Guide</Heading>
                   </Flex>
                 </Box>
+                <Divider orientation="horizontal" />
                 <Box>
-                  <Flex flexDir="column">
+                  <Flex flexDir="column" justifyContent="space-evenly">
                     <Text>Search users or groups</Text>
                     {/* SEARCH BAR FUNCTIONALITY - INSERT TUCKER's STUFF */}
+                    <Divider orientation="horizontal" />
                     <Box>
                       <Flex>
                         <Input type="search" id="site-search" name="q" />
@@ -78,15 +86,17 @@ export default function NavBar() {
                     </Box>
                   </Flex>
                 </Box>
+                <Divider orientation="horizontal" />
                 <Box>
-                  <Flex>
+                  <Flex flexDir="column" justifyContent="space-evenly">
                     <ChakraLink as={ReactRouterLink} to="/private/groups">
                       Groups
                     </ChakraLink>
                   </Flex>
                 </Box>
+                <Divider orientation="horizontal" />
                 <Box>
-                  <Flex>
+                  <Flex flexDir="column" justifyContent="space-evenly">
                     <ChakraLink
                       as={ReactRouterLink}
                       to="/private/purchaseditems"
@@ -95,6 +105,16 @@ export default function NavBar() {
                     </ChakraLink>
                   </Flex>
                 </Box>
+                <Divider orientation="horizontal" />
+
+                <Box>
+                  <Flex flexDir="column" justifyContent="space-evenly">
+                    <ChakraLink as={ReactRouterLink} to="/private/favorites">
+                      Favorites
+                    </ChakraLink>
+                  </Flex>
+                </Box>
+                <Divider orientation="horizontal" />
                 {/* <Box>
                   <Flex flexDir="column" padding-bottom="5px"> */}
                 {/* <Menu>
