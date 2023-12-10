@@ -6,6 +6,7 @@ require("dotenv").config();
 
 const Model = User;
 
+// DONE -> Provided By Gary
 async function verifyUser(req) {
   const cookie = req.cookies["auth-cookie"]
   if (!cookie) return false
@@ -20,6 +21,7 @@ async function verifyUser(req) {
 }
 
 
+// DONE -> Provided By Gary
 async function authenticate(data) {
   let user
 
@@ -45,23 +47,26 @@ async function authenticate(data) {
 }
 
 
+// DONE
 async function getAllUsers() {
   try {
-    return await Model.find().populate({path: "groups", select: "_id title"});
+    return await Model.find().populate({ path: "groups", select: "_id title" });
   } catch (err) {
     throw new Error(err)
   }
 }
 
 
+// DONE
 async function getUserById(id) {
   try {
-    return await Model.findById(id).populate({path: "groups", select: "_id title"});
+    return await Model.findById(id).populate({ path: "groups", select: "_id title" });
   } catch (err) {
     throw new Error(err)
   }
 }
 
+// DONE
 // use this as our signup handler
 async function createUser(data) {
   try {
@@ -71,6 +76,7 @@ async function createUser(data) {
   }
 }
 
+// DONE
 async function updateUserById(id, data) {
   try {
     return await Model.findByIdAndUpdate(
@@ -84,6 +90,7 @@ async function updateUserById(id, data) {
 }
 
 
+// DONE
 // Create an Item in the User's Item subdocument
 async function createUserItem(id, itemInfo) {
   try {
@@ -99,6 +106,7 @@ async function createUserItem(id, itemInfo) {
 
 }
 
+// DONE
 // Update an Item in the User's Item subdocument
 async function updateUserItem(userId, itemId, itemInfo) {
   try {
@@ -125,6 +133,7 @@ async function updateUserItem(userId, itemId, itemInfo) {
   }
 }
 
+// DONE
 // Delete an Item in the User's Item subdocument
 async function deleteUserItem(userId, itemId) {
   try {
@@ -139,22 +148,39 @@ async function deleteUserItem(userId, itemId) {
   }
 }
 
-// ------------------------------------------------------
-// Idea from Gary
-// ------------------------------------------------------
-// async function addGroupToUser(userId, groupId){
-//   const user = await getUserById(userId)
-//   const updatedGroups = [...user.groups, groupId]
-//   const updatedUser = await updateItemById(user, { groups: updatedGroups }, { new: true})
-//   return updatedUser
-// }
 
-// async function addGroupsToUser(arrOfUsers, groupId){
-//   await arrOfUsers.map( async user => await addGroup(user._id, groupId ))
-// }
-// ------------------------------------------------------
-// ------------------------------------------------------
+// DONE
+async function addPendingGroupToUser(userId, groupId) {
+  try {
+    const payload = await User.findOneAndUpdate(
+      { _id: userId },
+      { $addToSet: { pending_groups: groupId } },
+      { runValidators: true, new: true }
+    )
+    return payload
+  } catch (err) {
+    throw new Error(err)
+  }
+}
 
+
+// DONE
+async function deletePendingGroupFromUser(userId, groupId) {
+  try {
+    const payload = await User.findOneAndUpdate(
+      { _id: userId },
+      { $pull: { pending_groups: groupId } },
+      { runValidators: true, new: true }
+    )
+    return payload
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+
+// DONE
+// Used to add group creator directly to a group, bypassing pending_group
 async function addGroupToUser(userId, groupId) {
   try {
     const payload = await User.findOneAndUpdate(
@@ -168,6 +194,7 @@ async function addGroupToUser(userId, groupId) {
   }
 }
 
+// DONE
 async function deleteGroupFromUser(userId, groupId) {
   try {
     const payload = await User.findOneAndUpdate(
@@ -183,15 +210,19 @@ async function deleteGroupFromUser(userId, groupId) {
 
 
 module.exports = {
+  verifyUser,
+  authenticate,
   getAllUsers,
   getUserById,
   createUser,
   updateUserById,
-  authenticate,
-  verifyUser,
+
   createUserItem,
   updateUserItem,
   deleteUserItem,
+
+  addPendingGroupToUser,
+  deletePendingGroupFromUser,
   addGroupToUser,
-  deleteGroupFromUser,
+  deleteGroupFromUser
 }

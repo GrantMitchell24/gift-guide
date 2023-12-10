@@ -2,18 +2,22 @@ const router = require('express').Router();
 const jwt = require("jsonwebtoken")
 require("dotenv").config();
 
-// Import any controllers needed here
+// Import controllers
 const {
+  verifyUser,
+  authenticate,
   getAllUsers,
   getUserById,
   createUser,
   updateUserById,
-  authenticate,
-  verifyUser,
+
   createUserItem,
   updateUserItem,
   deleteUserItem,
-  addGroupToUser,
+
+  // addPendingGroupToUser,
+  deletePendingGroupFromUser,
+  // addGroupToUser,
   deleteGroupFromUser
 } = require('../../controllers/user.controller');
 
@@ -126,7 +130,18 @@ router.delete("/:userId/item/:itemId", async (req, res) => {
   }
 })
 
-router.delete("/:userId/:groupId", async (req, res) => {
+// Delete group from user's pending group list
+router.delete("/:userId/pending-group/:groupId", async (req, res) => {
+  try {
+    const user = await deletePendingGroupFromUser(req.params.userId, req.params.groupId)
+    const payload = stripPassword(user)
+    res.status(200).json({ result: "success", payload })
+  } catch (err) {
+    res.status(500).json({ result: "error", payload: err.message })
+  }
+})
+
+router.delete("/:userId/group/:groupId", async (req, res) => {
   try {
     const user = await deleteGroupFromUser(req.params.userId, req.params.groupId)
     const payload = stripPassword(user)
@@ -139,7 +154,7 @@ router.delete("/:userId/:groupId", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   try {
-    const user = await updateUserById(req.params.userId, req.params.itemId, req.body)
+    const user = await updateUserById(req.params.id, req.body)
     const payload = stripPassword(user)
     res.status(200).json({ result: "success", payload })
   } catch (err) {

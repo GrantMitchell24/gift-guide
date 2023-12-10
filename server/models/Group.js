@@ -16,6 +16,12 @@ const groupSchema = new Schema({
   title: {
     type: String,
   },
+  pending_group_members: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ]
 
 }, {
   timestamps: true
