@@ -5,7 +5,17 @@ import AppProvider from "./utils/AppProvider";
 import { Header, ProtectedRoute, Footer, NavBar } from "./components";
 
 //import pages for utilization in app.jsx
-import { HomePage, AuthPage, Logout, PrivatePage, GroupsPage } from "./pages/";
+
+
+import {
+  HomePage,
+  AuthPage,
+  Logout,
+  PrivatePage,
+  PurchasedPage,
+  GroupsPage,
+} from "./pages/";
+
 
 //import bootstrap - may need to remove?
 // import "bootstrap/dist/css/bootstrap.min.css";
@@ -20,7 +30,7 @@ export default function App() {
       <BrowserRouter>
         <Header />
         <Box>
-          <Flex>
+          <Flex flexDir="column">
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/auth" element={<AuthPage />} />
@@ -35,11 +45,21 @@ export default function App() {
               />
 
 
-              <Route
+             <Route
                 path="/mygroups"
                 element={
                   <ProtectedRoute>
                     <GroupsPage />
+                  </ProtectedRoute>
+                 }
+              />
+                  
+               <Route
+                path="/private/purchased"
+                element={
+                  <ProtectedRoute>
+                    <PrivatePage />
+                    <PurchasedPage />
                   </ProtectedRoute>
                 }
               />
