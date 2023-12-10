@@ -24,6 +24,11 @@ import {
   MenuDivider,
 } from "@chakra-ui/react";
 
+import { Link as ReactRouterLink } from "react-router-dom";
+import { Link as ChakraLink } from "@chakra-ui/react";
+import { Link } from "@chakra-ui/react";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
+
 import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
 
 import { Input, IconButton } from "@chakra-ui/react";
@@ -57,11 +62,6 @@ export default function NavBar() {
                   </Flex>
                 </Box>
                 <Box>
-                  <Flex>
-                    <Text>Purchased Items</Text>
-                  </Flex>
-                </Box>
-                <Box>
                   <Flex flexDir="column">
                     <Text>Search users or groups</Text>
                     {/* SEARCH BAR FUNCTIONALITY - INSERT TUCKER's STUFF */}
@@ -79,19 +79,50 @@ export default function NavBar() {
                   </Flex>
                 </Box>
                 <Box>
-                  <Flex flexDir="column" padding-bottom="5px">
-                    <Menu>
+                  <Flex>
+                    <ChakraLink as={ReactRouterLink} to="/private/groups">
+                      Groups
+                    </ChakraLink>
+                  </Flex>
+                </Box>
+                <Box>
+                  <Flex>
+                    <ChakraLink
+                      as={ReactRouterLink}
+                      to="/private/purchaseditems"
+                    >
+                      Purchased Items for Others
+                    </ChakraLink>
+                  </Flex>
+                </Box>
+                {/* <Box>
+                  <Flex flexDir="column" padding-bottom="5px"> */}
+                {/* <Menu>
                       <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
                         MyGroups Section
                       </MenuButton>
                       <MenuList>
-                        <MenuItem>Group A</MenuItem>
-                        <MenuItem>Group B</MenuItem>
-                        <MenuItem>Group C</MenuItem>
+                        <MenuItem>
+                          <ChakraLink as={ReactRouterLink} to="/profile/groups">
+                            Group A
+                          </ChakraLink>
+                        </MenuItem>
+                        <MenuItem>
+                          <ChakraLink as={ReactRouterLink} to="/profile/groups">
+                            Group A
+                          </ChakraLink>
+
+                        </MenuItem>
+                        <MenuItem>
+                          <ChakraLink as={ReactRouterLink} to="/profile/groups">
+                            Group A
+                          </ChakraLink>
+
+                        </MenuItem>
                       </MenuList>
-                    </Menu>
-                  </Flex>
-                </Box>
+                    </Menu> */}
+                {/* </Flex>
+                </Box> */}
                 <Box>
                   <Flex
                     flexDir="row"
