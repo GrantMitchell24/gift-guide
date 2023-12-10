@@ -63,6 +63,8 @@ Third party products utilized include "XYZ".
 
 "Chakra for Beginners" course was taken to learn more about Chakra utilization with React (https://www.chakrauiforbeginners.com/).
 
+Information for debugging React Router: https://stackoverflow.com/questions/71884854/chakra-ui-react-activelink-props-not-working
+
 <a id="license"></a>
 
 ## License
