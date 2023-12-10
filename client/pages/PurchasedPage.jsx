@@ -7,7 +7,7 @@ import PurchasedItems from "../components/PurchasedItems";
 export default function PurchasedPage() {
   return (
     <>
-      <Box m="10px" id="purchased">
+      <Box m="10px">
         <Flex flexDir="column">
           <Box>
             <Flex>
@@ -26,7 +26,6 @@ export default function PurchasedPage() {
                   <PurchasedItems />
                 </Flex>
               </Box>
-              <EmailAlert />
             </Flex>
           </Box>
         </Flex>

@@ -13,11 +13,6 @@ import {
   DrawerCloseButton,
 } from "@chakra-ui/react";
 
-import {
-  BrowserRouter as Router,
-  NavLink as RouterLink,
-} from "react-router-dom";
-
 // import {
 //   Menu,
 //   MenuButton,
@@ -102,9 +97,9 @@ export default function NavBar(props) {
                 <Divider orientation="horizontal" />
                 <Box>
                   <Flex flexDir="column" justifyContent="space-evenly">
-                    <Link as={RouterLink} to="#purchased">
-                      Purchased Items for Others
-                    </Link>
+                    <ChakraLink as={ReactRouterLink} to="/private/purchased">
+                      Purchased Items
+                    </ChakraLink>
                   </Flex>
                 </Box>
                 <Divider orientation="horizontal" />
