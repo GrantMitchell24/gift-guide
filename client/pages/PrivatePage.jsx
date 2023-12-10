@@ -3,13 +3,12 @@ import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 import { NavBar } from "../components";
 import EmailAlert from "../components/EmailAlert";
-import PurchasedItems from "../components/PurchasedItems";
 
 export default function PrivatePage() {
   return (
     <>
       <Box m="10px">
-        <Flex flexDir="column">
+        <Flex flexDir="column" scrollBehavior="smooth">
           <Box>
             <Flex>
               <Heading>Account Page</Heading>

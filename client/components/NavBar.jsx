@@ -13,6 +13,11 @@ import {
   DrawerCloseButton,
 } from "@chakra-ui/react";
 
+import {
+  BrowserRouter as Router,
+  NavLink as RouterLink,
+} from "react-router-dom";
+
 // import {
 //   Menu,
 //   MenuButton,
@@ -35,7 +40,7 @@ import { Input, IconButton } from "@chakra-ui/react";
 
 import { Divider } from "@chakra-ui/react";
 
-export default function NavBar() {
+export default function NavBar(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
@@ -51,7 +56,7 @@ export default function NavBar() {
         finalFocusRef={btnRef}
       >
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent {...props}>
           <DrawerCloseButton />
           <DrawerHeader>Account</DrawerHeader>
           {/* INSERT ICON IMAGE ASSOCIATED WITH ICON */}
@@ -97,12 +102,9 @@ export default function NavBar() {
                 <Divider orientation="horizontal" />
                 <Box>
                   <Flex flexDir="column" justifyContent="space-evenly">
-                    <ChakraLink
-                      as={ReactRouterLink}
-                      to="/private/purchaseditems"
-                    >
+                    <Link as={RouterLink} to="#purchased">
                       Purchased Items for Others
-                    </ChakraLink>
+                    </Link>
                   </Flex>
                 </Box>
                 <Divider orientation="horizontal" />
