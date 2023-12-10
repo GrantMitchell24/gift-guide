@@ -5,7 +5,7 @@ import AppProvider from "./utils/AppProvider";
 import { Header, ProtectedRoute, Footer, NavBar } from "./components";
 
 //import pages for utilization in app.jsx
-import { HomePage, AuthPage, Logout, PrivatePage } from "./pages/";
+import { HomePage, AuthPage, Logout, PrivatePage, AccountPage } from "./pages/";
 
 //import bootstrap - may need to remove?
 // import "bootstrap/dist/css/bootstrap.min.css";
@@ -30,6 +30,15 @@ export default function App() {
                 element={
                   <ProtectedRoute>
                     <PrivatePage />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/account"
+                element={
+                  <ProtectedRoute>
+                    <AccountPage />
                   </ProtectedRoute>
                 }
               />
