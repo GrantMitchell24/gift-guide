@@ -1,7 +1,7 @@
 //import Box from Chakra
-import React from "react"
+import React from "react";
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
-import { useDisclosure } from '@chakra-ui/react'
+import { useDisclosure } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import {
   Drawer,
@@ -11,8 +11,7 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
-} from '@chakra-ui/react'
-
+} from "@chakra-ui/react";
 
 import {
   Menu,
@@ -25,7 +24,7 @@ import {
   MenuDivider,
 } from "@chakra-ui/react";
 
-import { ChevronDownIcon, SearchIcon } from '@chakra-ui/icons'
+import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
 
 import { Input, IconButton } from "@chakra-ui/react";
 
@@ -36,7 +35,7 @@ export default function NavBar() {
   return (
     <>
       <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
-        Navigation
+        Page Navigation
       </Button>
       <Drawer
         isOpen={isOpen}
@@ -47,21 +46,50 @@ export default function NavBar() {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Navigation</DrawerHeader>
+          <DrawerHeader>Account</DrawerHeader>
+          {/* INSERT ICON IMAGE ASSOCIATED WITH ICON */}
           <DrawerBody>
-            <Text>Search users or groups</Text>
-            <Input type="search" id="site-search" name="q" />
-            <IconButton icon={<SearchIcon />} colorScheme='teal' variant='solid' aria-label="Search user or group" />
-            <Menu>
-              <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                MyGroups Section
-              </MenuButton>
-              <MenuList>
-                <MenuItem>Group A</MenuItem>
-                <MenuItem>Group A</MenuItem>
-                <MenuItem>Group C</MenuItem>
-              </MenuList>
-            </Menu>
+            <Box>
+              <Flex flexDir="column">
+                <Box>
+                  <Flex flexDir="column" padding-bottom="5px">
+                    <Heading fontSize="medium">Welcome, NAME</Heading>
+                  </Flex>
+                </Box>
+                <Box>
+                  <Flex flexDir="column">
+                    <Text>Search users or groups</Text>
+                    {/* SEARCH BAR FUNCTIONALITY - INSERT TUCKER's STUFF */}
+                    <Box>
+                      <Flex>
+                        <Input type="search" id="site-search" name="q" />
+                        <IconButton
+                          icon={<SearchIcon />}
+                          colorScheme="teal"
+                          variant="solid"
+                          aria-label="Search user or group"
+                        />
+                      </Flex>
+                    </Box>
+                  </Flex>
+                </Box>
+                <Box>
+                  <Flex flexDir="column" padding-bottom="5px">
+                    <Menu>
+                      <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                        MyGroups Section
+                      </MenuButton>
+                      <MenuList>
+                        <MenuItem>Group A</MenuItem>
+                        <MenuItem>Group B</MenuItem>
+                        <MenuItem>Group C</MenuItem>
+                      </MenuList>
+                    </Menu>
+                  </Flex>
+                </Box>
+                <Heading fontSize="medium">Signout</Heading>
+              </Flex>
+            </Box>
           </DrawerBody>
 
           <DrawerFooter></DrawerFooter>

@@ -20,7 +20,7 @@ export default function App() {
       <BrowserRouter>
         <Header />
         <Box>
-          <Flex>
+          <Flex flexDir="column">
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/auth" element={<AuthPage />} />
