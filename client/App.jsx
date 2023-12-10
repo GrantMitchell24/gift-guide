@@ -46,6 +46,16 @@ export default function App() {
               />
 
               <Route
+                path="/private/purchased"
+                element={
+                  <ProtectedRoute>
+                    <PrivatePage />
+                    <PurchasedPage />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
                 path="/account"
                 element={
                   <ProtectedRoute>
@@ -54,33 +64,11 @@ export default function App() {
                 }
               />
 
-                  
               <Route
-                path="/private/purchased"
-                element={
-                  <ProtectedRoute>
-                    <PrivatePage />
-                    <PurchasedPage />
-                  </ProtectedRoute>
-                }
-              />
-
-
-             <Route
                 path="/mygroups"
                 element={
                   <ProtectedRoute>
                     <GroupsPage />
-                  </ProtectedRoute>
-                 }
-              />
-                  
-               <Route
-                path="/private/purchased"
-                element={
-                  <ProtectedRoute>
-                    <PrivatePage />
-                    <PurchasedPage />
                   </ProtectedRoute>
                 }
               />
