@@ -57,6 +57,11 @@ export default function NavBar() {
                   </Flex>
                 </Box>
                 <Box>
+                  <Flex>
+                    <Text>Purchased Items</Text>
+                  </Flex>
+                </Box>
+                <Box>
                   <Flex flexDir="column">
                     <Text>Search users or groups</Text>
                     {/* SEARCH BAR FUNCTIONALITY - INSERT TUCKER's STUFF */}
@@ -87,7 +92,16 @@ export default function NavBar() {
                     </Menu>
                   </Flex>
                 </Box>
-                <Heading fontSize="medium">Signout</Heading>
+                <Box>
+                  <Flex
+                    flexDir="row"
+                    align="center"
+                    justifyContent="center"
+                    padding="10px"
+                  >
+                    <Button colorScheme="teal">Logout</Button>
+                  </Flex>
+                </Box>
               </Flex>
             </Box>
           </DrawerBody>
