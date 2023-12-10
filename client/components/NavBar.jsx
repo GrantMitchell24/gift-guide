@@ -1,5 +1,18 @@
 //import Box from Chakra
+import React from "react"
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { useDisclosure } from '@chakra-ui/react'
+import { Button, ButtonGroup } from "@chakra-ui/react";
+import {
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+} from '@chakra-ui/react'
+
 
 import {
   Menu,
@@ -11,6 +24,10 @@ import {
   MenuOptionGroup,
   MenuDivider,
 } from "@chakra-ui/react";
+
+import { ChevronDownIcon, SearchIcon } from '@chakra-ui/icons'
+
+import { Input, IconButton } from "@chakra-ui/react";
 
 export default function NavBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -32,6 +49,9 @@ export default function NavBar() {
           <DrawerCloseButton />
           <DrawerHeader>Navigation</DrawerHeader>
           <DrawerBody>
+            <Text>Search users or groups</Text>
+            <Input type="search" id="site-search" name="q" />
+            <IconButton icon={<SearchIcon />} colorScheme='teal' variant='solid' aria-label="Search user or group" />
             <Menu>
               <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
                 MyGroups Section
