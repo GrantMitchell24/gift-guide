@@ -48,36 +48,40 @@ export default function NavBar(props) {
         <DrawerContent {...props}>
           <DrawerCloseButton />
           <DrawerHeader>
-            <ChakraLink as={ReactRouterLink} to="/account">
-              Account
-            </ChakraLink>
+            <Box>
+              <Flex flexDir="column">
+                <ChakraLink as={ReactRouterLink} to="/account">
+                  Account
+                </ChakraLink>
+                <Box>
+                  <Flex>
+                    <Heading fontSize="medium">Welcome, NAME </Heading>
+                  </Flex>
+                </Box>
+              </Flex>
+            </Box>
           </DrawerHeader>
           <DrawerBody>
             <Box>
               <Flex flexDir="column">
-                <Box>
-                  <Flex
-                    flexDir="column"
-                    padding-bottom="5px"
-                    justifyContent="space-evenly"
-                  >
-                    <Heading fontSize="medium">Welcome, NAME </Heading>
-                  </Flex>
-                </Box>
                 <Divider orientation="horizontal" />
                 <Box>
-                  <Flex flexDir="column" justifyContent="space-evenly">
-                    <Text>Search users below:</Text>
-                    {/* TUCKERS CODE for Searchbar below lines 72-77 */}
-                    {/* <Box className="App">
+                  <Flex flexDir="column">
+                    <Box>
+                      <Flex flexDir="row">
+                        <Text>Search users:</Text>
+                        {/* TUCKERS CODE for Searchbar below lines 72-77 */}
+                        {/* <Box className="App">
                       <SearchBar
                         placeholder="Enter user"
                         // data={UserData}
                       />
                     </Box> */}
-                    {/* <Divider orientation="horizontal" /> */}
+                        {/* <Divider orientation="horizontal" /> */}
+                      </Flex>
+                    </Box>
                     <Box>
-                      <Flex>
+                      <Flex flexDir="row">
                         <SearchBar />
                       </Flex>
                     </Box>

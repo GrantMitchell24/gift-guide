@@ -59,9 +59,9 @@ export default function SearchBar({ placeholder, data }) {
 
   return (
     <Box>
-      <Flex>
+      <Flex flexDir="row">
         <Box>
-          <Flex flexDir="row" margin="0px">
+          <Flex flexDir="row">
             {/* <div className="search"> */}
             <div className="searchInputs">
               <Input
