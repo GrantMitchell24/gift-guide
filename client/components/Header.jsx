@@ -2,10 +2,11 @@
 // import Nav from 'react-bootstrap/Nav';
 // import Navbar from 'react-bootstrap/Navbar';
 // import NavDropdown from 'react-bootstrap/NavDropdown';
+import { NavBar } from "./index.js";
 import { useAppCtx } from "../utils/AppProvider";
 
 //import from Chakra
-import { Box, Flex, Heading, Button } from "@chakra-ui/react";
+import { Box, Flex, Heading, Button, Spacer } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
 
@@ -21,10 +22,16 @@ export default function Header() {
         align-items="center"
         w="100%"
       >
-        <Box>
+        <Flex>
           <Heading>The Gift Guide</Heading>
-        </Box>
-        <Box>
+          <Spacer/>
+          <Box>
+            {user?._id !== undefined && (
+              <NavBar />
+            )}
+          </Box>
+        </Flex>
+        {/* <Box>
           {user?._id !== undefined && (
             <ChakraLink as={ReactRouterLink} href="/private">
               Private Page
@@ -38,7 +45,7 @@ export default function Header() {
               <Button colorScheme="green">Login</Button>
             </ChakraLink>
           )}
-        </Box>
+        </Box> */}
       </Flex>
     </Box>
   );

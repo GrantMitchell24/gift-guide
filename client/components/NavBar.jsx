@@ -42,7 +42,11 @@ export default function NavBar(props) {
         <DrawerOverlay />
         <DrawerContent {...props}>
           <DrawerCloseButton />
-          <DrawerHeader>Account</DrawerHeader>
+          <DrawerHeader>
+            <ChakraLink as={ReactRouterLink} to="/account">
+              Account
+            </ChakraLink>
+          </DrawerHeader>
           {/* INSERT ICON IMAGE ASSOCIATED WITH ICON */}
           <DrawerBody>
             <Box>
@@ -78,7 +82,7 @@ export default function NavBar(props) {
                 <Divider orientation="horizontal" />
                 <Box>
                   <Flex flexDir="column" justifyContent="space-evenly">
-                    <ChakraLink as={ReactRouterLink} to="/private/groups">
+                    <ChakraLink as={ReactRouterLink} to="/mygroups">
                       Groups
                     </ChakraLink>
                   </Flex>
