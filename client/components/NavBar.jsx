@@ -90,8 +90,16 @@ export default function NavBar(props) {
                 <Divider orientation="horizontal" />
                 <Box>
                   <Flex flexDir="column" justifyContent="space-evenly">
+                    <ChakraLink as={ReactRouterLink} to="/wishlist">
+                      My Wishlist
+                    </ChakraLink>
+                  </Flex>
+                </Box>
+                <Divider orientation="horizontal" />
+                <Box>
+                  <Flex flexDir="column" justifyContent="space-evenly">
                     <ChakraLink as={ReactRouterLink} to="/mygroups">
-                      Groups
+                      My Groups
                     </ChakraLink>
                   </Flex>
                 </Box>
