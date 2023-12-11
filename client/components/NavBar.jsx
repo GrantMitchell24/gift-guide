@@ -1,5 +1,8 @@
 //import Box from Chakra
-import React from "react";
+
+import React from "react"
+import SearchBar from "./SearchBar";
+
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
@@ -64,7 +67,9 @@ export default function NavBar(props) {
                 <Box>
                   <Flex flexDir="column" justifyContent="space-evenly">
                     <Text>Search users or groups</Text>
-                    {/* SEARCH BAR FUNCTIONALITY - INSERT TUCKER's STUFF */}
+                     <Box className="App">
+                       <SearchBar placeholder="Enter user or group" data={UserData} />
+                     </Box>
                     <Divider orientation="horizontal" />
                     <Box>
                       <Flex>
