@@ -31,21 +31,28 @@ export default function Header() {
             )}
           </Box>
         </Flex>
-        {/* <Box>
-          {user?._id !== undefined && (
+        <Box>
+          {/* {user?._id !== undefined && (
             <ChakraLink as={ReactRouterLink} href="/private">
               Private Page
             </ChakraLink>
-          )}
+          )} */}
 
-          {user?._id !== undefined ? (
+          
+          {/* {user?._id !== undefined ? (
             <ChakraLink href="/logout">Logout</ChakraLink>
           ) : (
             <ChakraLink href="/auth">
               <Button colorScheme="green">Login</Button>
             </ChakraLink>
+          )} */}
+
+          {user?._id === undefined && (
+            <ChakraLink href="/auth">
+              <Button colorScheme="green">Login</Button>
+            </ChakraLink>
           )}
-        </Box> */}
+        </Box>
       </Flex>
     </Box>
   );
