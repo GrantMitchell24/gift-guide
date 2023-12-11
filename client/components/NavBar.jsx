@@ -1,5 +1,6 @@
 //import Box from Chakra
 import React from "react"
+import SearchBar from "./SearchBar";
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { useDisclosure } from '@chakra-ui/react'
 import { Button, ButtonGroup } from "@chakra-ui/react";
@@ -49,9 +50,9 @@ export default function NavBar() {
           <DrawerCloseButton />
           <DrawerHeader>Navigation</DrawerHeader>
           <DrawerBody>
-            <Text>Search users or groups</Text>
-            <Input type="search" id="site-search" name="q" />
-            <IconButton icon={<SearchIcon />} colorScheme='teal' variant='solid' aria-label="Search user or group" />
+          <Box className="App">
+             <SearchBar placeholder="Enter user or group" data={UserData} />
+          </Box>
             <Menu>
               <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
                 MyGroups Section
