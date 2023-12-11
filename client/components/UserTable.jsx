@@ -1,42 +1,92 @@
-import { useState } from React
+import { useState, useEffect } from "react";
+import { useAppCtx } from "../utils/AppProvider";
+import { useParams} from "react-router-dom"
 
-export default function UserTable(){
+// Just another Chakra import
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+} from '@chakra-ui/react'
+
+
+
+export default function UserTable() {
 
   const { user } = useAppCtx()
-  console.log(user)
 
-const userData = useState([])
+  const params = useParams();
 
-return(
-<div className="UserTable">
-  <TableContainer>
-    <Table variant=
-    "stripped">
-      <Thead>
-        <Tr>
-          <Th>Name</Th>
-          <Th>Wish Rank</Th>
-          <Th>Cost</Th>
-          <Th>Notes</Th>
-          <Th>Purchased</Th>
-          <Th>Link</Th>
-        </Tr>
-      </Thead>
-      <Tbody>
-        {userData?.map((userData) => (
-          <Tr>
-            <Td>{userData.name}</Td>
-            <Td>{userData.wishRank}</Td>
-            <Td>{userData.cost}</Td>
-            <Td>{userData.notes}</Td>
-            <Td>{userData.purchased}</Td>
-            <Td>{userData.link}</Td>
-          </Tr>
-        ))}
+  const [userData, setUserData] = useState()
 
-      </Tbody>
-    </Table>
-  </TableContainer>
-</div>
-)}
+  // Fetch most recent user info
+  async function getUserInfo() {
+    const query = await fetch(`/api/user/${params.userId}`)
+    const result = await query.json()
+    const payload = result.payload
+    console.log(payload)
+    setUserData(payload)
+  }
+
+
+  useEffect(() => {
+    if (user._id) {
+      getUserInfo()
+    }
+  }, [user])
+
+
+
+  if (!userData) return <></>
+
+  return (
+    <div className="UserTable">
+      <TableContainer>
+        <Table variant='striped'>
+          <Thead>
+            <Tr>
+              <Th>Name</Th>
+              <Th>Wish Rank</Th>
+              <Th>Cost</Th>
+              <Th>Notes</Th>
+              {user._id === userData._id &&
+                <Th>Delete</Th>
+              }
+              {user._id != userData._id &&
+                <Th>Purchased</Th>
+              }
+            </Tr>
+          </Thead>
+          <Tbody>
+            {userData.items.map((val, key) => {
+              return (
+                <Tr key={key}>
+                  <Td>{val.name}</Td>
+                  <Td>{val.wishRank}</Td>
+                  <Td>{val.cost}</Td>
+                  <Td>{val.notes}</Td>
+                  {user._id === userData._id &&
+                    <Td>Delete Btn</Td>
+                  }
+                  {user._id != userData._id &&
+                    <Td>
+                      <input type="checkbox"/>
+                    </Td>
+                  }
+                </Tr>
+              )
+            })}
+
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </div>
+  )
+}
 
