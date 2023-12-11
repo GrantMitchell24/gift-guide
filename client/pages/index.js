@@ -5,4 +5,4 @@ export { default as Logout } from "./Logout";
 export { default as PrivatePage } from "./PrivatePage";
 export { default as PurchasedPage } from "./PurchasedPage";
 export {default as GroupsPage} from "./GroupsPage"
-
+export { default as AccountPage } from "./AccountPage"

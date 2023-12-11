@@ -14,6 +14,7 @@ import {
   PrivatePage,
   PurchasedPage,
   GroupsPage,
+  AccountPage
 } from "./pages/";
 
 
@@ -44,22 +45,30 @@ export default function App() {
                 }
               />
 
-
-             <Route
-                path="/mygroups"
-                element={
-                  <ProtectedRoute>
-                    <GroupsPage />
-                  </ProtectedRoute>
-                 }
-              />
-                  
-               <Route
+              <Route
                 path="/private/purchased"
                 element={
                   <ProtectedRoute>
                     <PrivatePage />
                     <PurchasedPage />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/account"
+                element={
+                  <ProtectedRoute>
+                    <AccountPage />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/mygroups"
+                element={
+                  <ProtectedRoute>
+                    <GroupsPage />
                   </ProtectedRoute>
                 }
               />
