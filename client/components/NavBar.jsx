@@ -1,6 +1,6 @@
 //import Box from Chakra
 
-import React from "react"
+import React from "react";
 import SearchBar from "./SearchBar";
 
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
@@ -21,11 +21,13 @@ import { Link as ChakraLink } from "@chakra-ui/react";
 import { Link } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 
-import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon, SearchIcon, HamburgerIcon } from "@chakra-ui/icons";
 
 import { Input, IconButton } from "@chakra-ui/react";
 
 import { Divider } from "@chakra-ui/react";
+
+import { PhoneIcon, AddIcon, WarningIcon } from "@chakra-ui/icons";
 
 export default function NavBar(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -34,7 +36,7 @@ export default function NavBar(props) {
   return (
     <>
       <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
-        Page Navigation
+        <HamburgerIcon />
       </Button>
       <Drawer
         isOpen={isOpen}
@@ -50,7 +52,6 @@ export default function NavBar(props) {
               Account
             </ChakraLink>
           </DrawerHeader>
-          {/* INSERT ICON IMAGE ASSOCIATED WITH ICON */}
           <DrawerBody>
             <Box>
               <Flex flexDir="column">
@@ -60,19 +61,19 @@ export default function NavBar(props) {
                     padding-bottom="5px"
                     justifyContent="space-evenly"
                   >
-                    <Heading fontSize="medium">Your Gift Guide</Heading>
+                    <Heading fontSize="medium">Welcome, NAME </Heading>
                   </Flex>
                 </Box>
                 <Divider orientation="horizontal" />
                 <Box>
                   <Flex flexDir="column" justifyContent="space-evenly">
                     <Text>Search users</Text>
-                     <Box className="App">
-                       <SearchBar 
-                        placeholder="Enter user" 
-                        // data={UserData} 
+                    <Box className="App">
+                      <SearchBar
+                        placeholder="Enter user"
+                        // data={UserData}
                       />
-                     </Box>
+                    </Box>
                     <Divider orientation="horizontal" />
                     <Box>
                       <Flex>
@@ -104,14 +105,14 @@ export default function NavBar(props) {
                   </Flex>
                 </Box>
                 <Divider orientation="horizontal" />
-
+                {/* 
                 <Box>
                   <Flex flexDir="column" justifyContent="space-evenly">
                     <ChakraLink as={ReactRouterLink} to="/private/favorites">
                       Favorites
                     </ChakraLink>
                   </Flex>
-                </Box>
+                </Box> */}
                 <Divider orientation="horizontal" />
                 <Box>
                   <Flex
