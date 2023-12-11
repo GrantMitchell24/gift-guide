@@ -59,10 +59,11 @@ export default function SearchBar({ placeholder, data }) {
 
   return (
     <Box>
-      <Flex flexDir="row">
+      <Flex>
         <Box>
-          <Flex flexDir="row">
+          <Flex>
             {/* <div className="search"> */}
+
             <div className="searchInputs">
               <Input
                 type="text"
@@ -70,29 +71,30 @@ export default function SearchBar({ placeholder, data }) {
                 value={wordEntered}
                 onChange={handleFilter}
               />
-              <Box>
-                <Flex flexDir="row">
-                  <div className="searchIcon">
-                    {filteredData.length === 0 ? (
-                      <IconButton
-                        icon={<SearchIcon />}
-                        colorScheme="teal"
-                        variant="solid"
-                        aria-label="Search user"
-                      />
-                    ) : (
-                      <CloseIcon id="cancelBtn" onClick={clearInput} />
-                    )}
+              {/* <Box>
+                <Flex flexDir="row"> */}
+              <div className="searchIcon">
+                {filteredData.length === 0 ? (
+                  <IconButton
+                    icon={<SearchIcon />}
+                    colorScheme="teal"
+                    variant="solid"
+                    aria-label="Search user"
+                    className="iconButton"
+                  />
+                ) : (
+                  <CloseIcon id="cancelBtn" onClick={clearInput} />
+                )}
 
-                    {/* <IconButton
+                {/* <IconButton
             icon={<SearchIcon />}
             colorScheme="teal"
             variant="solid"
             aria-label="Search user"
           /> */}
-                  </div>
-                </Flex>
-              </Box>
+              </div>
+              {/* </Flex>
+              </Box> */}
             </div>
           </Flex>
         </Box>

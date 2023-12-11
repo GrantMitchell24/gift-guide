@@ -55,7 +55,9 @@ export default function NavBar(props) {
                 </ChakraLink>
                 <Box>
                   <Flex>
-                    <Heading fontSize="medium">Welcome, NAME </Heading>
+                    <Heading fontSize="medium">
+                      Your personal gift guide
+                    </Heading>
                   </Flex>
                 </Box>
               </Flex>
@@ -81,7 +83,7 @@ export default function NavBar(props) {
                       </Flex>
                     </Box>
                     <Box>
-                      <Flex flexDir="row">
+                      <Flex>
                         <SearchBar />
                       </Flex>
                     </Box>
