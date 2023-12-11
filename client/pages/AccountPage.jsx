@@ -98,11 +98,13 @@ export default function AccountPage(props) {
   }
 
   useEffect(() => {
-    getUserInfo()
+    if( user._id ){
+      getUserInfo()
+    }
   }, [user])
 
 
-  if (!userInfo) return <></>
+  if (!user || !userInfo) return <></>
 
   return (
     <>
