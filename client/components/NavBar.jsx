@@ -67,23 +67,18 @@ export default function NavBar(props) {
                 <Divider orientation="horizontal" />
                 <Box>
                   <Flex flexDir="column" justifyContent="space-evenly">
-                    <Text>Search users</Text>
-                    <Box className="App">
+                    <Text>Search users below:</Text>
+                    {/* TUCKERS CODE for Searchbar below lines 72-77 */}
+                    {/* <Box className="App">
                       <SearchBar
                         placeholder="Enter user"
                         // data={UserData}
                       />
-                    </Box>
-                    <Divider orientation="horizontal" />
+                    </Box> */}
+                    {/* <Divider orientation="horizontal" /> */}
                     <Box>
                       <Flex>
-                        <Input type="search" id="site-search" name="q" />
-                        <IconButton
-                          icon={<SearchIcon />}
-                          colorScheme="teal"
-                          variant="solid"
-                          aria-label="Search user"
-                        />
+                        <SearchBar />
                       </Flex>
                     </Box>
                   </Flex>
