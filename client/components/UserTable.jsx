@@ -33,6 +33,12 @@ export default function UserTable() {
     console.log(payload);
     setUserData(payload);
   }
+  console.log(userData);
+
+  async function onClick() {
+    console.log("This has been clicked!");
+    window.location.reload();
+  }
 
   useEffect(() => {
     if (user._id) {
