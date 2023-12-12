@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useAppCtx } from "../utils/AppProvider";
-import { useParams} from "react-router-dom"
+import { useParams } from "react-router-dom";
+import { Checkbox, CheckboxGroup } from "@chakra-ui/react";
+
+import { Button, ButtonGroup } from "@chakra-ui/react";
 
 // Just another Chakra import
 import {
@@ -13,54 +16,44 @@ import {
   Td,
   TableCaption,
   TableContainer,
-} from '@chakra-ui/react'
-
-
+} from "@chakra-ui/react";
 
 export default function UserTable() {
-
-  const { user } = useAppCtx()
+  const { user } = useAppCtx();
 
   const params = useParams();
 
-  const [userData, setUserData] = useState()
+  const [userData, setUserData] = useState();
 
   // Fetch most recent user info
   async function getUserInfo() {
-    const query = await fetch(`/api/user/${params.userId}`)
-    const result = await query.json()
-    const payload = result.payload
-    console.log(payload)
-    setUserData(payload)
+    const query = await fetch(`/api/user/${params.userId}`);
+    const result = await query.json();
+    const payload = result.payload;
+    console.log(payload);
+    setUserData(payload);
   }
-
 
   useEffect(() => {
     if (user._id) {
-      getUserInfo()
+      getUserInfo();
     }
-  }, [user])
+  }, [user]);
 
-
-
-  if (!userData) return <></>
+  if (!userData) return <></>;
 
   return (
     <div className="UserTable">
       <TableContainer>
-        <Table variant='striped'>
+        <Table variant="striped">
           <Thead>
             <Tr>
               <Th>Name</Th>
               <Th>Wish Rank</Th>
               <Th>Cost</Th>
               <Th>Notes</Th>
-              {user._id === userData._id &&
-                <Th>Delete</Th>
-              }
-              {user._id != userData._id &&
-                <Th>Purchased</Th>
-              }
+              {user._id === userData._id && <Th>Delete</Th>}
+              {user._id != userData._id && <Th>Purchased</Th>}
             </Tr>
           </Thead>
           <Tbody>
@@ -71,22 +64,24 @@ export default function UserTable() {
                   <Td>{val.wishRank}</Td>
                   <Td>{val.cost}</Td>
                   <Td>{val.notes}</Td>
-                  {user._id === userData._id &&
-                    <Td>Delete Btn</Td>
-                  }
-                  {user._id != userData._id &&
+                  {user._id === userData._id && (
                     <Td>
-                      <input type="checkbox"/>
+                      <Button colorScheme="teal" onClick={onClick}>
+                        Delete
+                      </Button>
                     </Td>
-                  }
+                  )}
+                  {user._id != userData._id && (
+                    <Td>
+                      <Checkbox colorScheme="teal">Purchased</Checkbox>
+                    </Td>
+                  )}
                 </Tr>
-              )
+              );
             })}
-
           </Tbody>
         </Table>
       </TableContainer>
     </div>
-  )
+  );
 }
-
