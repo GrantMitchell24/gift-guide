@@ -6,6 +6,10 @@ import SearchBar from "./SearchBar";
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
+
+// //import in useLocation from react router dom to use in the template literal
+// import { Link, useLocation } from "react-router-dom";
+
 import {
   Drawer,
   DrawerBody,
@@ -18,7 +22,7 @@ import {
 
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
-import { Link } from "@chakra-ui/react";
+// import { Link } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 
 import { ChevronDownIcon, SearchIcon, HamburgerIcon } from "@chakra-ui/icons";
@@ -29,9 +33,16 @@ import { Divider } from "@chakra-ui/react";
 
 import { PhoneIcon, AddIcon, WarningIcon } from "@chakra-ui/icons";
 
+import { useParams } from "react-router-dom";
+
+import { useAppCtx } from "../utils/AppProvider";
+
 export default function NavBar(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
+
+  // Bring in logged in user info
+  const { user } = useAppCtx();
 
   return (
     <>
@@ -92,7 +103,10 @@ export default function NavBar(props) {
                 <Divider orientation="horizontal" />
                 <Box>
                   <Flex flexDir="column" justifyContent="space-evenly">
-                    <ChakraLink as={ReactRouterLink} to="/wishlist">
+                    <ChakraLink
+                      as={ReactRouterLink}
+                      to={`/wishlist/${user._id}`}
+                    >
                       My Wishlist
                     </ChakraLink>
                   </Flex>
