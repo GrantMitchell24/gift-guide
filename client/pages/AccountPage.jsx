@@ -10,7 +10,7 @@ import { Input, Button } from '@chakra-ui/react'
 
 
 export default function AccountPage(props) {
-  // // Bring in logged in user info
+  // Bring in logged in user info
   const { user } = useAppCtx()
 
   // Set user info to null

@@ -153,7 +153,7 @@ export default function Auth(props) {
                       style={styling.formInput}
                       placeholder="Email"
                       _placeholder={{ color: "inherit" }}
-                      type="text"
+                      type="email"
                       name="email"
                       value={userLoginData.email}
                       onChange={handleInputChangeLogin}
@@ -178,7 +178,7 @@ export default function Auth(props) {
               </Flex>
               {loginError === true &&
                 <Text fontSize='md' color={colorPallet.c5} p="0px 10px 15px 10px">
-                  <NotAllowedIcon p="3px" fontSize="25px" color={colorPallet.c5} borderRadius="50%" /> The username or email you entered is incorrect</Text>
+                  <NotAllowedIcon p="3px" fontSize="25px" color={colorPallet.c5} borderRadius="50%" /> The email or password you entered is incorrect</Text>
               }
             </Box>
             <Flex flexDir="row" justifyContent="center" align="center">
@@ -237,7 +237,7 @@ export default function Auth(props) {
                       style={styling.formInput}
                       placeholder="Email"
                       _placeholder={{ color: "inherit" }}
-                      type="text"
+                      type="email"
                       name="email"
                       value={userData.email}
                       onChange={handleInputChange}
