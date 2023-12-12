@@ -10,11 +10,14 @@ import { List, ListItem, ListIcon, OrderedList, UnorderedList } from '@chakra-ui
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons'
 import { Tooltip } from '@chakra-ui/react'
 
+import CustomModal from "../components/CustomModal";
+
 export default function GroupsPage(props) {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const initialRef = React.useRef(null)
   const finalRef = React.useRef(null)
+
   // Bring in logged in user info
   const { user } = useAppCtx()
 
@@ -28,6 +31,11 @@ export default function GroupsPage(props) {
     const payload = result.payload
     setUserInfo(payload)
     console.log(payload)
+  }
+
+  function openModal(groupId){
+    setInviteGroupId(groupId)
+    onOpen()
   }
 
   // Bring color pallet in from props
@@ -64,6 +72,10 @@ export default function GroupsPage(props) {
   //------------------------------------------------------------
   // Handles inviting to group
   //------------------------------------------------------------
+
+  const [ inviteGroupId, setInviteGroupId ] = useState(null)
+  const [ listenToLaura, setListenToLaura ] = useState(false)
+
   async function invitBtn(groupId) {
     try {
       // const query = await fetch(`/api/group/invite/${groupId}/${invitedUserId}`, {
@@ -103,8 +115,44 @@ export default function GroupsPage(props) {
   return (
     <Box p="20px">
       <Heading pb="20px" color={colorPallet.c1}> My Groups </Heading>
+
+      {/* -----------------------------------
+            Add Group Modal
+      ---------------------------------------*/}
       <Box>
-        <Button onClick={onOpen}>New Group +</Button>
+        <Button onClick={onOpen} backgroundColor={colorPallet.c2} color="white" _hover={{ backgroundColor: colorPallet.c1 }} mb="20px">New Group +</Button>
+
+        <Button onClick={() => setListenToLaura(true)}>Listen</Button>
+
+        {/* <CustomModal
+          initialFocusRef={initialRef}
+          finalFocusRef={finalRef}
+          isOpen={isOpen}
+          onClose={onClose}
+        >
+              <FormControl>
+                <FormLabel>Group Name</FormLabel>
+                <Input ref={initialRef} onChange={handleInputChange} name="title" type="text" value={newGroupName.title} placeholder='Group name' borderColor={colorPallet.c2} focusBorderColor={colorPallet.c3} _hover={{ borderColor: colorPallet.c3 }} />
+              </FormControl>
+
+
+            <ModalFooter>
+              <Button onClick={createGrpBtn} backgroundColor={colorPallet.c1} color="white" _hover={{ backgroundColor: colorPallet.c2 }} mr={3}>
+                Create Group
+              </Button>
+              <Button onClick={onClose} backgroundColor={colorPallet.c4}>Cancel</Button>
+            </ModalFooter>
+
+        </CustomModal> */}
+
+
+
+
+
+
+
+
+
         <Modal
           initialFocusRef={initialRef}
           finalFocusRef={finalRef}
@@ -133,6 +181,9 @@ export default function GroupsPage(props) {
         </Modal>
       </Box>
 
+      {/* -----------------------------------
+                  Table Headers
+      ---------------------------------------*/}
       <TableContainer border={`solid 2px ${colorPallet.c1}`} borderRadius={"15px"}>
         <Table variant='striped' backgroundColor="#CBD5E0">
           <Thead>
@@ -145,29 +196,62 @@ export default function GroupsPage(props) {
             </Tr>
           </Thead>
           <Tbody>
+
             {userInfo.groups &&
               userInfo.groups.map((group, key) => {
+
                 return (
+                        // -----------------------------------
+                        //  POPULATE TABLE ROW FOR EACH GROUP
+                        // -----------------------------------
+                
                   <Tr key={key}>
                     <Td>{group.title}</Td>
                     <Td color={colorPallet.c1}><a href={`/wishlist/${group.admin_id._id}`}>{group.admin_id.username}</a></Td>
                     <Td color={colorPallet.c1}>
                       <OrderedList>
-                        {group.group_members.map((group, key) => {
+                        {group.group_members.map((group_member, key) => {
                           return (
-                            <ListItem key={key} py="3px"><a href={`/wishlist/${group._id}`}>{group.username}</a></ListItem>
+                            <ListItem key={key} py="3px"><a href={`/wishlist/${group_member._id}`}>{group_member.username}</a></ListItem>
                           )
                         })}
                       </OrderedList>
                     </Td>
-
+                    
+                    {/* -------------------------------------------------
+                          Add User to Group Modal
+                     ----------------------------------------------------*/}
                     {user._id === group.admin_id._id
                       ? <Td p="0px">
                         <Center>
                           <Tooltip hasArrow label='Invite User'>
                             <Box>
-                              <Button onClick={onOpen}><AddIcon boxSize={"30px"} color={"#fff"} backgroundColor={colorPallet.c3} p="8px" borderRadius="5px" /></Button>
-                              <Modal initialFocusRef={initialRef} finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose} >
+                              <Button onClick={() => setInviteGroupId(group._id)}><AddIcon boxSize={"30px"} color={"#fff"} backgroundColor={colorPallet.c3} p="8px" borderRadius="5px" /></Button>
+
+                              <CustomModal title="Invite User to Group" isOpen={inviteGroupId !== null} onClose={() => setInviteGroupId(null)}>
+                                <FormControl>
+                                  <FormLabel>Username</FormLabel>
+                                  <Input ref={initialRef} onChange={handleInputChange} name="title" type="text" value={newGroupName.title} placeholder='Username' borderColor={colorPallet.c2} focusBorderColor={colorPallet.c3} _hover={{ borderColor: colorPallet.c3 }} />
+                                </FormControl>
+
+                                <Button 
+                                  // value={group._id}
+                                  onClick={()=>invitBtn(inviteGroupId)} 
+                        
+                                  backgroundColor={colorPallet.c1} color="white" _hover={{ backgroundColor: colorPallet.c2 }} mr={3}>
+                                  Invite to Group {inviteGroupId}
+                                </Button>
+
+                                <Button onClick={onClose} backgroundColor={colorPallet.c4}>Cancel</Button>
+                              </CustomModal>
+
+
+                              <CustomModal title="Invite User to Group" isOpen={listenToLaura === true} onClose={() => setListenToLaura(false)}>
+                                <h1>Lucas needs to liusten to Laura more often</h1>
+                              </CustomModal>
+
+                              {/* <Modal initialFocusRef={initialRef} finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose} >
+
                                 <ModalOverlay />
                                 <ModalContent>
                                   <ModalHeader>Invite User to Group</ModalHeader>
@@ -178,13 +262,19 @@ export default function GroupsPage(props) {
                                     </FormControl>
                                   </ModalBody>
                                   <ModalFooter>
-                                    <Button onClick={()=>invitBtn(group._id)} backgroundColor={colorPallet.c1} color="white" _hover={{ backgroundColor: colorPallet.c2 }} mr={3}>
-                                      Invite to Group
+
+                                    <Button 
+                                      // value={group._id}
+                                      onClick={()=>invitBtn(inviteGroupId)} 
+                            
+                                      backgroundColor={colorPallet.c1} color="white" _hover={{ backgroundColor: colorPallet.c2 }} mr={3}>
+                                      Invite to Group {inviteGroupId}
                                     </Button>
+
                                     <Button onClick={onClose} backgroundColor={colorPallet.c4}>Cancel</Button>
                                   </ModalFooter>
                                 </ModalContent>
-                              </Modal>
+                              </Modal> */}
                             </Box>
                           </Tooltip>
                         </Center>
