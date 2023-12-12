@@ -88,22 +88,32 @@ export default function GroupsPage(props) {
     setinvitedUser(clone)
   }
 
+  // async function findUserIdFromUsername() {
+  //   try {
+  //     const query = await fetch(`/api/user/username/${invitedUser}`)
+  //     const result = await query.json()
+  //     console.log(result)
+  //   } catch (err) {
+  //     console.log(err.message)
+  //   }
+  // }
+
   async function invitBtn(groupId) {
     try {
-      const invitedUserInfo = await fetch(`/api/user/username/${invitedUser}`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      console.log(invitedUser)
+      const invitedUserInfo = await fetch(`/api/user/username/${invitedUser.username}`)
+      const invitedUserInfoUnpacked = await invitedUserInfo.json()
+      console.log(invitedUserInfoUnpacked)
 
-      const query = await fetch(`/api/group/invite/${groupId}/${invitedUserInfo._id}`, {
+      const query = await fetch(`/api/group/invite/${groupId}/${invitedUserInfoUnpacked.payload._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
       });
-      const response = await query.json();
+      // const response = await query.json();
       console.log("Btn Clicked")
+      setinvitedUser(defaultInvitedUser)
       setInviteGroupId(null)
     } catch (err) {
       console.log(err.message)

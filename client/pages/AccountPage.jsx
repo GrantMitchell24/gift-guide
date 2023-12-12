@@ -99,7 +99,7 @@ export default function AccountPage(props) {
         p={10}
         width="100vw"
         minW="320px"
-        bgImage="url(../public/assets/images/joanna-kosinska-0CQfTLOVTPU-unsplash.jpg)"
+        bgImage="url(/assets/images/joanna-kosinska-0CQfTLOVTPU-unsplash.jpg)"
         bgSize="cover"
         bgRepeat="no-repeat"
       >
