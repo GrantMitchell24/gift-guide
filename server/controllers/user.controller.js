@@ -58,6 +58,17 @@ async function getAllUsers() {
 
 
 // DONE
+async function getUserByUsername(username) {
+  try {
+    return await Model.findOne({username: username})
+    // .populate({ path: "groups", select: "-__v", populate: {path: "admin_id group_members", select:"_id username"}});
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+
+// DONE
 async function getUserById(id) {
   try {
     return await Model.findById(id).populate({ path: "groups", select: "-__v", populate: {path: "admin_id group_members", select:"_id username"}});
@@ -213,6 +224,7 @@ module.exports = {
   verifyUser,
   authenticate,
   getAllUsers,
+  getUserByUsername,
   getUserById,
   createUser,
   updateUserById,

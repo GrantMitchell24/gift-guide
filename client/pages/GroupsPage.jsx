@@ -50,7 +50,7 @@ export default function GroupsPage(props) {
   const defaultGroupName = { title: "", admin_id: "" }
   const [newGroupName, setNewGroupName] = useState(defaultGroupName)
 
-  function handleInputChange(e) {
+  function handleNewGroupInputChange(e) {
     const clone = { ...newGroupName, [e.target.name]: e.target.value }
     setNewGroupName(clone)
   }
@@ -78,15 +78,26 @@ export default function GroupsPage(props) {
   // Handles inviting to group
   //------------------------------------------------------------
 
-  const [invitedUser, setinvitedUser] = useState("")
+  const defaultInvitedUser = {username: ""}
+  const [invitedUser, setinvitedUser] = useState(defaultInvitedUser)
 
   const [inviteGroupId, setInviteGroupId] = useState(null)
 
+  function handleNewInviteInputChange(e) {
+    const clone = { ...invitedUser, [e.target.name]: e.target.value }
+    setinvitedUser(clone)
+  }
+
   async function invitBtn(groupId) {
     try {
-      const query = await fetch(`/api/group/invite/${groupId}/${invitedUser}`, {
+      const invitedUserInfo = await fetch(`/api/user/username/${invitedUser}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const query = await fetch(`/api/group/invite/${groupId}/${invitedUserInfo._id}`, {
         method: "PUT",
-        body: JSON.stringify(newGroupName),
         headers: {
           "Content-Type": "application/json",
         },
@@ -161,7 +172,7 @@ export default function GroupsPage(props) {
             <ModalBody pb={6}>
               <FormControl>
                 <FormLabel>Group Name</FormLabel>
-                <Input ref={initialRef} onChange={handleInputChange} name="title" type="text" value={newGroupName.title} placeholder='Group name' borderColor={colorPallet.c2} focusBorderColor={colorPallet.c3} _hover={{ borderColor: colorPallet.c3 }} />
+                <Input ref={initialRef} onChange={handleNewGroupInputChange} name="title" type="text" value={newGroupName.title} placeholder='Group name' borderColor={colorPallet.c2} focusBorderColor={colorPallet.c3} _hover={{ borderColor: colorPallet.c3 }} />
               </FormControl>
 
             </ModalBody>
@@ -226,7 +237,18 @@ export default function GroupsPage(props) {
                               <CustomModal title="Invite User to Group" isOpen={inviteGroupId !== null} onClose={() => setInviteGroupId(null)}>
                                 <FormControl>
                                   <FormLabel>Username</FormLabel>
-                                  <Input ref={initialRef} onChange={handleInputChange} name="title" type="text" value={newGroupName.title} placeholder='Username' borderColor={colorPallet.c2} focusBorderColor={colorPallet.c3} _hover={{ borderColor: colorPallet.c3 }} />
+
+                                  <Input ref={initialRef} 
+                                    onChange={handleNewInviteInputChange} 
+                                    name="username" 
+                                    type="text" 
+                                    value={invitedUser.username} 
+
+                                    placeholder='Username' 
+                                    borderColor={colorPallet.c2} 
+                                    focusBorderColor={colorPallet.c3} 
+                                    _hover={{ borderColor: colorPallet.c3 }} />
+
                                 </FormControl>
                                 <Button
                                   // value={group._id}
