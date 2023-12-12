@@ -71,7 +71,9 @@ export default function UserTable() {
                   )}
                   {user._id != userData._id && (
                     <Td>
-                      <Checkbox isDisabled>Purchased</Checkbox>
+                      <Checkbox colorScheme="teal" defaultUnChecked>
+                        Purchased
+                      </Checkbox>
                     </Td>
                   )}
                 </Tr>
