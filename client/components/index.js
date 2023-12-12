@@ -8,4 +8,4 @@ export { default as AddItem } from "./AddItem";
 export { default as DeleteItem } from "./DeleteItem";
 export { default as UpdateItem } from "./UpdateItem";
 export { default as EmailAlert } from "./EmailAlert";
-export { default as Theme } from "./theme";
+export { default as theme } from "./theme";

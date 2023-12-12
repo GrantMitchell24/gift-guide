@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAppCtx } from "../utils/AppProvider";
 import { useParams } from "react-router-dom";
+import { Checkbox, CheckboxGroup } from "@chakra-ui/react";
 
 import { Button, ButtonGroup } from "@chakra-ui/react";
 
@@ -65,12 +66,12 @@ export default function UserTable() {
                   <Td>{val.notes}</Td>
                   {user._id === userData._id && (
                     <Td>
-                      <Button colorScheme="teal">Delete Btn</Button>
+                      <Button colorScheme="teal">Delete</Button>
                     </Td>
                   )}
                   {user._id != userData._id && (
                     <Td>
-                      <input type="checkbox" />
+                      <Checkbox isDisabled>Purchased</Checkbox>
                     </Td>
                   )}
                 </Tr>
