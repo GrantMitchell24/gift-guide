@@ -22,6 +22,7 @@ export default function UserTable() {
   const { user } = useAppCtx();
 
   const params = useParams();
+  console.log(params);
 
   const [userData, setUserData] = useState();
 
@@ -35,9 +36,17 @@ export default function UserTable() {
   }
   console.log(userData);
 
-  async function onClick() {
-    console.log("This has been clicked!");
-    window.location.reload();
+  //DELETE ROUTE"/:userId/item/:itemId"
+  async function deleteItem(itemId) {
+    const query = await fetch(`/api/user/${params.userId}/item/${itemId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await query.json();
+    const payload = result.payload;
+    setUserData(payload);
   }
 
   useEffect(() => {
@@ -65,14 +74,17 @@ export default function UserTable() {
           <Tbody>
             {userData.items.map((val, key) => {
               return (
-                <Tr key={key}>
+                <Tr key={key} value={val._id}>
                   <Td>{val.name}</Td>
                   <Td>{val.wishRank}</Td>
                   <Td>{val.cost}</Td>
                   <Td>{val.notes}</Td>
                   {user._id === userData._id && (
                     <Td>
-                      <Button colorScheme="teal" onClick={onClick}>
+                      <Button
+                        colorScheme="teal"
+                        onClick={() => deleteItem(val._id)}
+                      >
                         Delete
                       </Button>
                     </Td>
