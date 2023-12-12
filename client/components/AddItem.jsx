@@ -41,9 +41,22 @@ export default function AddItem() {
 
   const [newItem, setNewItem] = useState(defaultNewItem);
 
-  function handleCreateItemButton() {
-    console.log("Create Item");
-  }
+async handleCreateItemButton(){
+    try {
+      const query = await fetch(`/wishlist/${userID}/item`, {
+        method: "PUT",
+        body: JSON.stringify(newItem),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const response = await query.json();
+      console.log(response);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
 
   function handleInputChange(e) {
     // console.log(e.target.name)
