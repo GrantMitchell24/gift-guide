@@ -3,6 +3,7 @@ import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { UserTable } from "../components";
 
 import { AddItem, DeleteItem, UpdateItem } from "../components";
+import { EmailAlert } from "../components";
 
 export default function WishListPage() {
   return (
@@ -31,6 +32,11 @@ export default function WishListPage() {
           </Flex>
         </Box>
         <UserTable />
+      </Box>
+      <Box>
+        <Flex flexDir="row" alignItems="center">
+          <EmailAlert />
+        </Flex>
       </Box>
     </>
   );

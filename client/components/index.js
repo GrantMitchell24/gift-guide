@@ -7,3 +7,4 @@ export { default as UserTable } from "./UserTable";
 export { default as AddItem } from "./AddItem";
 export { default as DeleteItem } from "./DeleteItem";
 export { default as UpdateItem } from "./UpdateItem";
+export { default as EmailAlert } from "./EmailAlert";
