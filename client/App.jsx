@@ -50,7 +50,7 @@ export default function App() {
                 path="/private/purchased"
                 element={
                   <ProtectedRoute>
-                    <PrivatePage />
+                    {/* <PrivatePage /> */}
                     <PurchasedPage />
                   </ProtectedRoute>
                 }

@@ -34,11 +34,44 @@ export default function GroupsPage() {
   const finalRef = React.useRef(null)
   // Bring in logged in user info
   const { user } = useAppCtx()
-  console.log(user)
 
 
+  const defaultGroupName = { title: "", admin_id: "" }
+  const [newGroupName, setNewGroupName] = useState(defaultGroupName)
+
+  function handleInputChange(e) {
+    // console.log(e.target.name)
+    // console.log(e.target.value)
+
+    const clone = { ...newGroupName, [e.target.name]: e.target.value }
+
+    setNewGroupName(clone)
+  }
 
 
+  async function createGrpBtn() {
+    try {
+      const query = await fetch("/api/group", {
+        method: "POST",
+        body: JSON.stringify(newGroupName),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const response = await query.json();
+      onClose()
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+
+
+  useEffect(() => {
+    if( user._id ){
+      const clone = { ...newGroupName, admin_id: user._id }
+      setNewGroupName(clone)
+    }
+  }, [user])
 
   return (
     <>
@@ -59,13 +92,13 @@ export default function GroupsPage() {
             <ModalBody pb={6}>
               <FormControl>
                 <FormLabel>Group Name</FormLabel>
-                <Input ref={initialRef} placeholder='First name' />
+                <Input ref={initialRef} onChange={handleInputChange} name="title" type="text" value={newGroupName.title} placeholder='First name' />
               </FormControl>
 
             </ModalBody>
 
             <ModalFooter>
-              <Button colorScheme='blue' mr={3}>
+              <Button onClick={createGrpBtn} colorScheme='blue' mr={3}>
                 Create Group
               </Button>
               <Button onClick={onClose}>Cancel</Button>
