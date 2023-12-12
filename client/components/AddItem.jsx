@@ -57,6 +57,7 @@ export default function AddItem() {
         },
       });
       const response = await query.json();
+      window.location.reload();
       console.log(response);
       onClose();
     } catch (err) {
