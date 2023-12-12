@@ -29,6 +29,22 @@ export default function AddItem() {
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
 
+  const [newItem, setNewItem] = useState("");
+
+  function handleCreateItemButton() {
+    console.log("Create Item");
+  }
+
+  function handleInputChange(e) {
+    // console.log(e.target.name)
+    // console.log(e.target.value)
+
+    const clone = { ...newItem, [e.target.name]: e.target.value };
+
+    setNewItem(clone);
+    console.log(clone);
+  }
+
   return (
     <>
       <Button colorScheme="teal" onClick={onOpen}>
@@ -48,7 +64,12 @@ export default function AddItem() {
           <ModalBody pb={2}>
             <FormControl>
               <FormLabel>Item Name</FormLabel>
-              <Input ref={initialRef} placeholder="Item name" />
+              <Input
+                ref={initialRef}
+                onChange={handleInputChange}
+                value={newItem}
+                placeholder="Item name"
+              />
             </FormControl>
 
             <FormControl mt={2}>
@@ -73,7 +94,7 @@ export default function AddItem() {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="teal" mr={3}>
+            <Button colorScheme="teal" mr={3} onClick={handleCreateItemButton}>
               Save
             </Button>
             <Button onClick={onClose}>Cancel</Button>

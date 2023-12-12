@@ -66,14 +66,14 @@ export default function UserTable() {
                   <Td>{val.notes}</Td>
                   {user._id === userData._id && (
                     <Td>
-                      <Button colorScheme="teal">Delete</Button>
+                      <Button colorScheme="teal" onClick={onClick}>
+                        Delete
+                      </Button>
                     </Td>
                   )}
                   {user._id != userData._id && (
                     <Td>
-                      <Checkbox colorScheme="teal" defaultUnChecked>
-                        Purchased
-                      </Checkbox>
+                      <Checkbox colorScheme="teal">Purchased</Checkbox>
                     </Td>
                   )}
                 </Tr>
