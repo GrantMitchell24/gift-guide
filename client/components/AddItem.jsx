@@ -14,7 +14,7 @@ import { useDisclosure } from "@chakra-ui/react";
 
 import React from "react";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import {
   FormControl,
@@ -25,7 +25,12 @@ import {
 
 import { Input } from "@chakra-ui/react";
 
+import { useAppCtx } from "../utils/AppProvider";
+
 export default function AddItem() {
+  // Bring in logged in user info who is logged in
+  const { user } = useAppCtx();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const initialRef = React.useRef(null);
@@ -41,9 +46,10 @@ export default function AddItem() {
 
   const [newItem, setNewItem] = useState(defaultNewItem);
 
-async handleCreateItemButton(){
+  async function handleCreateItemButton() {
     try {
-      const query = await fetch(`/wishlist/${userID}/item`, {
+      console.log(user._id);
+      const query = await fetch(`/api/user/${user._id}/item`, {
         method: "PUT",
         body: JSON.stringify(newItem),
         headers: {
@@ -52,21 +58,25 @@ async handleCreateItemButton(){
       });
       const response = await query.json();
       console.log(response);
+      onClose();
     } catch (err) {
       console.log(err.message);
     }
-  };
-
+  }
 
   function handleInputChange(e) {
     // console.log(e.target.name)
     // console.log(e.target.value)
-
     const clone = { ...newItem, [e.target.name]: e.target.value };
-
     setNewItem(clone);
-    console.log(clone);
   }
+
+  // useEffect(() => {
+  //   if (user._id) {
+  //     // const clone = { ...newItem, [e.target.name]: e.target.value };
+  //     // setNewItem(clone);
+  //   }
+  // }, [user]);
 
   return (
     <>
