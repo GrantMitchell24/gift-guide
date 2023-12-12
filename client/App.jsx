@@ -68,7 +68,7 @@ const [colorPallet, setColorPallet] = useState({
                 path="/private/purchased"
                 element={
                   <ProtectedRoute>
-                    <PrivatePage />
+                    {/* <PrivatePage /> */}
                     <PurchasedPage />
                   </ProtectedRoute>
                 }
