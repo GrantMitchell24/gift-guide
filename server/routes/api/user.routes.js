@@ -7,6 +7,7 @@ const {
   verifyUser,
   authenticate,
   getAllUsers,
+  getUserByUsername,
   getUserById,
   createUser,
   updateUserById,
@@ -61,6 +62,17 @@ router.get("/verify", async (req, res) => {
     const token = createToken(user.email, user._id)
     const payload = stripPassword(user)
     res.cookie("auth-cookie", token).json({ result: "success", payload })
+  }
+})
+
+
+router.get("/username/:username", async (req, res) => {
+  try {
+    const user = await getUserByUsername(req.params.username)
+    const payload = stripPassword(user)
+    res.status(200).json({ result: "success", payload })
+  } catch (err) {
+    res.status(500).json({ result: "error", payload: err.message })
   }
 })
 
