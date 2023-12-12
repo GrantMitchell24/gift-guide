@@ -19,6 +19,7 @@ const itemSchema = new Schema({
   },
   purchased: {
     type: Boolean,
+    default: false,
     required: true,
   },
   link: {

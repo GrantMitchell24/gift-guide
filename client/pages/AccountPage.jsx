@@ -9,41 +9,26 @@ import { CheckCircleIcon, NotAllowedIcon } from '@chakra-ui/icons'
 import { Input, Button } from '@chakra-ui/react'
 
 
-//-------------------------------------------------------------------
-// Styling
-//-------------------------------------------------------------------
-// Background Image
-// https://unsplash.com/photos/white-baubles-and-sleigh-bells-0CQfTLOVTPU
-
-// Color Pallet
-// https://coolors.co/palette/386641-6a994e-a7c957-f2e8cf-bc4749
-const colorPallet = {
-  c1: "#386641", // Dark Green
-  c2: "#6A994E", // Middle Green
-  c3: "#A7C957", // Light Green
-  c4: "#F2E8CF", // Off White
-  c5: "#BC4749", // Red
-}
-
-const styling = {
-  formInput: {
-    backgroundColor: "#fff",
-    borderRadius: "10px",
-    border: `solid 1px ${colorPallet.c2}`
-  }
-}
-//-------------------------------------------------------------------
-
-
-
-export default function AccountPage() {
+export default function AccountPage(props) {
   // // Bring in logged in user info
   const { user } = useAppCtx()
 
   // Set user info to null
   const [userInfo, setUserInfo] = useState()
 
-  // Sets hello name that won't update accept on reload or on successful form submission
+  // Brings in color pallet from props
+  const colorPallet = props.colorPallet
+
+  // Sets style for input fields based off props colors
+  const styling = {
+    formInput: {
+      backgroundColor: "#fff",
+      borderRadius: "10px",
+      border: `solid 1px ${colorPallet.c2}`
+    }
+  }
+
+  // Sets hello name so that won't update accept on reload or on successful form submission
   const [helloName, setHelloName] = useState()
 
   // Used to display error message if email or username is already taken
@@ -142,7 +127,6 @@ export default function AccountPage() {
           {error === true &&
               <Text fontSize='md' color={colorPallet.c5} mb="20px">
                 <NotAllowedIcon p="3px" boxSize="25px" backgroundColor={colorPallet.c5} color={colorPallet.c4} borderRadius="50%"/> The username or email you're trying to switch to is already taken. Please try another.</Text>
-
           }
 
           {error === false &&
