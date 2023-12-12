@@ -87,7 +87,7 @@ const [colorPallet, setColorPallet] = useState({
                 path="/mygroups"
                 element={
                   <ProtectedRoute>
-                    <GroupsPage />
+                    <GroupsPage colorPallet={colorPallet} />
                   </ProtectedRoute>
                 }
               />
