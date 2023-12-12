@@ -14,6 +14,8 @@ import { useDisclosure } from "@chakra-ui/react";
 
 import React from "react";
 
+import { useState } from "react";
+
 import {
   FormControl,
   FormLabel,
@@ -68,28 +70,34 @@ export default function AddItem() {
                 ref={initialRef}
                 onChange={handleInputChange}
                 value={newItem}
+                name="itemname"
                 placeholder="Item name"
+                type="text"
               />
             </FormControl>
 
             <FormControl mt={2}>
               <FormLabel>Wish Rank</FormLabel>
-              <Input placeholder="Wish rank" />
+              <Input placeholder="Wish rank" type="text" />
             </FormControl>
 
             <FormControl mt={2}>
               <FormLabel>Cost($)</FormLabel>
-              <Input ref={initialRef} placeholder="Cost" />
+              <Input ref={initialRef} placeholder="Cost" type="text" />
             </FormControl>
 
             <FormControl mt={2}>
               <FormLabel>Notes for Buyer</FormLabel>
-              <Input ref={initialRef} placeholder="Notes" />
+              <Input ref={initialRef} placeholder="Notes" type="text" />
             </FormControl>
 
             <FormControl mt={2}>
               <FormLabel>Gift Website Link </FormLabel>
-              <Input ref={initialRef} placeholder="Website Link (optional)" />
+              <Input
+                ref={initialRef}
+                placeholder="Website Link (optional)"
+                type="text"
+              />
             </FormControl>
           </ModalBody>
 
