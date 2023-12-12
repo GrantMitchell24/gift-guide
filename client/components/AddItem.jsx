@@ -77,7 +77,7 @@ export default function AddItem() {
               <Input
                 ref={initialRef}
                 onChange={handleInputChange}
-                value={newItem}
+                value={newItem.name}
                 name="name"
                 placeholder="Item name"
                 type="text"
@@ -86,7 +86,13 @@ export default function AddItem() {
 
             <FormControl mt={2}>
               <FormLabel>Wish Rank</FormLabel>
-              <Input name="wishRank" placeholder="Wish rank" type="text" />
+              <Input
+                name="wishRank"
+                onChange={handleInputChange}
+                value={newItem.wishRank}
+                placeholder="Wish rank"
+                type="text"
+              />
             </FormControl>
 
             <FormControl mt={2}>
@@ -94,6 +100,8 @@ export default function AddItem() {
               <Input
                 name="cost"
                 ref={initialRef}
+                onChange={handleInputChange}
+                value={newItem.cost}
                 placeholder="Cost"
                 type="text"
               />
@@ -104,6 +112,8 @@ export default function AddItem() {
               <Input
                 name="notes"
                 ref={initialRef}
+                onChange={handleInputChange}
+                value={newItem.notes}
                 placeholder="Notes"
                 type="text"
               />
@@ -114,6 +124,8 @@ export default function AddItem() {
               <Input
                 name="link"
                 ref={initialRef}
+                onChange={handleInputChange}
+                value={newItem.link}
                 placeholder="Website Link (optional)"
                 type="text"
               />
