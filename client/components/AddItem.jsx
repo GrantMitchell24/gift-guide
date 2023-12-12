@@ -31,7 +31,9 @@ export default function AddItem() {
 
   return (
     <>
-      <Button onClick={onOpen}>Add Item</Button>
+      <Button colorScheme="teal" onClick={onOpen}>
+        Add Item
+      </Button>
 
       <Modal
         initialFocusRef={initialRef}
@@ -56,17 +58,22 @@ export default function AddItem() {
 
             <FormControl mt={2}>
               <FormLabel>Cost($)</FormLabel>
-              <Input ref={initialRef} placeholder="cost" />
+              <Input ref={initialRef} placeholder="Cost" />
             </FormControl>
 
             <FormControl mt={2}>
-              <FormLabel>Notes</FormLabel>
+              <FormLabel>Notes for Buyer</FormLabel>
               <Input ref={initialRef} placeholder="Notes" />
+            </FormControl>
+
+            <FormControl mt={2}>
+              <FormLabel>Gift Website Link </FormLabel>
+              <Input ref={initialRef} placeholder="Website Link (optional)" />
             </FormControl>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3}>
+            <Button colorScheme="teal" mr={3}>
               Save
             </Button>
             <Button onClick={onClose}>Cancel</Button>

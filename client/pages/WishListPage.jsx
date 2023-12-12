@@ -11,7 +11,11 @@ export default function WishListPage() {
         <Flex flexDir="column" scrollBehavior="smooth">
           <Heading>Wish List</Heading>
         </Flex>
-        <AddItem />
+        <Box>
+          <Flex flexDir="row">
+            <AddItem />
+          </Flex>
+        </Box>
         <UserTable />
       </Box>
     </>
