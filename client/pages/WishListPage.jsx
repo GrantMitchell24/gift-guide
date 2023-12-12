@@ -2,7 +2,7 @@
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { UserTable } from "../components";
 
-import { AddItem } from "../components";
+import { AddItem, DeleteItem, UpdateItem } from "../components";
 
 export default function WishListPage() {
   return (
@@ -12,8 +12,22 @@ export default function WishListPage() {
           <Heading>Wish List</Heading>
         </Flex>
         <Box>
-          <Flex flexDir="row">
-            <AddItem />
+          <Flex margin="10px" flexDir="row" justifyContent="space-between">
+            <Box>
+              <Flex flexDir="row">
+                <AddItem />
+              </Flex>
+            </Box>
+            <Box>
+              <Flex flexDir="row">
+                <DeleteItem />
+              </Flex>
+            </Box>
+            <Box>
+              <Flex flexDir="row">
+                <UpdateItem />
+              </Flex>
+            </Box>
           </Flex>
         </Box>
         <UserTable />
