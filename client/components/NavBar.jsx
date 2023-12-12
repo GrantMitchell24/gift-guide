@@ -1,11 +1,15 @@
 //import Box from Chakra
 
-import React from "react"
+import React from "react";
 import SearchBar from "./SearchBar";
 
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
+
+// //import in useLocation from react router dom to use in the template literal
+// import { Link, useLocation } from "react-router-dom";
+
 import {
   Drawer,
   DrawerBody,
@@ -18,23 +22,32 @@ import {
 
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
-import { Link } from "@chakra-ui/react";
+// import { Link } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 
-import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon, SearchIcon, HamburgerIcon } from "@chakra-ui/icons";
 
 import { Input, IconButton } from "@chakra-ui/react";
 
 import { Divider } from "@chakra-ui/react";
 
+import { PhoneIcon, AddIcon, WarningIcon } from "@chakra-ui/icons";
+
+import { useParams } from "react-router-dom";
+
+import { useAppCtx } from "../utils/AppProvider";
+
 export default function NavBar(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
+  // Bring in logged in user info
+  const { user } = useAppCtx();
+
   return (
     <>
       <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
-        Page Navigation
+        <HamburgerIcon />
       </Button>
       <Drawer
         isOpen={isOpen}
@@ -46,43 +59,43 @@ export default function NavBar(props) {
         <DrawerContent {...props}>
           <DrawerCloseButton />
           <DrawerHeader>
-            <ChakraLink as={ReactRouterLink} to="/account">
-              Account
-            </ChakraLink>
+            <Box>
+              <Flex flexDir="column">
+                <ChakraLink as={ReactRouterLink} to="/account">
+                  Account
+                </ChakraLink>
+                <Box>
+                  <Flex>
+                    <Heading fontSize="medium">
+                      Your personal gift guide
+                    </Heading>
+                  </Flex>
+                </Box>
+              </Flex>
+            </Box>
           </DrawerHeader>
-          {/* INSERT ICON IMAGE ASSOCIATED WITH ICON */}
           <DrawerBody>
             <Box>
               <Flex flexDir="column">
-                <Box>
-                  <Flex
-                    flexDir="column"
-                    padding-bottom="5px"
-                    justifyContent="space-evenly"
-                  >
-                    <Heading fontSize="medium">Your Gift Guide</Heading>
-                  </Flex>
-                </Box>
                 <Divider orientation="horizontal" />
                 <Box>
-                  <Flex flexDir="column" justifyContent="space-evenly">
-                    <Text>Search users</Text>
-                     <Box className="App">
-                       <SearchBar 
-                        placeholder="Enter user" 
-                        // data={UserData} 
+                  <Flex flexDir="column">
+                    <Box>
+                      <Flex flexDir="row">
+                        <Text>Search users:</Text>
+                        {/* TUCKERS CODE for Searchbar below lines 72-77 */}
+                        {/* <Box className="App">
+                      <SearchBar
+                        placeholder="Enter user"
+                        // data={UserData}
                       />
-                     </Box>
-                    <Divider orientation="horizontal" />
+                    </Box> */}
+                        {/* <Divider orientation="horizontal" /> */}
+                      </Flex>
+                    </Box>
                     <Box>
                       <Flex>
-                        <Input type="search" id="site-search" name="q" />
-                        <IconButton
-                          icon={<SearchIcon />}
-                          colorScheme="teal"
-                          variant="solid"
-                          aria-label="Search user"
-                        />
+                        <SearchBar />
                       </Flex>
                     </Box>
                   </Flex>
@@ -90,8 +103,19 @@ export default function NavBar(props) {
                 <Divider orientation="horizontal" />
                 <Box>
                   <Flex flexDir="column" justifyContent="space-evenly">
+                    <ChakraLink
+                      as={ReactRouterLink}
+                      to={`/wishlist/${user._id}`}
+                    >
+                      My Wishlist
+                    </ChakraLink>
+                  </Flex>
+                </Box>
+                <Divider orientation="horizontal" />
+                <Box>
+                  <Flex flexDir="column" justifyContent="space-evenly">
                     <ChakraLink as={ReactRouterLink} to="/mygroups">
-                      Groups
+                      My Groups
                     </ChakraLink>
                   </Flex>
                 </Box>
@@ -104,14 +128,14 @@ export default function NavBar(props) {
                   </Flex>
                 </Box>
                 <Divider orientation="horizontal" />
-
+                {/* 
                 <Box>
                   <Flex flexDir="column" justifyContent="space-evenly">
                     <ChakraLink as={ReactRouterLink} to="/private/favorites">
                       Favorites
                     </ChakraLink>
                   </Flex>
-                </Box>
+                </Box> */}
                 <Divider orientation="horizontal" />
                 <Box>
                   <Flex

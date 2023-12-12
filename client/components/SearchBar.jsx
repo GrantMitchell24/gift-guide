@@ -1,43 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { useAppCtx } from "../utils/AppProvider";
 import "../assets/css/SearchBar.css";
-import { SearchIcon, CloseIcon } from '@chakra-ui/icons'
+import { CloseIcon } from "@chakra-ui/icons";
 // import searchIcon from "../assets/icons/search.png";
 // import cancelIcon from "../assets/icons/cancel.png";
-
-
-
+import { IconButton } from "@chakra-ui/react";
+import { SearchIcon } from "@chakra-ui/icons";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 // const { user } = useAppCtx()
 // console.log(user)
 
+import { Input } from "@chakra-ui/react";
+
 export default function SearchBar({ placeholder, data }) {
-  
   //-----------------------------------------------
   // Bring in logged in user info
-  const { user } = useAppCtx()
+  const { user } = useAppCtx();
 
   const [allUserData, setAllUserData] = useState("");
 
-
   // Fetch most recent user info
   async function getUserInfo() {
-      const query = await fetch(`/api/user/`)
-      const result = await query.json()
-      const allUsers = result.payload
-      console.log(allUsers)
-      setAllUserData(allUsers)
+    const query = await fetch(`/api/user/`);
+    const result = await query.json();
+    const allUsers = result.payload;
+    console.log(allUsers);
+    setAllUserData(allUsers);
   }
 
   useEffect(() => {
-    getUserInfo()
-  }, [user])
-
+    getUserInfo();
+  }, [user]);
 
   //----------------------------------------------
-
-
-
 
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
@@ -62,33 +58,59 @@ export default function SearchBar({ placeholder, data }) {
   };
 
   return (
-    <div className="search">
-      <div className="searchInputs">
-        <input
-          type="text"
-          placeholder={placeholder}
-          value={wordEntered}
-          onChange={handleFilter}
-        />
-        <div className="searchIcon">
-          {filteredData.length === 0 ? (
-            <SearchIcon />
-          ) : (
-            <CloseIcon id="cancelBtn" onClick={clearInput} />
-          )}
-        </div>
-      </div>
-      {filteredData.length != 0 && (
-        <div className="dataResult">
-          {filteredData.slice(0, 15).map((value, key) => {
-            return (
-              //<a className="dataItem" href={value.link} target="_blank">
+    <Box>
+      <Flex>
+        <Box>
+          <Flex>
+            {/* <div className="search"> */}
+
+            <div className="searchInputs">
+              <Input
+                type="text"
+                placeholder="search for users"
+                value={wordEntered}
+                onChange={handleFilter}
+              />
+              {/* <Box>
+                <Flex flexDir="row"> */}
+              <div className="searchIcon">
+                {filteredData.length === 0 ? (
+                  <IconButton
+                    icon={<SearchIcon />}
+                    colorScheme="teal"
+                    variant="solid"
+                    aria-label="Search user"
+                    className="iconButton"
+                  />
+                ) : (
+                  <CloseIcon id="cancelBtn" onClick={clearInput} />
+                )}
+
+                {/* <IconButton
+            icon={<SearchIcon />}
+            colorScheme="teal"
+            variant="solid"
+            aria-label="Search user"
+          /> */}
+              </div>
+              {/* </Flex>
+              </Box> */}
+            </div>
+          </Flex>
+        </Box>
+        {filteredData.length != 0 && (
+          <div className="dataResult">
+            {filteredData.slice(0, 15).map((value, key) => {
+              return (
+                //<a className="dataItem" href={value.link} target="_blank">
                 <p key={value._id}>{value.username} </p>
-              //</a>
-            );
-          })}
-        </div>
-      )}
-    </div>
+                //</a>
+              );
+            })}
+          </div>
+        )}
+        {/* </div> */}
+      </Flex>
+    </Box>
   );
 }

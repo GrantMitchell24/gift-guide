@@ -17,12 +17,6 @@ export default function PrivatePage() {
           <Box>
             <Flex flexDir="column">
               <Text>Welcome to your account!</Text>
-              <Box>
-                <Flex flexDir="row">
-                  <NavBar />
-                </Flex>
-              </Box>
-              <EmailAlert />
             </Flex>
           </Box>
         </Flex>
