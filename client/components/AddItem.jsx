@@ -31,7 +31,15 @@ export default function AddItem() {
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
 
-  const [newItem, setNewItem] = useState("");
+  const defaultNewItem = {
+    name: "",
+    wishRank: "",
+    cost: "",
+    notes: "",
+    link: "",
+  };
+
+  const [newItem, setNewItem] = useState(defaultNewItem);
 
   function handleCreateItemButton() {
     console.log("Create Item");
@@ -70,7 +78,7 @@ export default function AddItem() {
                 ref={initialRef}
                 onChange={handleInputChange}
                 value={newItem}
-                name="itemname"
+                name="name"
                 placeholder="Item name"
                 type="text"
               />
@@ -78,22 +86,33 @@ export default function AddItem() {
 
             <FormControl mt={2}>
               <FormLabel>Wish Rank</FormLabel>
-              <Input placeholder="Wish rank" type="text" />
+              <Input name="wishRank" placeholder="Wish rank" type="text" />
             </FormControl>
 
             <FormControl mt={2}>
               <FormLabel>Cost($)</FormLabel>
-              <Input ref={initialRef} placeholder="Cost" type="text" />
+              <Input
+                name="cost"
+                ref={initialRef}
+                placeholder="Cost"
+                type="text"
+              />
             </FormControl>
 
             <FormControl mt={2}>
               <FormLabel>Notes for Buyer</FormLabel>
-              <Input ref={initialRef} placeholder="Notes" type="text" />
+              <Input
+                name="notes"
+                ref={initialRef}
+                placeholder="Notes"
+                type="text"
+              />
             </FormControl>
 
             <FormControl mt={2}>
               <FormLabel>Gift Website Link </FormLabel>
               <Input
+                name="link"
                 ref={initialRef}
                 placeholder="Website Link (optional)"
                 type="text"
