@@ -4,6 +4,7 @@
 // import NavDropdown from 'react-bootstrap/NavDropdown';
 import { NavBar } from "./index.js";
 import { useAppCtx } from "../utils/AppProvider";
+import { Image } from '@chakra-ui/react'
 
 //import from Chakra
 import { Box, Flex, Heading, Button, Spacer } from "@chakra-ui/react";
@@ -23,7 +24,7 @@ export default function Header() {
         w="100%"
       >
         <Flex>
-          <Heading>The Gift Guide</Heading>
+        <Image src={"../assets/images/Giftify.png"} alt='logo' />
           <Spacer/>
           <Box>
             {user?._id !== undefined && (

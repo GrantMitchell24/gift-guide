@@ -1,6 +1,6 @@
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { Image } from '@chakra-ui/react'
-// import howTo from '../assets/icons/howTo.png'
+// import howTo from '../assets/i/howTo.png'
 
 export default function HomePage() {
   return (
@@ -12,7 +12,7 @@ export default function HomePage() {
         </Flex>
       </Box>
       <Box boxSize='xl'>
-        <Image src={"../assets/icons/howTo.png"} alt='How To' />
+        <Image src={"../assets/images/howTo.png"} alt='How To' />
       </Box>
 
 
