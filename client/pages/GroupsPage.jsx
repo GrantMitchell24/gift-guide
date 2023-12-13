@@ -125,7 +125,7 @@ export default function GroupsPage(props) {
 
 
   //------------------------------------------------------------
-  // Handles inviting to group
+  // Handles Deleting A Group
   //------------------------------------------------------------
 
   const [deleteGroup, setDeleteGroup] = useState(null)

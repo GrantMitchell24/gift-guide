@@ -80,13 +80,6 @@ export default function SearchBar(props) {
                 {filteredData.length === 0 ? (
                   <SearchIcon width="20px" fontSize="1.3rem"/>
                 ) : (
-                  // <IconButton
-                  //   icon={<SearchIcon />}
-                  //   colorScheme="teal"
-                  //   variant="solid"
-                  //   aria-label="Search user"
-                  //   className="iconButton"
-                  // />
                   <CloseIcon id="cancelBtn" onClick={clearInput} />
 
                 )}
