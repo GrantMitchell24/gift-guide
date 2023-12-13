@@ -45,6 +45,7 @@ const [colorPallet, setColorPallet] = useState({
   return (
     <AppProvider>
       <BrowserRouter>
+        <Box minH="100vh" backgroundColor={colorPallet.c5}>
         <Header colorPallet={colorPallet}/>
         <Box>
           <Flex flexDir="column">
@@ -105,7 +106,8 @@ const [colorPallet, setColorPallet] = useState({
             </Routes>
           </Flex>
         </Box>
-        <Footer />
+        <Footer colorPallet={colorPallet}/>
+        </Box>
       </BrowserRouter>
     </AppProvider>
   );
