@@ -4,7 +4,7 @@
   margin: 0px;
 } */
 
-/* .searchInputs {
+.searchInputs {
   margin-top: 105px;
   display: flex;
 }
@@ -22,8 +22,8 @@
 }
 
 .searchIcon {
-  height: 60px;
-  width: 50px;
+  height: 5px;
+  width: 5px;
   background-color: white;
   display: grid;
   place-items: center;
@@ -33,7 +33,7 @@ input:focus {
   outline: none;
 }
 .searchIcon svg {
-  font-size: 35px;
+  font-size: 30px;
 }
 
 .dataResult {
@@ -71,4 +71,4 @@ a:hover {
 
 #clearBtn {
   cursor: pointer;
-} */
+}
