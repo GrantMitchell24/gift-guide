@@ -3,9 +3,13 @@ import { useAppCtx } from "../utils/AppProvider";
 import { useParams } from "react-router-dom";
 import { Checkbox, CheckboxGroup } from "@chakra-ui/react";
 import React from "react";
-import { AddIcon, DeleteIcon } from '@chakra-ui/icons'
+import { AddIcon, DeleteIcon, CheckIcon,ExternalLinkIcon } from '@chakra-ui/icons'
 
-import { Button, ButtonGroup } from "@chakra-ui/react";
+import { Button, ButtonGroup, Box, Image } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from '@chakra-ui/react'
+import { FormControl, FormLabel, FormErrorMessage, FormHelperText, Heading, Flex, Spacer, Center } from '@chakra-ui/react'
+
+import { CustomModal } from "../components";
 
 // Just another Chakra import
 import {
@@ -38,7 +42,7 @@ export default function UserTable(props) {
     const query = await fetch(`/api/user/${params.userId}`);
     const result = await query.json();
     const payload = result.payload;
-    console.log(payload);
+    // console.log(payload);
     setUserData(payload);
   }
   // console.log(userData);
@@ -56,31 +60,56 @@ export default function UserTable(props) {
     setUserData(payload);
   }
 
-  //making a useState case with the checkbox and purchased property in the Item Model
-  const [checkedItems, setCheckedItems] = useState({ purchased: false });
+  // //making a useState case with the checkbox and purchased property in the Item Model
+  // const [checkedItems, setCheckedItems] = useState({ purchased: false });
 
-  // const allChecked = checkedItems.every(Boolean);
-  // const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
+  // // const allChecked = checkedItems.every(Boolean);
+  // // const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
 
-  //PURCHASED ROUTE"/:userId/item/:itemId"
-  async function purchasedItem(itemId) {
-    const payload = checkedItems;
+  // //PURCHASED ROUTE"/:userId/item/:itemId"
+  // async function purchasedItem(itemId) {
+  //   const payload = checkedItems;
+  //   try {
+  //     const query = await fetch(`/api/user/${params.userId}/item/${itemId}`, {
+  //       method: "PUT",
+  //       body: JSON.stringify({ purchased: "true" }),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     // Might be able to delete this line of code since we aren't using the response
+  //     const response = await query.json();
+  //   } catch (err) {
+  //     console.log(err.message);
+  //   }
+  //   setUserData(payload);
+  //   // console.log(payload);
+  // }
+
+
+  //------------------------------------------------------------
+  // Handles Purchasing a Gift
+  //------------------------------------------------------------
+
+  const [purchaseModal, setPurchaseModal] = useState(null)
+
+
+  async function purchaseBtn(itemId) {
     try {
-      const query = await fetch(`/api/user/${params.userId}/item/${itemId}`, {
+      await fetch(`/api/user/${params.userId}/item/${itemId}`, {
         method: "PUT",
-        body: JSON.stringify({ purchased: "true" }),
+        body: JSON.stringify({ purchased: true }),
         headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      // Might be able to delete this line of code since we aren't using the response
-      const response = await query.json();
+          "Content-Type": "application/json"
+        }
+      })
+      getUserInfo()
+      setPurchaseModal(null)
     } catch (err) {
-      console.log(err.message);
+      console.log(err.message)
     }
-    setUserData(payload);
-    // console.log(payload);
   }
+
 
   useEffect(() => {
     if (user._id) {
@@ -100,6 +129,8 @@ export default function UserTable(props) {
               <Th>Wish Rank</Th>
               <Th>Cost</Th>
               <Th>Notes</Th>
+              <Th>Link</Th>
+
               {user._id === userData._id && <Th>Delete</Th>}
               {user._id != userData._id && <Th>Purchased</Th>}
             </Tr>
@@ -112,6 +143,14 @@ export default function UserTable(props) {
                   <Td>{val.wishRank}</Td>
                   <Td>{val.cost}</Td>
                   <Td>{val.notes}</Td>
+                  {val.link &&
+                    <Td><a href={val.link} target="_blank"><ExternalLinkIcon fontSize="24px" color={colorPallet.c1}/></a></Td>
+                  }
+                  {!val.link &&
+                    <Td></Td>
+                  }
+
+
                   {user._id === userData._id && (
                     <Td>
                       <Button
@@ -125,25 +164,63 @@ export default function UserTable(props) {
                   {user._id != userData._id && (
                     <Td>
 
-
-                      {/* <Box>
-                        <Button onClick={() => setDeleteGroup(group._id)} p="0px"><Image href="/assets/icons/presentIcon.png" boxSize={"30px"} color={"#fff"} backgroundColor={colorPallet.c5} p="8px" borderRadius="5px" /></Button>
-
-                        <CustomModal title="Deleting Group" isOpen={deleteGroup !== null} onClose={() => setDeleteGroup(null)}>
-                          <FormControl>
-                            <FormLabel>Are you sure you want to delete this group?</FormLabel>
-                          </FormControl>
+                      {val.purchased === false &&
+                        <Center>
                           <Button
-                            onClick={() => deleteBtn(deleteGroup)}
-
-                            backgroundColor={colorPallet.c1} color="white" _hover={{ backgroundColor: colorPallet.c2 }} mr={3}>
-                            Yes
+                            onClick={() => setPurchaseModal(val._id)}
+                            p="0px">
+                            <Box
+                              boxSize={"30px"}
+                              color={"#fff"}
+                              backgroundColor={colorPallet.c2}
+                              _hover={{ backgroundColor: colorPallet.c1 }}
+                              borderRadius="5px"
+                              p="4px"
+                            >
+                              <Image color="#fff" src="/assets/icons/presentIcon.png" alt="Icon of a present" />
+                            </Box>
                           </Button>
-                          <Button onClick={() => setDeleteGroup(null)} backgroundColor={colorPallet.c4}>No</Button>
-                        </CustomModal>
-                      </Box> */}
-
-
+                          <CustomModal
+                            isOpen={purchaseModal !== null}
+                            onClose={() => setPurchaseModal(null)}
+                          >
+                            <FormControl>
+                              <Heading
+                                color={colorPallet.c1}
+                                fontSize="1.8rem">
+                                Purchasing Gift
+                              </Heading>
+                              <FormLabel
+                                py="20px"
+                                color={colorPallet.c1}>
+                                Would you like to mark this gift as purchased?
+                              </FormLabel>
+                            </FormControl>
+                            <Flex>
+                              <Button
+                                onClick={() => purchaseBtn(purchaseModal)}
+                                backgroundColor={colorPallet.c2}
+                                color="white"
+                                _hover={{ backgroundColor: colorPallet.c3 }}
+                                mr={3}>
+                                Yes
+                              </Button>
+                              <Spacer />
+                              <Button
+                                onClick={() => setPurchaseModal(null)}
+                                backgroundColor={colorPallet.c4}
+                              >
+                                Cancel
+                              </Button>
+                            </Flex>
+                          </CustomModal>
+                        </Center>
+                      }
+                      {val.purchased === true &&
+                        <Center>
+                          <CheckIcon color={colorPallet.c1} />
+                        </Center>
+                      }
 
 
 

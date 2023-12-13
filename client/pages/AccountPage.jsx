@@ -9,7 +9,7 @@ import CustomModal from "../components/CustomModal";
 
 
 // Chakra Imports
-import { Box, Flex, Heading, Text, FormControl, FormLabel, Spacer } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, FormControl, FormLabel, Spacer, Center } from "@chakra-ui/react";
 import { CheckCircleIcon, NotAllowedIcon } from '@chakra-ui/icons'
 import { Input, Button } from '@chakra-ui/react'
 
@@ -120,12 +120,15 @@ export default function AccountPage(props) {
         fontSize='xl'
         minH="80vh"
         p={10}
-        width="100vw"
+        // width="100vw"
         minW="320px"
         bgImage="url(/assets/images/joanna-kosinska-0CQfTLOVTPU-unsplash.jpg)"
         bgSize="cover"
         bgRepeat="no-repeat"
       >
+        <Center>
+        <Box >
+
         <Heading color={colorPallet.c1}> Account</Heading>
         <Text color={colorPallet.c5} mb="20px">
           Hello, {helloName}!
@@ -182,7 +185,8 @@ export default function AccountPage(props) {
             </Button>
           </Flex>
         </CustomModal>
-
+        </Box>
+        </Center>
       </Box>
     </>
   );
