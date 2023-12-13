@@ -167,7 +167,7 @@ export default function GroupsPage(props) {
       bgImage="url(/assets/images/joanna-kosinska-0CQfTLOVTPU-unsplash.jpg)"
       bgSize="cover"
       bgRepeat="no-repeat"
-      height="80vh"
+      minH="80vh"
     >
       <Box p="20px">
         {userInfo.pending_groups &&

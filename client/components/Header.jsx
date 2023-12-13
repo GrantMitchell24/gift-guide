@@ -11,11 +11,15 @@ import { Box, Flex, Heading, Button, Spacer } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
 
-export default function Header() {
+export default function Header(props) {
+
+  // Bring in color pallet
+  const colorPallet = props.colorPallet
+
   const { user } = useAppCtx();
 
   return (
-    <Box m="10px">
+    <Box p="10px 20px" backgroundColor={colorPallet.c1}>
       <Flex
         as="nav"
         flexDir="column"
@@ -24,36 +28,14 @@ export default function Header() {
         w="100%"
       >
         <Flex>
-        <Image src={"../assets/images/Giftify.png"} alt='logo' />
-          <Spacer/>
+          <a href="/"><Image height="4rem" src={"/assets/images/Giftify.png"} alt='logo' /></a>
+          <Spacer />
           <Box>
             {user?._id !== undefined && (
               <NavBar />
             )}
           </Box>
         </Flex>
-        <Box>
-          {/* {user?._id !== undefined && (
-            <ChakraLink as={ReactRouterLink} href="/private">
-              Private Page
-            </ChakraLink>
-          )} */}
-
-          
-          {/* {user?._id !== undefined ? (
-            <ChakraLink href="/logout">Logout</ChakraLink>
-          ) : (
-            <ChakraLink href="/auth">
-              <Button colorScheme="green">Login</Button>
-            </ChakraLink>
-          )} */}
-
-          {user?._id === undefined && (
-            <ChakraLink href="/auth">
-              <Button colorScheme="green">Login</Button>
-            </ChakraLink>
-          )}
-        </Box>
       </Flex>
     </Box>
   );

@@ -118,7 +118,7 @@ export default function AccountPage(props) {
     <>
       <Box
         fontSize='xl'
-        height="80vh"
+        minH="80vh"
         p={10}
         width="100vw"
         minW="320px"

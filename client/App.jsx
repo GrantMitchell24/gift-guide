@@ -45,11 +45,11 @@ const [colorPallet, setColorPallet] = useState({
   return (
     <AppProvider>
       <BrowserRouter>
-        <Header />
+        <Header colorPallet={colorPallet}/>
         <Box>
           <Flex flexDir="column">
             <Routes>
-              <Route path="/" element={<HomePage />} />
+              <Route path="/" element={<HomePage colorPallet={colorPallet}/>} />
               <Route 
                 path="/auth" 
                 element={<AuthPage colorPallet={colorPallet}/>} 
