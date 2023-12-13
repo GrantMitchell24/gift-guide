@@ -4,7 +4,11 @@
 
 This group project involved creating a gift guide website for multiple end users. The user is prompted to the home page where there is information regarding the application, a logo, a footer and a login button. When the user selects to login, they are prompted to another screen where they are able to signup or login to their account. Once the user logs in, they are able to navigate their account pages, wishlist, and groups through the navigation bar. The user is able to select a navigation bar in the top right corner through the hamburger icon that will open to allow the user to navigate to any part of the website.
 
-The wishlist component is comprised of the account user's
+The wishlist page is comprised of the account user's name, wish rank, cost, notes and a delete button option. The user is able to add an item through a button which will prompt an Add Item Chakra Modal with the following information: item name, wish rank, cost, notes for buyer, and gift website link. When the user selects the save button in the modal, the information will be added to the table as a row item. On the wishlist page table, the user will be able to select a delete icon button that will remove the item row from the user's table on the Wishlist page.
+
+The account page will allow the end user to update their information regarding name, username and email. Additionally, the user will be able to delete their account permanently by selecting the delete link on the account page.
+
+The groups page for the account user includes group invites and a my groups section. The end user is able to add a group through a button where they are able to create a group. Once a user creates a group, they are assigned the admin of the group. In the table, they are able to add users to the group by username or delete the entire group. When a user invites another user to a group, the user is able to accept or reject the group invitation. The acceptance and rejection of the group invitation displays on the groups page for the specific account user.
 
 ## Table of Contents
 
