@@ -24,20 +24,9 @@ export default function WishListPage() {
                 <AddItem />
               </Flex>
             </Box>
-
-            <Box>
-              <Flex flexDir="row">
-                <UpdateItem />
-              </Flex>
-            </Box>
           </Flex>
         </Box>
         <UserTable />
-      </Box>
-      <Box>
-        <Flex flexDir="row" alignItems="center">
-          <EmailAlert />
-        </Flex>
       </Box>
     </>
   );

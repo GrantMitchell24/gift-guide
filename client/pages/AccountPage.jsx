@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import { useAppCtx } from "../utils/AppProvider";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from '@chakra-ui/react';
+import Cookie from "js-cookie"
+
+// Import Components
+import CustomModal from "../components/CustomModal";
 
 
 // Chakra Imports
@@ -82,8 +87,26 @@ export default function AccountPage(props) {
     }
   }
 
+  const [deleteAccount, setDeleteAccount] = useState(null)
+
+  async function deleteActBtn() {
+    try {
+      await fetch(`/api/user/${userInfo._id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      setDeleteAccount(null)
+      Cookie.remove("auth-cookie")
+      window.location.href = "/"
+    } catch (err) {
+      console.log(err.message)
+    }
+  }
+
   useEffect(() => {
-    if( user._id ){
+    if (user._id) {
       getUserInfo()
     }
   }, [user])
@@ -99,7 +122,7 @@ export default function AccountPage(props) {
         p={10}
         width="100vw"
         minW="320px"
-        bgImage="url(../public/assets/images/joanna-kosinska-0CQfTLOVTPU-unsplash.jpg)"
+        bgImage="url(/assets/images/joanna-kosinska-0CQfTLOVTPU-unsplash.jpg)"
         bgSize="cover"
         bgRepeat="no-repeat"
       >
@@ -125,19 +148,34 @@ export default function AccountPage(props) {
           </FormControl>
 
           {error === true &&
-              <Text fontSize='md' color={colorPallet.c5} mb="20px">
-                <NotAllowedIcon p="3px" boxSize="25px" backgroundColor={colorPallet.c5} color={colorPallet.c4} borderRadius="50%"/> The username or email you're trying to switch to is already taken. Please try another.</Text>
+            <Text fontSize='md' color={colorPallet.c5} mb="20px">
+              <NotAllowedIcon p="3px" boxSize="25px" backgroundColor={colorPallet.c5} color={colorPallet.c4} borderRadius="50%" /> The username or email you're trying to switch to is already taken. Please try another.</Text>
           }
 
           {error === false &&
             <Flex>
-              <CheckCircleIcon color={colorPallet.c2} mr="8px"/>
+              <CheckCircleIcon color={colorPallet.c2} mr="8px" />
               <Text fontSize='md' color={colorPallet.c2} mb="20px">Account updated!</Text>
             </Flex>
           }
 
           <Button type="submit" backgroundColor={colorPallet.c1} color="white" _hover={{ backgroundColor: colorPallet.c2 }}>Submit</Button>
         </form>
+
+        <Button onClick={() => setDeleteAccount()}>Delete My Account</Button>
+
+        <CustomModal title="Deleting Account" isOpen={deleteAccount !== null} onClose={() => setDeleteAccount(null)}>
+          <FormControl>
+            <FormLabel>Are you sure you want to delete this account?</FormLabel>
+          </FormControl>
+          <Button
+            onClick={() => deleteActBtn(deleteAccount)}
+
+            backgroundColor={colorPallet.c5} color="white" _hover={{ backgroundColor: colorPallet.c5 }} mr={3}>
+            Yes
+          </Button>
+          <Button onClick={() => setDeleteAccount(null)} backgroundColor={colorPallet.c2}>No</Button>
+        </CustomModal>
 
       </Box>
     </>
