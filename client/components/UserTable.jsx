@@ -115,7 +115,7 @@ export default function UserTable(props) {
                   {user._id === userData._id && (
                     <Td>
                       <Button
-                      p="0px"
+                        p="0px"
                         onClick={() => deleteItem(val._id)}
                       >
                         <DeleteIcon boxSize={"30px"} color={"#fff"} backgroundColor={colorPallet.c5} p="8px" borderRadius="5px" />
@@ -124,16 +124,29 @@ export default function UserTable(props) {
                   )}
                   {user._id != userData._id && (
                     <Td>
-                      <Checkbox
-                        // isChecked={allChecked}
-                        // isIndeterminate={isIndeterminate}
-                        onChange={(e) =>
-                          setCheckedItems({ purchased: e.target.checked })
-                        }
-                        onClick={() => purchasedItem(val._id)}
-                      >
-                        Click
-                      </Checkbox>
+
+
+                      {/* <Box>
+                        <Button onClick={() => setDeleteGroup(group._id)} p="0px"><Image href="/assets/icons/presentIcon.png" boxSize={"30px"} color={"#fff"} backgroundColor={colorPallet.c5} p="8px" borderRadius="5px" /></Button>
+
+                        <CustomModal title="Deleting Group" isOpen={deleteGroup !== null} onClose={() => setDeleteGroup(null)}>
+                          <FormControl>
+                            <FormLabel>Are you sure you want to delete this group?</FormLabel>
+                          </FormControl>
+                          <Button
+                            onClick={() => deleteBtn(deleteGroup)}
+
+                            backgroundColor={colorPallet.c1} color="white" _hover={{ backgroundColor: colorPallet.c2 }} mr={3}>
+                            Yes
+                          </Button>
+                          <Button onClick={() => setDeleteGroup(null)} backgroundColor={colorPallet.c4}>No</Button>
+                        </CustomModal>
+                      </Box> */}
+
+
+
+
+
                     </Td>
                   )}
                 </Tr>
