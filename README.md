@@ -29,22 +29,19 @@ The footer of the website includes a copyright statement and four github logo im
 ## Website Images
 
 Home Page:
-![Preview of Home Page]()
+![Preview of Home Page](../gift-guide/client/public/assets/images/HomePageGitify.png)
 
 Account Page:
-![Preview of Account Page]()
+![Preview of Account Page](../gift-guide/client/public/assets/images/AccountPage.png)
 
 Navigation Bar:
-![Preview of Navigation Bar]()
+![Preview of Navigation Bar](../gift-guide/client/public/assets/images/GitifyNavBar.png)
 
 Wishlist Page:
-![Preview of Wishlist Page]()
+![Preview of Wishlist Page](../gift-guide/client/public/assets/images/WishListPage.png)
 
 Groups Page:
-![Preview of Groups Page]()
-
-Footer:
-![Preview of Footer]()
+![Preview of Groups Page](../gift-guide/client/public/assets/images/GroupsPage.png)
 
 <a id="websitelinks"></a>
 
