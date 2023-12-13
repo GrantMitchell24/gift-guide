@@ -74,6 +74,7 @@ Technical requirements for the application include:
 - Chakra UI
 - Heroku
 - Github
+- Vite
 
   <a id="credits"></a>
 
@@ -98,13 +99,13 @@ Tutorials/Information for coding are listed below:
 
 - Information for debugging React Router: https://stackoverflow.com/questions/71884854/chakra-ui-react-activelink-props-not-working
 
-- Checkbox logic from Chakra: https://chakra-ui.com/docs/components/checkbox
-
 - Searchbar Icon Code Inspiration:https://www.youtube.com/watch?v=x7niho285qs&amp;t=412s
 
 - White String Light Account Page Photo: https://unsplash.com/photos/beaded-of-white-string-light-dka5C8Ct2Fw
 
 - White Gift Box Home Page Unsplash: https://unsplash.com/photos/white-gift-box-with-red-ribbon-beside-pencil-scissors-and-tape-dispenser-Ts0g6PHe1q0
+
+- Stack Overflow
 
 <a id="license"></a>
 
