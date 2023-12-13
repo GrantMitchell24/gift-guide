@@ -67,6 +67,8 @@ Information for debugging React Router: https://stackoverflow.com/questions/7188
 
 Checkbox logic from Chakra: https://chakra-ui.com/docs/components/checkbox
 
+Searchbar Icon Code Inspiration:https://www.youtube.com/watch?v=x7niho285qs&amp;t=412s
+
 <a id="license"></a>
 
 ## License

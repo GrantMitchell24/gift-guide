@@ -62,40 +62,28 @@ export default function SearchBar({ placeholder, data }) {
       <Flex>
         <Box>
           <Flex>
-            {/* <div className="search"> */}
-
             <div className="searchInputs">
               <Input
-                type="text"
                 placeholder="search for users"
                 value={wordEntered}
                 onChange={handleFilter}
               />
-              {/* <Box>
-                <Flex flexDir="row"> */}
-              {/* <div className="searchIcon"> */}
-              {filteredData.length === 0 ? (
-                <IconButton
-                  icon={<SearchIcon />}
-                  colorScheme="teal"
-                  variant="solid"
-                  aria-label="Search user"
-                  className="iconButton"
-                />
-              ) : (
-                <CloseIcon id="cancelBtn" onClick={clearInput} />
-              )}
 
-              {/* <IconButton
-                icon={<SearchIcon />}
-                colorScheme="teal"
-                variant="solid"
-                aria-label="Search user"
-              /> */}
+              <div className="searchIcon">
+                {filteredData.length === 0 ? (
+                  <SearchIcon />
+                ) : (
+                  // <IconButton
+                  //   icon={<SearchIcon />}
+                  //   colorScheme="teal"
+                  //   variant="solid"
+                  //   aria-label="Search user"
+                  //   className="iconButton"
+                  // />
+                  <CloseIcon id="cancelBtn" onClick={clearInput} />
+                )}
+              </div>
             </div>
-            {/* </Flex>
-              </Box> */}
-            {/* </div> */}
           </Flex>
         </Box>
         {filteredData.length != 0 && (
@@ -109,7 +97,6 @@ export default function SearchBar({ placeholder, data }) {
             })}
           </div>
         )}
-        {/* </div> */}
       </Flex>
     </Box>
   );

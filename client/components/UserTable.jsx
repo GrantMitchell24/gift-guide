@@ -23,7 +23,7 @@ export default function UserTable() {
   const { user } = useAppCtx();
 
   const params = useParams();
-  console.log(params);
+  // console.log(params);
 
   const [userData, setUserData] = useState();
 
@@ -35,7 +35,7 @@ export default function UserTable() {
     console.log(payload);
     setUserData(payload);
   }
-  console.log(userData);
+  // console.log(userData);
 
   //DELETE ROUTE"/:userId/item/:itemId"
   async function deleteItem(itemId) {
@@ -51,23 +51,29 @@ export default function UserTable() {
   }
 
   //making a useState case with the checkbox and purchased property in the Item Model
-  const [checkedItems, setCheckedItems] = useState({ purchased: "" });
+  const [checkedItems, setCheckedItems] = useState({ purchased: false });
 
   // const allChecked = checkedItems.every(Boolean);
   // const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
 
   //PURCHASED ROUTE"/:userId/item/:itemId"
   async function purchasedItem(itemId) {
-    const query = await fetch(`/api/user/${params.userId}/item/${itemId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const result = await query.json();
-    const payload = result.payload;
-    console.log(payload);
-    // setUserData(payload);
+    const payload = checkedItems;
+    try {
+      const query = await fetch(`/api/user/${params.userId}/item/${itemId}`, {
+        method: "PUT",
+        body: JSON.stringify({ purchased: "true" }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      // Might be able to delete this line of code since we aren't using the response
+      const response = await query.json();
+    } catch (err) {
+      console.log(err.message);
+    }
+    setUserData(payload);
+    // console.log(payload);
   }
 
   useEffect(() => {
@@ -118,6 +124,7 @@ export default function UserTable() {
                         onChange={(e) =>
                           setCheckedItems({ purchased: e.target.checked })
                         }
+                        onClick={() => purchasedItem(val._id)}
                       >
                         Click
                       </Checkbox>
