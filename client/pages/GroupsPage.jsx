@@ -1,27 +1,28 @@
+// Import React
 import React from "react";
 import { useState, useEffect } from "react";
+
+// Import useAppCtx
 import { useAppCtx } from "../utils/AppProvider";
 
 // Import Components
-// import CustomModal from "../components/CustomModal";
 import { InviteTable, CustomModal } from "../components";
 
-
-
-
 // Chakra Imports
-import { FormControl, FormLabel, FormErrorMessage, FormHelperText } from '@chakra-ui/react'
-import { Box, Flex, Heading, Text, useDisclosure } from "@chakra-ui/react";
+import { FormControl, FormLabel } from '@chakra-ui/react'
+import { Box, Heading, useDisclosure, Tooltip } from "@chakra-ui/react";
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from '@chakra-ui/react'
-import { Table, Button, Input, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Center } from '@chakra-ui/react'
-import { List, ListItem, ListIcon, OrderedList, UnorderedList } from '@chakra-ui/react'
+import { Table, Button, Input, Thead, Tbody, Tr, Th, Td, TableContainer, Center } from '@chakra-ui/react'
+import { ListItem, OrderedList } from '@chakra-ui/react'
+
+// Chakra Icons
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons'
-import { Tooltip } from '@chakra-ui/react'
+
 
 
 export default function GroupsPage(props) {
 
-  // Needed for default Modals, CustomModal shouldn't need this?
+  // Needed for default Modals, CustomModal shouldn't need this???
   const { isOpen, onOpen, onClose } = useDisclosure()
   const initialRef = React.useRef(null)
   const finalRef = React.useRef(null)
@@ -29,9 +30,10 @@ export default function GroupsPage(props) {
   // Bring color pallet in from props
   const colorPallet = props.colorPallet
 
-  //------------------------------------------------------------
-  // Handles User Info
-  //------------------------------------------------------------
+
+  //----------------------------------------------------------------------
+  // Handles User Info - Especially needed when we need to update a table
+  //----------------------------------------------------------------------
 
   // Bring in logged in user info
   const { user } = useAppCtx()
@@ -46,6 +48,7 @@ export default function GroupsPage(props) {
     const payload = result.payload
     setUserInfo(payload)
   }
+
 
   //------------------------------------------------------------
   // Handles Creating A Group
@@ -67,8 +70,6 @@ export default function GroupsPage(props) {
           "Content-Type": "application/json",
         },
       });
-      // Might be able to delete this line of code since we aren't using the response
-      const response = await query.json();
       getUserInfo()
       onClose()
     } catch (err) {
@@ -78,7 +79,7 @@ export default function GroupsPage(props) {
 
 
   //------------------------------------------------------------
-  // Handles inviting to group
+  // Handles inviting a member by username to a group
   //------------------------------------------------------------
 
   const defaultInvitedUser = { username: "" }
@@ -90,16 +91,6 @@ export default function GroupsPage(props) {
     const clone = { ...invitedUser, [e.target.name]: e.target.value }
     setinvitedUser(clone)
   }
-
-  // async function findUserIdFromUsername() {
-  //   try {
-  //     const query = await fetch(`/api/user/username/${invitedUser}`)
-  //     const result = await query.json()
-  //     console.log(result)
-  //   } catch (err) {
-  //     console.log(err.message)
-  //   }
-  // }
 
   async function invitBtn(groupId) {
     try {
@@ -114,7 +105,6 @@ export default function GroupsPage(props) {
           "Content-Type": "application/json",
         },
       });
-      // const response = await query.json();
       console.log("Btn Clicked")
       setinvitedUser(defaultInvitedUser)
       setInviteGroupId(null)
@@ -139,15 +129,13 @@ export default function GroupsPage(props) {
         },
       });
       getUserInfo()
-      console.log("Delete Btn Clicked")
       setDeleteGroup(null)
     } catch (err) {
       console.log(err.message)
     }
   }
-
-
   //------------------------------------------------------------
+
 
   useEffect(() => {
     if (user._id) {
@@ -169,23 +157,44 @@ export default function GroupsPage(props) {
       bgRepeat="no-repeat"
       minH="80vh"
     >
+      {/* -----------------------------------
+        Calls in the "InviteTable" Component
+      ---------------------------------------*/}
       <Box p="20px">
         {userInfo.pending_groups &&
           <>
-            <Heading pb="20px" color={colorPallet.c1}> You Have Group Invites! </Heading>
-            <InviteTable colorPallet={colorPallet} userInfo={userInfo} getUserInfo={getUserInfo} />
+            <Heading
+              pb="20px"
+              color={colorPallet.c1}
+            >
+              You Have Group Invites!
+            </Heading>
+            <InviteTable
+              colorPallet={colorPallet}
+              userInfo={userInfo}
+              getUserInfo={getUserInfo}
+            />
           </>
         }
 
-
-        <Heading pb="20px" color={colorPallet.c1}> My Groups </Heading>
-
         {/* -----------------------------------
-            Add Group Modal
-      ---------------------------------------*/}
+            Add Group Button and Modal
+          ---------------------------------------*/}
+        <Heading
+          pb="20px"
+          color={colorPallet.c1}
+        > My Groups </Heading>
 
         <Box>
-          <Button onClick={onOpen} backgroundColor={colorPallet.c2} color="white" _hover={{ backgroundColor: colorPallet.c1 }} mb="20px">New Group +</Button>
+          <Button
+            onClick={onOpen}
+            backgroundColor={colorPallet.c2}
+            color="white"
+            _hover={{ backgroundColor: colorPallet.c1 }}
+            mb="20px"
+          >
+            New Group +
+          </Button>
 
           <Modal
             initialFocusRef={initialRef}
@@ -216,63 +225,102 @@ export default function GroupsPage(props) {
               </ModalBody>
 
               <ModalFooter>
-                <Button onClick={createGrpBtn} backgroundColor={colorPallet.c1} color="white" _hover={{ backgroundColor: colorPallet.c2 }} mr={3}>
+                <Button
+                  onClick={createGrpBtn}
+                  backgroundColor={colorPallet.c1}
+                  color="white"
+                  _hover={{ backgroundColor: colorPallet.c2 }}
+                  mr={3}
+                >
                   Create Group
                 </Button>
-                <Button onClick={onClose} backgroundColor={colorPallet.c4}>Cancel</Button>
+                <Button
+                  onClick={onClose}
+                  backgroundColor={colorPallet.c4}
+                >
+                  Cancel
+                </Button>
               </ModalFooter>
             </ModalContent>
           </Modal>
         </Box>
 
         {/* -----------------------------------
-                  Table Headers
-      ---------------------------------------*/}
-        <TableContainer border={`solid 2px ${colorPallet.c1}`} borderRadius={"15px"}>
-          <Table variant='striped' backgroundColor={colorPallet.c4}>
+            My Group Table - Table Headers
+        ---------------------------------------*/}
+        <TableContainer
+          border={`solid 2px ${colorPallet.c1}`}
+          borderRadius={"15px"}
+        >
+          <Table
+            variant='striped'
+            backgroundColor={colorPallet.c4}
+          >
             <Thead>
               <Tr>
                 <Th> Group Name </Th>
                 <Th> Admin </Th>
                 <Th> Group Members </Th>
-                <Th width="40px"> </Th>
-                <Th width="40px"> </Th>
+                <Th> </Th>
+                <Th> </Th>
               </Tr>
             </Thead>
             <Tbody>
+              {/* -----------------------------------
+              Table Rows
+              ----------------------------------- */}
 
               {userInfo.groups &&
                 userInfo.groups.map((group, key) => {
 
                   return (
-                    // -----------------------------------
-                    //  POPULATE TABLE ROW FOR EACH GROUP
-                    // -----------------------------------
-
                     <Tr key={key}>
                       <Td>{group.title}</Td>
-                      <Td color={colorPallet.c1}><a href={`/wishlist/${group.admin_id._id}`}>{group.admin_id.username}</a></Td>
+                      <Td
+                        color={colorPallet.c1}>
+                        <a href={`/wishlist/${group.admin_id._id}`}>
+                          {group.admin_id.username}
+                        </a>
+                      </Td>
                       <Td color={colorPallet.c1}>
                         <OrderedList>
                           {group.group_members.map((group_member, key) => {
                             return (
-                              <ListItem key={key} py="3px"><a href={`/wishlist/${group_member._id}`}>{group_member.username}</a></ListItem>
+                              <ListItem
+                                key={key}
+                                py="3px">
+                                <a href={`/wishlist/${group_member._id}`}>
+                                  {group_member.username}
+                                </a>
+                              </ListItem>
                             )
                           })}
                         </OrderedList>
                       </Td>
 
                       {/* -------------------------------------------------
-                          Add User to Group Modal
+                          Add User to Group Btn Modal
                      ----------------------------------------------------*/}
                       {user._id === group.admin_id._id
                         ? <Td p="0px">
                           <Center>
                             <Tooltip hasArrow label='Invite User'>
                               <Box>
-                                <Button onClick={() => setInviteGroupId(group._id)} p="0px"><AddIcon boxSize={"30px"} color={"#fff"} backgroundColor={colorPallet.c3} p="8px" borderRadius="5px" /></Button>
+                                <Button
+                                  onClick={() => setInviteGroupId(group._id)}
+                                  p="0px"><AddIcon
+                                    boxSize={"30px"}
+                                    color={"#fff"}
+                                    backgroundColor={colorPallet.c3}
+                                    p="8px"
+                                    borderRadius="5px" />
+                                </Button>
 
-                                <CustomModal title="Invite User to Group" isOpen={inviteGroupId !== null} onClose={() => setInviteGroupId(null)}>
+                                <CustomModal
+                                  title="Invite User to Group"
+                                  isOpen={inviteGroupId !== null}
+                                  onClose={() => setInviteGroupId(null)}
+                                >
                                   <FormControl>
                                     <FormLabel>Username</FormLabel>
 
@@ -290,10 +338,17 @@ export default function GroupsPage(props) {
                                   </FormControl>
                                   <Button
                                     onClick={() => invitBtn(inviteGroupId)}
-                                    backgroundColor={colorPallet.c1} color="white" _hover={{ backgroundColor: colorPallet.c2 }} mr={3}>
+                                    backgroundColor={colorPallet.c1}
+                                    color="white"
+                                    _hover={{ backgroundColor: colorPallet.c2 }}
+                                    mr={3}>
                                     Invite to Group
                                   </Button>
-                                  <Button onClick={() => setInviteGroupId(null)} backgroundColor={colorPallet.c4}>Cancel</Button>
+                                  <Button
+                                    onClick={() => setInviteGroupId(null)}
+                                    backgroundColor={colorPallet.c4}>
+                                    Cancel
+                                  </Button>
                                 </CustomModal>
 
                               </Box>
@@ -307,19 +362,41 @@ export default function GroupsPage(props) {
                           <Center>
                             <Tooltip hasArrow label='Delete Group'>
                               <Box>
-                                <Button onClick={() => setDeleteGroup(group._id)} p="0px"><DeleteIcon boxSize={"30px"} color={"#fff"} backgroundColor={colorPallet.c5} p="8px" borderRadius="5px" /></Button>
+                                <Button
+                                  onClick={() => setDeleteGroup(group._id)}
+                                  p="0px">
+                                  <DeleteIcon
+                                    boxSize={"30px"}
+                                    color={"#fff"}
+                                    backgroundColor={colorPallet.c5}
+                                    p="8px"
+                                    borderRadius="5px"
+                                  />
+                                </Button>
 
-                                <CustomModal title="Deleting Group" isOpen={deleteGroup !== null} onClose={() => setDeleteGroup(null)}>
+                                <CustomModal
+                                  title="Deleting Group"
+                                  isOpen={deleteGroup !== null}
+                                  onClose={() => setDeleteGroup(null)}
+                                >
                                   <FormControl>
                                     <FormLabel>Are you sure you want to delete this group?</FormLabel>
                                   </FormControl>
                                   <Button
                                     onClick={() => deleteBtn(deleteGroup)}
 
-                                    backgroundColor={colorPallet.c1} color="white" _hover={{ backgroundColor: colorPallet.c2 }} mr={3}>
+                                    backgroundColor={colorPallet.c1}
+                                    color="white"
+                                    _hover={{ backgroundColor: colorPallet.c2 }}
+                                    mr={3}
+                                  >
                                     Yes
                                   </Button>
-                                  <Button onClick={() => setDeleteGroup(null)} backgroundColor={colorPallet.c4}>No</Button>
+                                  <Button
+                                    onClick={() => setDeleteGroup(null)}
+                                    backgroundColor={colorPallet.c4}>
+                                    No
+                                  </Button>
                                 </CustomModal>
                               </Box>
                             </Tooltip>
@@ -327,7 +404,6 @@ export default function GroupsPage(props) {
                         </Td>
                         : <Td></Td>
                       }
-
                     </Tr>
                   )
                 })}
