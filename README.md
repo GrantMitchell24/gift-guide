@@ -29,22 +29,19 @@ The footer of the website includes a copyright statement and four github logo im
 ## Website Images
 
 Home Page:
-![Preview of Home Page]()
+![Preview of Home Page](../gift-guide/client/public/assets/images/HomePageGitify.png)
 
 Account Page:
-![Preview of Account Page]()
+![Preview of Account Page](../gift-guide/client/public/assets/images/AccountPage.png)
 
 Navigation Bar:
-![Preview of Navigation Bar]()
+![Preview of Navigation Bar](../gift-guide/client/public/assets/images/GitifyNavBar.png)
 
 Wishlist Page:
-![Preview of Wishlist Page]()
+![Preview of Wishlist Page](../gift-guide/client/public/assets/images/WishListPage.png)
 
 Groups Page:
-![Preview of Groups Page]()
-
-Footer:
-![Preview of Footer]()
+![Preview of Groups Page](../gift-guide/client/public/assets/images/GroupsPage.png)
 
 <a id="websitelinks"></a>
 
@@ -74,6 +71,7 @@ Technical requirements for the application include:
 - Chakra UI
 - Heroku
 - Github
+- Vite
 
   <a id="credits"></a>
 
@@ -98,13 +96,13 @@ Tutorials/Information for coding are listed below:
 
 - Information for debugging React Router: https://stackoverflow.com/questions/71884854/chakra-ui-react-activelink-props-not-working
 
-- Checkbox logic from Chakra: https://chakra-ui.com/docs/components/checkbox
-
 - Searchbar Icon Code Inspiration:https://www.youtube.com/watch?v=x7niho285qs&amp;t=412s
 
 - White String Light Account Page Photo: https://unsplash.com/photos/beaded-of-white-string-light-dka5C8Ct2Fw
 
 - White Gift Box Home Page Unsplash: https://unsplash.com/photos/white-gift-box-with-red-ribbon-beside-pencil-scissors-and-tape-dispenser-Ts0g6PHe1q0
+
+- Stack Overflow
 
 <a id="license"></a>
 
