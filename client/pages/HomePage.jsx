@@ -1,8 +1,15 @@
+import { useAppCtx } from "../utils/AppProvider";
+
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { Image } from '@chakra-ui/react'
-import { List, ListItem, ListIcon, OrderedList, UnorderedList } from '@chakra-ui/react'
+import { List, ListItem, ListIcon, OrderedList, UnorderedList, Button } from '@chakra-ui/react'
+import { Link as ChakraLink } from "@chakra-ui/react";
 
 export default function HomePage(props) {
+  // Bring in logged in user info
+  const { user } = useAppCtx();
+
+  const emptyObj = {}
 
   // Bring in color pallet
   const colorPallet = props.colorPallet
@@ -27,6 +34,12 @@ export default function HomePage(props) {
             <ListItem>Create groups with your families and or friends!</ListItem>
             <ListItem>Everyone will see what has already been purchased from your list, except for you of course!</ListItem>
           </OrderedList>
+          {user._id === undefined &&
+            <ChakraLink href="/auth" p="40px 80px">
+              <Button colorScheme="green">Login</Button>
+            </ChakraLink>
+          }
+
         </Flex>
       </Box>
     </Box>

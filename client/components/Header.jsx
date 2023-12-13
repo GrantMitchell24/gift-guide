@@ -32,7 +32,7 @@ export default function Header(props) {
           <Spacer />
           <Box>
             {user?._id !== undefined && (
-              <NavBar />
+              <NavBar colorPallet={colorPallet}/>
             )}
           </Box>
         </Flex>

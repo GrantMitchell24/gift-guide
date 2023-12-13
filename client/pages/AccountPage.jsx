@@ -9,7 +9,7 @@ import CustomModal from "../components/CustomModal";
 
 
 // Chakra Imports
-import { Box, Flex, Heading, Text, FormControl, FormLabel } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, FormControl, FormLabel, Spacer } from "@chakra-ui/react";
 import { CheckCircleIcon, NotAllowedIcon } from '@chakra-ui/icons'
 import { Input, Button } from '@chakra-ui/react'
 
@@ -131,7 +131,7 @@ export default function AccountPage(props) {
           Hello, {helloName}!
         </Text>
 
-        <form onSubmit={handleFormSubmit} style={{ maxWidth: "400px", padding: "20px", border: `solid 1px ${colorPallet.c1}`, borderRadius: "20px", backgroundColor: colorPallet.c4 }}>
+        <form onSubmit={handleFormSubmit} style={{ maxWidth: "400px", padding: "20px 20px 5px 20px", border: `solid 1px ${colorPallet.c1}`, borderRadius: "20px", backgroundColor: colorPallet.c4 }}>
           <FormControl isRequired mb="20px">
             <FormLabel >Name:</FormLabel>
             <Input defaultValue={userInfo.name} type="text" name="name" backgroundColor="#fff" style={styling.formInput} onChange={handleInputChange}></Input>
@@ -159,22 +159,28 @@ export default function AccountPage(props) {
             </Flex>
           }
 
-          <Button type="submit" backgroundColor={colorPallet.c1} color="white" _hover={{ backgroundColor: colorPallet.c2 }}>Submit</Button>
+          <Box flexDir="column">
+            <Button minW="140px" mb="10px" type="submit" backgroundColor={colorPallet.c1} color="white" _hover={{ backgroundColor: colorPallet.c2 }}>Submit</Button>
+            <Text onClick={() => setDeleteAccount()} backgroundColor="transparent" color={colorPallet.c5} _hover={{ color: "#9B2C2C", cursor: "pointer" }} fontSize="1rem" mr={3}>Delete My Account</Text>
+          </Box>
         </form>
 
-        <Button onClick={() => setDeleteAccount()}>Delete My Account</Button>
-
-        <CustomModal title="Deleting Account" isOpen={deleteAccount !== null} onClose={() => setDeleteAccount(null)}>
+        <CustomModal isOpen={deleteAccount !== null} onClose={() => setDeleteAccount(null)}>
           <FormControl>
-            <FormLabel>Are you sure you want to delete this account?</FormLabel>
+            <Heading color={colorPallet.c5} fontSize="1.8rem">Deleting Account</Heading>
+            <FormLabel py="20px" color={colorPallet.c5}>Are you sure you want to delete this account? If you are the Admin of any groups, those will also be deleted!</FormLabel>
           </FormControl>
-          <Button
-            onClick={() => deleteActBtn(deleteAccount)}
-
-            backgroundColor={colorPallet.c5} color="white" _hover={{ backgroundColor: colorPallet.c5 }} mr={3}>
-            Yes
-          </Button>
-          <Button onClick={() => setDeleteAccount(null)} backgroundColor={colorPallet.c2}>No</Button>
+          <Flex>
+            <Button
+              onClick={() => deleteActBtn(deleteAccount)} backgroundColor={colorPallet.c5} color="white" _hover={{ backgroundColor: colorPallet.c5 }} mr={3}>
+              Yes
+            </Button>
+            <Spacer />
+            <Button
+              onClick={() => setDeleteAccount(null)} backgroundColor={colorPallet.c2} color="white">
+              No
+            </Button>
+          </Flex>
         </CustomModal>
 
       </Box>

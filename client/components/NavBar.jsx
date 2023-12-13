@@ -29,7 +29,7 @@ import { ChevronDownIcon, SearchIcon, HamburgerIcon } from "@chakra-ui/icons";
 
 import { Input, IconButton } from "@chakra-ui/react";
 
-import { Divider } from "@chakra-ui/react";
+import { Divider, Image, Center } from "@chakra-ui/react";
 
 import { PhoneIcon, AddIcon, WarningIcon } from "@chakra-ui/icons";
 
@@ -38,6 +38,9 @@ import { useParams } from "react-router-dom";
 import { useAppCtx } from "../utils/AppProvider";
 
 export default function NavBar(props) {
+  // Bring color pallet in from props
+  const colorPallet = props.colorPallet
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
@@ -46,8 +49,8 @@ export default function NavBar(props) {
 
   return (
     <>
-      <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
-        <HamburgerIcon />
+      <Button ref={btnRef} backgroundColor={colorPallet.c5} _hover={{ backgroundColor: "#9B2C2C" }} onClick={onOpen}>
+        <HamburgerIcon color="#fff" />
       </Button>
       <Drawer
         isOpen={isOpen}
@@ -56,78 +59,85 @@ export default function NavBar(props) {
         finalFocusRef={btnRef}
       >
         <DrawerOverlay />
-        <DrawerContent {...props}>
+        <DrawerContent {...props}
+          color={colorPallet.c1}
+        // backgroundColor={colorPallet.c4}
+        >
           <DrawerCloseButton />
-          <DrawerHeader>
+          <DrawerHeader p="16px 24px 0px 24px">
             <Box>
-              <Flex flexDir="column">
-                <ChakraLink as={ReactRouterLink} to="/account">
-                  Account
-                </ChakraLink>
-                {/* /* <Box>
-                  <Flex>
-                    <Heading fontSize="medium">
-                      Your personal gift guide
-                    </Heading>
-                  </Flex>
-                </Box> */}
-              </Flex>
+              <Center>
+                <a href="/"><Image width="7rem" src={"/assets/images/Giftify.png"} alt='logo' pb="10px" /></a>
+              </Center>
             </Box>
           </DrawerHeader>
           <DrawerBody>
             <Box>
               <Flex flexDir="column">
-                <Divider orientation="horizontal" />
-                <Box>
+
+                <Divider orientation="horizontal" borderColor={colorPallet.c2} border="2px" />
+
+                <Box py="5px">
                   <Flex flexDir="column">
-                    <Box>
-                      <Flex flexDir="row">
-                        <Text>Search users:</Text>
-                        {/* TUCKERS CODE for Searchbar below lines 72-77 */}
-                        {/* <Box className="App">
-                      <SearchBar
-                        placeholder="Enter user"
-                        // data={UserData}
-                      />
-                    </Box> */}
-                        {/* <Divider orientation="horizontal" /> */}
-                      </Flex>
-                    </Box>
-                    <Box>
-                      <Flex>
-                        <SearchBar />
-                      </Flex>
-                    </Box>
+                    <ChakraLink as={ReactRouterLink} to="/account" fontSize="1.3rem">
+                      Account
+                    </ChakraLink>
                   </Flex>
                 </Box>
-                <Divider orientation="horizontal" />
-                <Box>
+
+                <Divider orientation="horizontal" borderColor={colorPallet.c2} />
+
+                <Box py="5px">
                   <Flex flexDir="column" justifyContent="space-evenly">
                     <ChakraLink
                       as={ReactRouterLink}
                       to={`/wishlist/${user._id}`}
+                      fontSize="1.3rem"
                     >
-                      My Wishlist
+                      Wishlist
                     </ChakraLink>
                   </Flex>
                 </Box>
-                <Divider orientation="horizontal" />
-                <Box>
+
+                <Divider orientation="horizontal" borderColor={colorPallet.c2} />
+
+                <Box py="5px">
                   <Flex flexDir="column" justifyContent="space-evenly">
-                    <ChakraLink as={ReactRouterLink} to="/mygroups">
-                      My Groups
+                    <ChakraLink as={ReactRouterLink} to="/mygroups" fontSize="1.3rem">
+                      Groups
                     </ChakraLink>
                   </Flex>
                 </Box>
-                <Divider orientation="horizontal" />
-                <Box>
+
+                <Divider orientation="horizontal" borderColor={colorPallet.c2} />
+
+                <Box py="5px">
+                  <Flex flexDir="column">
+                    <Box>
+                      <Flex flexDir="row">
+                        <Text fontSize="1.3rem">Search for Wishlist:</Text>
+                      </Flex>
+                    </Box>
+                    <Box>
+                      <Flex>
+                        <SearchBar colorPallet={colorPallet} />
+                      </Flex>
+                    </Box>
+                  </Flex>
+                </Box>
+
+                {/* <Divider orientation="horizontal" borderColor={colorPallet.c2} />
+
+                <Box py="5px">
                   <Flex flexDir="column" justifyContent="space-evenly">
-                    <ChakraLink as={ReactRouterLink} to="/private/purchased">
+                    <ChakraLink as={ReactRouterLink} to="/private/purchased" fontSize="1.3rem">
                       Purchased Items
                     </ChakraLink>
                   </Flex>
-                </Box>
-                <Divider orientation="horizontal" />
+                </Box> */}
+
+                {/* <Divider orientation="horizontal" borderColor={colorPallet.c2} /> */}
+
                 {/* 
                 <Box>
                   <Flex flexDir="column" justifyContent="space-evenly">
@@ -136,7 +146,9 @@ export default function NavBar(props) {
                     </ChakraLink>
                   </Flex>
                 </Box> */}
-                <Divider orientation="horizontal" />
+
+                <Divider orientation="horizontal" borderColor={colorPallet.c2} border="2px" />
+
                 <Box>
                   <Flex
                     flexDir="row"
@@ -144,11 +156,11 @@ export default function NavBar(props) {
                     justifyContent="center"
                     padding="10px"
                   >
-                    <Button colorScheme="teal">
-                      <ChakraLink as={ReactRouterLink} to="/logout">
+                    <ChakraLink as={ReactRouterLink} to="/logout">
+                      <Button backgroundColor={colorPallet.c5} color="white" _hover={{ backgroundColor: "#9B2C2C" }} mr={3}>
                         Logout
-                      </ChakraLink>
-                    </Button>
+                      </Button>
+                    </ChakraLink>
                   </Flex>
                 </Box>
               </Flex>

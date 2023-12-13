@@ -9,7 +9,7 @@ export default function AuthPage(props) {
   return (
     <Box>
       <Flex flexDir="row" justifyContent="space-evenly" align="center">
-        <Box p="20px">
+        <Box >
           <Auth colorPallet={props.colorPallet}/>
         </Box>
       </Flex>

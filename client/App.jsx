@@ -45,7 +45,7 @@ const [colorPallet, setColorPallet] = useState({
   return (
     <AppProvider>
       <BrowserRouter>
-        <Box minH="100vh" backgroundColor={colorPallet.c5}>
+        <Box minH="100vh" backgroundColor={colorPallet.c1}>
         <Header colorPallet={colorPallet}/>
         <Box>
           <Flex flexDir="column">
@@ -97,7 +97,7 @@ const [colorPallet, setColorPallet] = useState({
                 path="/wishlist/:userId"
                 element={
                   <ProtectedRoute>
-                    <WishListPage />
+                    <WishListPage colorPallet={colorPallet}/>
                   </ProtectedRoute>
                 }
               />
