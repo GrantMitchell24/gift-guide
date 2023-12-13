@@ -3,13 +3,14 @@ import { useAppCtx } from "../utils/AppProvider";
 import { useParams } from "react-router-dom";
 import { Checkbox, CheckboxGroup } from "@chakra-ui/react";
 import React from "react";
-import { AddIcon, DeleteIcon, CheckIcon,ExternalLinkIcon } from '@chakra-ui/icons'
+import { AddIcon, DeleteIcon, CheckIcon, ExternalLinkIcon } from '@chakra-ui/icons'
 
 import { Button, ButtonGroup, Box, Image } from "@chakra-ui/react";
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from '@chakra-ui/react'
 import { FormControl, FormLabel, FormErrorMessage, FormHelperText, Heading, Flex, Spacer, Center } from '@chakra-ui/react'
 
-import { CustomModal } from "../components";
+// Import Components
+import { CustomModal, UpdateItem } from "../components";
 
 // Just another Chakra import
 import {
@@ -60,32 +61,6 @@ export default function UserTable(props) {
     setUserData(payload);
   }
 
-  // //making a useState case with the checkbox and purchased property in the Item Model
-  // const [checkedItems, setCheckedItems] = useState({ purchased: false });
-
-  // // const allChecked = checkedItems.every(Boolean);
-  // // const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
-
-  // //PURCHASED ROUTE"/:userId/item/:itemId"
-  // async function purchasedItem(itemId) {
-  //   const payload = checkedItems;
-  //   try {
-  //     const query = await fetch(`/api/user/${params.userId}/item/${itemId}`, {
-  //       method: "PUT",
-  //       body: JSON.stringify({ purchased: "true" }),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     // Might be able to delete this line of code since we aren't using the response
-  //     const response = await query.json();
-  //   } catch (err) {
-  //     console.log(err.message);
-  //   }
-  //   setUserData(payload);
-  //   // console.log(payload);
-  // }
-
 
   //------------------------------------------------------------
   // Handles Purchasing a Gift
@@ -127,11 +102,13 @@ export default function UserTable(props) {
             <Tr>
               <Th>Name</Th>
               <Th>Wish Rank</Th>
-              <Th>Cost</Th>
+              <Th>Cost ($)</Th>
               <Th>Notes</Th>
               <Th>Link</Th>
-
+              {/* Only showes if user is on their own wish list */}
+              {user._id === userData._id && <Th>Update</Th>}
               {user._id === userData._id && <Th>Delete</Th>}
+              {/* Only showes if on someone else's wishlist */}
               {user._id != userData._id && <Th>Purchased</Th>}
             </Tr>
           </Thead>
@@ -144,7 +121,7 @@ export default function UserTable(props) {
                   <Td>{val.cost}</Td>
                   <Td>{val.notes}</Td>
                   {val.link &&
-                    <Td><a href={val.link} target="_blank"><ExternalLinkIcon fontSize="24px" color={colorPallet.c1}/></a></Td>
+                    <Td><a href={val.link} target="_blank"><ExternalLinkIcon fontSize="24px" color={colorPallet.c1} /></a></Td>
                   }
                   {!val.link &&
                     <Td></Td>
@@ -152,79 +129,100 @@ export default function UserTable(props) {
 
 
                   {user._id === userData._id && (
-                    <Td>
-                      <Button
-                        p="0px"
-                        onClick={() => deleteItem(val._id)}
-                      >
-                        <DeleteIcon boxSize={"30px"} color={"#fff"} backgroundColor={colorPallet.c5} p="8px" borderRadius="5px" />
-                      </Button>
-                    </Td>
+                    <>
+                      {/* Only showes if user is on their own wish list */}
+                      {/* Update Info Btn */}
+                      <Td>
+                        <UpdateItem 
+                          colorPallet={colorPallet} 
+                          itemInfo={val} 
+                          getUserInfo={getUserInfo}
+                          // setUserData={setUserData}
+                        />
+                      </Td>
+
+
+                      {/* Delete/Purchased Btns */}
+                      <Td>
+                        <Button
+                          p="0px"
+                          onClick={() => deleteItem(val._id)}
+                        >
+                          <DeleteIcon boxSize={"30px"} color={"#fff"} backgroundColor={colorPallet.c5} p="8px" borderRadius="5px" />
+                        </Button>
+                      </Td>
+                    </>
                   )}
+
+
+
                   {user._id != userData._id && (
-                    <Td>
+                    <>
+                      {/* Delete/Purchased Btns */}
+                      <Td>
 
-                      {val.purchased === false &&
-                        <Center>
-                          <Button
-                            onClick={() => setPurchaseModal(val._id)}
-                            p="0px">
-                            <Box
-                              boxSize={"30px"}
-                              color={"#fff"}
-                              backgroundColor={colorPallet.c2}
-                              _hover={{ backgroundColor: colorPallet.c1 }}
-                              borderRadius="5px"
-                              p="4px"
-                            >
-                              <Image color="#fff" src="/assets/icons/presentIcon.png" alt="Icon of a present" />
-                            </Box>
-                          </Button>
-                          <CustomModal
-                            isOpen={purchaseModal !== null}
-                            onClose={() => setPurchaseModal(null)}
-                          >
-                            <FormControl>
-                              <Heading
-                                color={colorPallet.c1}
-                                fontSize="1.8rem">
-                                Purchasing Gift
-                              </Heading>
-                              <FormLabel
-                                py="20px"
-                                color={colorPallet.c1}>
-                                Would you like to mark this gift as purchased?
-                              </FormLabel>
-                            </FormControl>
-                            <Flex>
-                              <Button
-                                onClick={() => purchaseBtn(purchaseModal)}
+                        {val.purchased === false &&
+                          <Center>
+                            <Button
+                              onClick={() => setPurchaseModal(val._id)}
+                              p="0px">
+                              <Box
+                                boxSize={"30px"}
+                                color={"#fff"}
                                 backgroundColor={colorPallet.c2}
-                                color="white"
-                                _hover={{ backgroundColor: colorPallet.c3 }}
-                                mr={3}>
-                                Yes
-                              </Button>
-                              <Spacer />
-                              <Button
-                                onClick={() => setPurchaseModal(null)}
-                                backgroundColor={colorPallet.c4}
+                                _hover={{ backgroundColor: colorPallet.c1 }}
+                                borderRadius="5px"
+                                p="4px"
                               >
-                                Cancel
-                              </Button>
-                            </Flex>
-                          </CustomModal>
-                        </Center>
-                      }
-                      {val.purchased === true &&
-                        <Center>
-                          <CheckIcon color={colorPallet.c1} />
-                        </Center>
-                      }
+                                <Image color="#fff" src="/assets/icons/presentIcon.png" alt="Icon of a present" />
+                              </Box>
+                            </Button>
+                            <CustomModal
+                              isOpen={purchaseModal !== null}
+                              onClose={() => setPurchaseModal(null)}
+                            >
+                              <FormControl>
+                                <Heading
+                                  color={colorPallet.c1}
+                                  fontSize="1.8rem">
+                                  Purchasing Gift
+                                </Heading>
+                                <FormLabel
+                                  py="20px"
+                                  color={colorPallet.c1}>
+                                  Would you like to mark this gift as purchased?
+                                </FormLabel>
+                              </FormControl>
+                              <Flex>
+                                <Button
+                                  onClick={() => purchaseBtn(purchaseModal)}
+                                  backgroundColor={colorPallet.c2}
+                                  color="white"
+                                  _hover={{ backgroundColor: colorPallet.c3 }}
+                                  mr={3}>
+                                  Yes
+                                </Button>
+                                <Spacer />
+                                <Button
+                                  onClick={() => setPurchaseModal(null)}
+                                  backgroundColor={colorPallet.c4}
+                                >
+                                  Cancel
+                                </Button>
+                              </Flex>
+                            </CustomModal>
+                          </Center>
+                        }
+                        {val.purchased === true &&
+                          <Center>
+                            <CheckIcon color={colorPallet.c1} />
+                          </Center>
+                        }
 
 
 
-                    </Td>
+                      </Td>
+                    </>
                   )}
                 </Tr>
               );

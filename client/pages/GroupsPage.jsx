@@ -380,21 +380,22 @@ export default function GroupsPage(props) {
                                   onClose={() => setDeleteGroup(null)}
                                 >
                                   <FormControl>
-                                    <FormLabel>Are you sure you want to delete this group?</FormLabel>
+                                    <FormLabel pb="10px" color={colorPallet.c5} >Are you sure you want to delete this group?</FormLabel>
                                   </FormControl>
                                   <Button
                                     onClick={() => deleteBtn(deleteGroup)}
 
-                                    backgroundColor={colorPallet.c1}
+                                    backgroundColor={colorPallet.c5}
                                     color="white"
-                                    _hover={{ backgroundColor: colorPallet.c2 }}
+                                    _hover={{ backgroundColor: colorPallet.c5 }}
                                     mr={3}
                                   >
                                     Yes
                                   </Button>
                                   <Button
                                     onClick={() => setDeleteGroup(null)}
-                                    backgroundColor={colorPallet.c4}>
+                                    color="white"
+                                    backgroundColor={colorPallet.c1}>
                                     No
                                   </Button>
                                 </CustomModal>

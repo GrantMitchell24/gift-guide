@@ -1,13 +1,8 @@
-import { useState, useEffect } from "react";
-import { useAppCtx } from "../utils/AppProvider";
-import { useParams } from "react-router-dom";
-import { Checkbox, CheckboxGroup } from "@chakra-ui/react";
-
-import { Button, ButtonGroup } from "@chakra-ui/react";
-
-// Just another Chakra import
+// Import Chakra
+import { Button } from "@chakra-ui/react";
 import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Center } from "@chakra-ui/react"
 
+// Import Chakra Icons
 import { CheckIcon, CloseIcon } from '@chakra-ui/icons'
 
 
@@ -66,11 +61,8 @@ export default function InviteTable(props) {
             </Tr>
           </Thead>
           <Tbody>
-
-
             {props.userInfo.pending_groups.map((pending_group, key) => {
               return (
-
                 <Tr key={key}>
                   <Td >{pending_group.title}</Td>
                   <Td >{pending_group.admin_id.username}</Td>
@@ -90,19 +82,10 @@ export default function InviteTable(props) {
                   </Td>
                 </Tr>
               )
-
-
             })}
-
-
-
-
           </Tbody>
         </Table>
       </TableContainer>
-
-
-
     </>
   )
 }

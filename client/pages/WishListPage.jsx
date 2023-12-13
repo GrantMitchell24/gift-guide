@@ -6,8 +6,7 @@ import { useAppCtx } from "../utils/AppProvider";
 import { Box, Flex, Heading, Text, Center } from "@chakra-ui/react";
 import { UserTable } from "../components";
 
-import { AddItem, UpdateItem } from "../components";
-import { EmailAlert } from "../components";
+import { AddItem } from "../components";
 
 export default function WishListPage(props) {
 

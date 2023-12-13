@@ -12,8 +12,6 @@ import {
   HomePage,
   AuthPage,
   Logout,
-  PrivatePage,
-  PurchasedPage,
   GroupsPage,
   AccountPage,
   WishListPage
@@ -22,12 +20,8 @@ import {
 //import Box from Chakra
 import { Box, Flex } from "@chakra-ui/react";
 
-
-
-
 //app.jsx function
 export default function App() {
-
 
 //-------------------------------------------------------------------
 // Color Pallet
@@ -54,25 +48,6 @@ const [colorPallet, setColorPallet] = useState({
               <Route 
                 path="/auth" 
                 element={<AuthPage colorPallet={colorPallet}/>} 
-              />
-
-              <Route
-                path="/private"
-                element={
-                  <ProtectedRoute>
-                    <PrivatePage />
-                  </ProtectedRoute>
-                }
-              />
-
-              <Route
-                path="/private/purchased"
-                element={
-                  <ProtectedRoute>
-                    {/* <PrivatePage /> */}
-                    <PurchasedPage />
-                  </ProtectedRoute>
-                }
               />
 
               <Route
