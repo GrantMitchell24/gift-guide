@@ -3,6 +3,7 @@ import { useAppCtx } from "../utils/AppProvider";
 import { useParams } from "react-router-dom";
 import { Checkbox, CheckboxGroup } from "@chakra-ui/react";
 import React from "react";
+import { AddIcon, DeleteIcon } from '@chakra-ui/icons'
 
 import { Button, ButtonGroup } from "@chakra-ui/react";
 
@@ -19,7 +20,12 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 
-export default function UserTable() {
+export default function UserTable(props) {
+
+  // Bring color pallet in from props
+  const colorPallet = props.colorPallet
+
+
   const { user } = useAppCtx();
 
   const params = useParams();
@@ -86,8 +92,8 @@ export default function UserTable() {
 
   return (
     <div className="UserTable">
-      <TableContainer>
-        <Table variant="striped">
+      <TableContainer border={`solid 2px ${colorPallet.c1}`} borderRadius={"15px"}>
+        <Table variant='striped' backgroundColor={colorPallet.c4}>
           <Thead>
             <Tr>
               <Th>Name</Th>
@@ -109,10 +115,10 @@ export default function UserTable() {
                   {user._id === userData._id && (
                     <Td>
                       <Button
-                        colorScheme="teal"
+                      p="0px"
                         onClick={() => deleteItem(val._id)}
                       >
-                        Delete
+                        <DeleteIcon boxSize={"30px"} color={"#fff"} backgroundColor={colorPallet.c5} p="8px" borderRadius="5px" />
                       </Button>
                     </Td>
                   )}

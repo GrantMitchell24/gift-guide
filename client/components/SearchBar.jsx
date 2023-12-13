@@ -6,14 +6,19 @@ import { CloseIcon } from "@chakra-ui/icons";
 // import cancelIcon from "../assets/icons/cancel.png";
 import { IconButton } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
-import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, Center } from "@chakra-ui/react";
 
 // const { user } = useAppCtx()
 // console.log(user)
 
 import { Input } from "@chakra-ui/react";
 
-export default function SearchBar({ placeholder, data }) {
+// export default function SearchBar({ placeholder, data }) {
+export default function SearchBar(props) {
+
+  // Bring color pallet in from props
+  const colorPallet = props.colorPallet
+
   //-----------------------------------------------
   // Bring in logged in user info
   const { user } = useAppCtx();
@@ -59,21 +64,21 @@ export default function SearchBar({ placeholder, data }) {
 
   return (
     <Box>
-      <Flex>
+      <Box>
         <Box>
-          <Flex>
-            <div className="searchInputs">
+            <Flex className="searchInputs" pb="10px">
               <Input
-                placeholder="search for users"
+                placeholder="Search for Wishlist"
                 value={wordEntered}
                 onChange={handleFilter}
+                borderColor={colorPallet.c2}
+                focusBorderColor={colorPallet.c3}
+                _hover={{ borderColor: colorPallet.c3 }}
               />
 
-
-              <div className="searchIcon">
-
+              <Center className="searchIcon" pl="10px">
                 {filteredData.length === 0 ? (
-                  <SearchIcon />
+                  <SearchIcon width="20px" fontSize="1.3rem"/>
                 ) : (
                   // <IconButton
                   //   icon={<SearchIcon />}
@@ -86,22 +91,20 @@ export default function SearchBar({ placeholder, data }) {
 
                 )}
 
-              </div>
-            </div>
-          </Flex>
+              </Center>
+            </Flex>
         </Box>
         {filteredData.length != 0 && (
-          <div className="dataResult">
+          <Box className="dataResult" pb="10px">
             {filteredData.slice(0, 15).map((value, key) => {
               return (
-                //<a className="dataItem" href={value.link} target="_blank">
-                <p key={value._id}>{value.username} </p>
-                //</a>
+                <a href={`/wishlist/${value._id}`} key={key}><Text fontSize="1.1rem" color={colorPallet.c5}  _hover={{ color: colorPallet.c2,
+                }}>{value.username} </Text></a>
               );
             })}
-          </div>
+          </Box>
         )}
-      </Flex>
+      </Box>
     </Box>
   );
 }

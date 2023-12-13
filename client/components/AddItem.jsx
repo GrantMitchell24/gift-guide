@@ -27,7 +27,15 @@ import { Input } from "@chakra-ui/react";
 
 import { useAppCtx } from "../utils/AppProvider";
 
-export default function AddItem() {
+
+
+
+
+export default function AddItem(props) {
+
+  // Bring color pallet in from props
+  const colorPallet = props.colorPallet
+
   // Bring in logged in user info who is logged in
   const { user } = useAppCtx();
 
@@ -81,8 +89,8 @@ export default function AddItem() {
 
   return (
     <>
-      <Button colorScheme="teal" onClick={onOpen}>
-        Add Item
+      <Button onClick={onOpen} backgroundColor={colorPallet.c2} color="white" _hover={{ backgroundColor: colorPallet.c1 }} mb="20px">
+        Add Item +
       </Button>
 
       <Modal
@@ -105,17 +113,23 @@ export default function AddItem() {
                 name="name"
                 placeholder="Item name"
                 type="text"
+                borderColor={colorPallet.c2}
+                focusBorderColor={colorPallet.c3}
+                _hover={{ borderColor: colorPallet.c3 }}
               />
             </FormControl>
 
             <FormControl mt={2}>
-              <FormLabel>Wish Rank</FormLabel>
+              <FormLabel>Wish Rank (Low 1 - High 10)</FormLabel>
               <Input
                 name="wishRank"
                 onChange={handleInputChange}
                 value={newItem.wishRank}
-                placeholder="Wish rank"
+                placeholder="Wish rank (optional)"
                 type="text"
+                borderColor={colorPallet.c2}
+                focusBorderColor={colorPallet.c3}
+                _hover={{ borderColor: colorPallet.c3 }}
               />
             </FormControl>
 
@@ -126,8 +140,11 @@ export default function AddItem() {
                 ref={initialRef}
                 onChange={handleInputChange}
                 value={newItem.cost}
-                placeholder="Cost"
+                placeholder="Cost (optional)"
                 type="text"
+                borderColor={colorPallet.c2}
+                focusBorderColor={colorPallet.c3}
+                _hover={{ borderColor: colorPallet.c3 }}
               />
             </FormControl>
 
@@ -138,8 +155,11 @@ export default function AddItem() {
                 ref={initialRef}
                 onChange={handleInputChange}
                 value={newItem.notes}
-                placeholder="Notes"
+                placeholder="Notes (optional)"
                 type="text"
+                borderColor={colorPallet.c2}
+                focusBorderColor={colorPallet.c3}
+                _hover={{ borderColor: colorPallet.c3 }}
               />
             </FormControl>
 
@@ -152,15 +172,18 @@ export default function AddItem() {
                 value={newItem.link}
                 placeholder="Website Link (optional)"
                 type="text"
+                borderColor={colorPallet.c2}
+                focusBorderColor={colorPallet.c3}
+                _hover={{ borderColor: colorPallet.c3 }}
               />
             </FormControl>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="teal" mr={3} onClick={handleCreateItemButton}>
+            <Button onClick={handleCreateItemButton} backgroundColor={colorPallet.c1} color="white" _hover={{ backgroundColor: colorPallet.c2 }} mr={3}>
               Save
             </Button>
-            <Button onClick={onClose}>Cancel</Button>
+            <Button onClick={onClose} backgroundColor={colorPallet.c4}>Cancel</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

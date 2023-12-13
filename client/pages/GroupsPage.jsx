@@ -167,13 +167,13 @@ export default function GroupsPage(props) {
       bgImage="url(/assets/images/joanna-kosinska-0CQfTLOVTPU-unsplash.jpg)"
       bgSize="cover"
       bgRepeat="no-repeat"
-      height="80vh"
+      minH="80vh"
     >
       <Box p="20px">
         {userInfo.pending_groups &&
           <>
             <Heading pb="20px" color={colorPallet.c1}> You Have Group Invites! </Heading>
-            <InviteTable colorPallet={colorPallet} userInfo={userInfo} getUserInfo={getUserInfo}/>
+            <InviteTable colorPallet={colorPallet} userInfo={userInfo} getUserInfo={getUserInfo} />
           </>
         }
 
@@ -200,7 +200,17 @@ export default function GroupsPage(props) {
               <ModalBody pb={6}>
                 <FormControl>
                   <FormLabel>Group Name</FormLabel>
-                  <Input ref={initialRef} onChange={handleNewGroupInputChange} name="title" type="text" value={newGroupName.title} placeholder='Group name' borderColor={colorPallet.c2} focusBorderColor={colorPallet.c3} _hover={{ borderColor: colorPallet.c3 }} />
+                  <Input
+                    ref={initialRef}
+                    onChange={handleNewGroupInputChange}
+                    name="title"
+                    type="text"
+                    value={newGroupName.title}
+                    placeholder='Group name'
+                    borderColor={colorPallet.c2}
+                    focusBorderColor={colorPallet.c3}
+                    _hover={{ borderColor: colorPallet.c3 }}
+                  />
                 </FormControl>
 
               </ModalBody>
@@ -219,7 +229,7 @@ export default function GroupsPage(props) {
                   Table Headers
       ---------------------------------------*/}
         <TableContainer border={`solid 2px ${colorPallet.c1}`} borderRadius={"15px"}>
-          <Table variant='striped' backgroundColor="#CBD5E0">
+          <Table variant='striped' backgroundColor={colorPallet.c4}>
             <Thead>
               <Tr>
                 <Th> Group Name </Th>
@@ -279,9 +289,7 @@ export default function GroupsPage(props) {
 
                                   </FormControl>
                                   <Button
-                                    // value={group._id}
                                     onClick={() => invitBtn(inviteGroupId)}
-
                                     backgroundColor={colorPallet.c1} color="white" _hover={{ backgroundColor: colorPallet.c2 }} mr={3}>
                                     Invite to Group
                                   </Button>

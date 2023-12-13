@@ -45,11 +45,12 @@ const [colorPallet, setColorPallet] = useState({
   return (
     <AppProvider>
       <BrowserRouter>
-        <Header />
+        <Box minH="100vh" backgroundColor={colorPallet.c1}>
+        <Header colorPallet={colorPallet}/>
         <Box>
           <Flex flexDir="column">
             <Routes>
-              <Route path="/" element={<HomePage />} />
+              <Route path="/" element={<HomePage colorPallet={colorPallet}/>} />
               <Route 
                 path="/auth" 
                 element={<AuthPage colorPallet={colorPallet}/>} 
@@ -96,7 +97,7 @@ const [colorPallet, setColorPallet] = useState({
                 path="/wishlist/:userId"
                 element={
                   <ProtectedRoute>
-                    <WishListPage />
+                    <WishListPage colorPallet={colorPallet}/>
                   </ProtectedRoute>
                 }
               />
@@ -105,7 +106,8 @@ const [colorPallet, setColorPallet] = useState({
             </Routes>
           </Flex>
         </Box>
-        <Footer />
+        <Footer colorPallet={colorPallet}/>
+        </Box>
       </BrowserRouter>
     </AppProvider>
   );

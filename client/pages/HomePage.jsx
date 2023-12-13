@@ -1,27 +1,48 @@
+import { useAppCtx } from "../utils/AppProvider";
+
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { Image } from '@chakra-ui/react'
-// import howTo from '../assets/i/howTo.png'
+import { List, ListItem, ListIcon, OrderedList, UnorderedList, Button } from '@chakra-ui/react'
+import { Link as ChakraLink } from "@chakra-ui/react";
 
-export default function HomePage() {
+export default function HomePage(props) {
+  // Bring in logged in user info
+  const { user } = useAppCtx();
+
+  const emptyObj = {}
+
+  // Bring in color pallet
+  const colorPallet = props.colorPallet
+
   return (
-    <>
+    <Box
+      fontSize='xl'
+      minH="80vh"
+      p={10}
+      width="100vw"
+      minW="320px"
+      bgImage="url(/assets/images/northfolk-Ts0g6PHe1q0-unsplash.jpg)"
+      bgSize="cover"
+      bgRepeat="no-repeat"
+    >
       <Box flexDir="row" m="10px">
         <Flex flexDir="column" align="left" w="100%">
-          <Heading size="lg">Welcome!</Heading>
-          <Text>Create your list & check it twice!</Text>
+          <Heading size="2xl" color={colorPallet.c4}>Welcome to Giftify!</Heading>
+          <Text color={colorPallet.c4} p="10px 0px 20px 0px">Create your list & check it twice!</Text>
+          <OrderedList color={colorPallet.c4} maxW="600px">
+            <ListItem>Create your own wish list for friends & family!</ListItem>
+            <ListItem>Create groups with your families and or friends!</ListItem>
+            <ListItem>Everyone will see what has already been purchased from your list, except for you of course!</ListItem>
+          </OrderedList>
+          {user._id === undefined &&
+            <ChakraLink href="/auth" p="40px 80px">
+              <Button colorScheme="green">Login</Button>
+            </ChakraLink>
+          }
+
         </Flex>
       </Box>
-      <Box boxSize='xl'>
-        <Image src={"../assets/images/howTo.png"} alt='How To' />
-      </Box>
-
-
-      <Box>
-        <p>1.Create your own wish list for friends & family to see what you want this holiday season!</p>
-        <p>2.Create or add mutiple groups to seperate sides of families and or friends, so you can see what they want as well!</p>
-        <p>3.Everyone will see what has already been purchased from all the groups you are a part of, except for you of course!</p>
-      </Box>
-    </>
+    </Box>
 
   );
 }

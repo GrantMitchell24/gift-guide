@@ -56,7 +56,7 @@ export default function InviteTable(props) {
   return (
     <>
       <TableContainer mb="30px" border={`solid 2px ${colorPallet.c1}`} borderRadius={"15px"}>
-        <Table variant='striped' backgroundColor="#CBD5E0">
+        <Table variant='striped' backgroundColor={colorPallet.c4}>
           <Thead>
             <Tr>
               <Th>Group Name</Th>
