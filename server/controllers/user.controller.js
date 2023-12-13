@@ -71,7 +71,7 @@ async function getUserByUsername(username) {
 // DONE
 async function getUserById(id) {
   try {
-    return await Model.findById(id).populate({ path: "groups", select: "-__v", populate: {path: "admin_id group_members", select:"_id username"}});
+    return await Model.findById(id).populate({ path: "groups pending_groups", select: "-__v", populate: {path: "admin_id group_members", select:"_id username"}});
   } catch (err) {
     throw new Error(err)
   }

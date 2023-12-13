@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAppCtx } from "../utils/AppProvider";
-import "../assets/css/SearchBar.css";
+// import "../assets/css/SearchBar.css";
 import { CloseIcon } from "@chakra-ui/icons";
 // import searchIcon from "../assets/icons/search.png";
 // import cancelIcon from "../assets/icons/cancel.png";
