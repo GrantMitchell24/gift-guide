@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAppCtx } from "../utils/AppProvider";
 import { useParams } from "react-router-dom";
 import { Checkbox, CheckboxGroup } from "@chakra-ui/react";
+import React from "react";
 
 import { Button, ButtonGroup } from "@chakra-ui/react";
 
@@ -49,6 +50,25 @@ export default function UserTable() {
     setUserData(payload);
   }
 
+  const [checkedItems, setCheckedItems] = React.useState([false, false]);
+
+  const allChecked = checkedItems.every(Boolean);
+  const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
+
+  // //PURCHASED ROUTE"/:userId/item/:itemId"
+  // async function purchasedItem(itemId) {
+  //   const query = await fetch(`/api/user/${params.userId}/item/${itemId}`, {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   const result = await query.json();
+  //   const payload = result.payload;
+  //   console.log(payload);
+  //   // setUserData(payload);
+  // }
+
   useEffect(() => {
     if (user._id) {
       getUserInfo();
@@ -91,7 +111,15 @@ export default function UserTable() {
                   )}
                   {user._id != userData._id && (
                     <Td>
-                      <Checkbox colorScheme="teal">Purchased</Checkbox>
+                      <Checkbox
+                        isChecked={allChecked}
+                        isIndeterminate={isIndeterminate}
+                        onChange={(e) =>
+                          setCheckedItems([e.target.checked, e.target.checked])
+                        }
+                      >
+                        Parent Checkbox
+                      </Checkbox>
                     </Td>
                   )}
                 </Tr>
