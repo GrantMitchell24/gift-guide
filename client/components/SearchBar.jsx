@@ -69,7 +69,9 @@ export default function SearchBar({ placeholder, data }) {
                 onChange={handleFilter}
               />
 
+
               <div className="searchIcon">
+
                 {filteredData.length === 0 ? (
                   <SearchIcon />
                 ) : (
@@ -81,7 +83,9 @@ export default function SearchBar({ placeholder, data }) {
                   //   className="iconButton"
                   // />
                   <CloseIcon id="cancelBtn" onClick={clearInput} />
+
                 )}
+
               </div>
             </div>
           </Flex>

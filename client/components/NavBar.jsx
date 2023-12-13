@@ -64,13 +64,13 @@ export default function NavBar(props) {
                 <ChakraLink as={ReactRouterLink} to="/account">
                   Account
                 </ChakraLink>
-                <Box>
+                {/* /* <Box>
                   <Flex>
                     <Heading fontSize="medium">
                       Your personal gift guide
                     </Heading>
                   </Flex>
-                </Box>
+                </Box> */}
               </Flex>
             </Box>
           </DrawerHeader>
