@@ -73,29 +73,29 @@ export default function SearchBar({ placeholder, data }) {
               />
               {/* <Box>
                 <Flex flexDir="row"> */}
-              <div className="searchIcon">
-                {filteredData.length === 0 ? (
-                  <IconButton
-                    icon={<SearchIcon />}
-                    colorScheme="teal"
-                    variant="solid"
-                    aria-label="Search user"
-                    className="iconButton"
-                  />
-                ) : (
-                  <CloseIcon id="cancelBtn" onClick={clearInput} />
-                )}
+              {/* <div className="searchIcon"> */}
+              {filteredData.length === 0 ? (
+                <IconButton
+                  icon={<SearchIcon />}
+                  colorScheme="teal"
+                  variant="solid"
+                  aria-label="Search user"
+                  className="iconButton"
+                />
+              ) : (
+                <CloseIcon id="cancelBtn" onClick={clearInput} />
+              )}
 
-                {/* <IconButton
-            icon={<SearchIcon />}
-            colorScheme="teal"
-            variant="solid"
-            aria-label="Search user"
-          /> */}
-              </div>
-              {/* </Flex>
-              </Box> */}
+              {/* <IconButton
+                icon={<SearchIcon />}
+                colorScheme="teal"
+                variant="solid"
+                aria-label="Search user"
+              /> */}
             </div>
+            {/* </Flex>
+              </Box> */}
+            {/* </div> */}
           </Flex>
         </Box>
         {filteredData.length != 0 && (

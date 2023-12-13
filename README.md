@@ -65,7 +65,7 @@ Third party products utilized include "XYZ".
 
 Information for debugging React Router: https://stackoverflow.com/questions/71884854/chakra-ui-react-activelink-props-not-working
 
-Light/Dark Mode inspired by: https://chakra-ui.com/docs/styled-system/color-mode
+Checkbox logic from Chakra: https://chakra-ui.com/docs/components/checkbox
 
 <a id="license"></a>
 

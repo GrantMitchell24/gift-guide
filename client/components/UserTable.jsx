@@ -50,24 +50,25 @@ export default function UserTable() {
     setUserData(payload);
   }
 
-  const [checkedItems, setCheckedItems] = React.useState([false, false]);
+  //making a useState case with the checkbox and purchased property in the Item Model
+  const [checkedItems, setCheckedItems] = useState({ purchased: "" });
 
-  const allChecked = checkedItems.every(Boolean);
-  const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
+  // const allChecked = checkedItems.every(Boolean);
+  // const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
 
-  // //PURCHASED ROUTE"/:userId/item/:itemId"
-  // async function purchasedItem(itemId) {
-  //   const query = await fetch(`/api/user/${params.userId}/item/${itemId}`, {
-  //     method: "PUT",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  //   const result = await query.json();
-  //   const payload = result.payload;
-  //   console.log(payload);
-  //   // setUserData(payload);
-  // }
+  //PURCHASED ROUTE"/:userId/item/:itemId"
+  async function purchasedItem(itemId) {
+    const query = await fetch(`/api/user/${params.userId}/item/${itemId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await query.json();
+    const payload = result.payload;
+    console.log(payload);
+    // setUserData(payload);
+  }
 
   useEffect(() => {
     if (user._id) {
@@ -112,13 +113,13 @@ export default function UserTable() {
                   {user._id != userData._id && (
                     <Td>
                       <Checkbox
-                        isChecked={allChecked}
-                        isIndeterminate={isIndeterminate}
+                        // isChecked={allChecked}
+                        // isIndeterminate={isIndeterminate}
                         onChange={(e) =>
-                          setCheckedItems([e.target.checked, e.target.checked])
+                          setCheckedItems({ purchased: e.target.checked })
                         }
                       >
-                        Parent Checkbox
+                        Click
                       </Checkbox>
                     </Td>
                   )}
