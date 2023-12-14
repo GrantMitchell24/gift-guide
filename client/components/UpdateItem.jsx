@@ -116,7 +116,7 @@ export default function UpdateItem(props) {
               <FormLabel>Cost ($) </FormLabel>
               <Input
                 name="cost"
-                defaultValue={parseFloat(itemInfo.cost).toFixed(2)}
+                defaultValue={itemInfo.cost}
                 onChange={handleInputChange}
                 backgroundColor="#fff"
                 style={formInput}
@@ -126,7 +126,7 @@ export default function UpdateItem(props) {
             <FormControl mt={2}>
               <FormLabel>Notes for Buyer</FormLabel>
               <Input
-                name="note"
+                name="notes"
                 defaultValue={itemInfo.notes}
                 onChange={handleInputChange}
                 backgroundColor="#fff"
