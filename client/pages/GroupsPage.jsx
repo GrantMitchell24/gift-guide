@@ -202,8 +202,7 @@ export default function GroupsPage(props) {
             Add Group Button and Modal
           ---------------------------------------*/}
         <Heading pb="20px" color={colorPallet.c1}>
-          {" "}
-          My Groups{" "}
+          My Groups
         </Heading>
 
         <Box>
@@ -265,7 +264,7 @@ export default function GroupsPage(props) {
         {/* -----------------------------------
             My Group Table - Table Headers
         ---------------------------------------*/}
-        <Box overflow={"scroll"}>
+        <Box>
           <Flex>
             <TableContainer
               className="table-groups"
