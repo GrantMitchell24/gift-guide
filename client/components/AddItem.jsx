@@ -1,34 +1,18 @@
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-} from "@chakra-ui/react";
-
-import { Button, ButtonGroup } from "@chakra-ui/react";
-
-import { useDisclosure } from "@chakra-ui/react";
-
+// Import React
 import React from "react";
+import { useState} from "react";
 
-import { useState, useEffect } from "react";
-
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-} from "@chakra-ui/react";
-
-import { Input } from "@chakra-ui/react";
-
+// Import Utils
 import { useAppCtx } from "../utils/AppProvider";
 
+// Import Chakra
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton} from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
+import { FormControl, FormLabel} from "@chakra-ui/react";
+import { Input } from "@chakra-ui/react";
 
-
+// Import Chakra-React
+import { useDisclosure } from "@chakra-ui/react";
 
 
 export default function AddItem(props) {
@@ -56,7 +40,6 @@ export default function AddItem(props) {
 
   async function handleCreateItemButton() {
     try {
-      console.log(user._id);
       const query = await fetch(`/api/user/${user._id}/item`, {
         method: "PUT",
         body: JSON.stringify(newItem),
@@ -66,7 +49,6 @@ export default function AddItem(props) {
       });
       const response = await query.json();
       window.location.reload();
-      console.log(response);
       onClose();
     } catch (err) {
       console.log(err.message);
@@ -74,18 +56,10 @@ export default function AddItem(props) {
   }
 
   function handleInputChange(e) {
-    // console.log(e.target.name)
-    // console.log(e.target.value)
     const clone = { ...newItem, [e.target.name]: e.target.value };
     setNewItem(clone);
   }
 
-  // useEffect(() => {
-  //   if (user._id) {
-  //     // const clone = { ...newItem, [e.target.name]: e.target.value };
-  //     // setNewItem(clone);
-  //   }
-  // }, [user]);
 
   return (
     <>
@@ -104,7 +78,7 @@ export default function AddItem(props) {
           <ModalHeader>Add Item</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={2}>
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel>Item Name</FormLabel>
               <Input
                 ref={initialRef}

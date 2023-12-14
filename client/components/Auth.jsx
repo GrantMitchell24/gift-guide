@@ -1,19 +1,20 @@
+// Import React
 import { useEffect, useState } from "react";
+
+// Import Utils
 import { useAppCtx } from "../utils/AppProvider";
 
-//import design from Chakra
+//Import Chakra
 import { Box, Flex, Heading, Text, Wrap, WrapItem } from "@chakra-ui/react";
 import { FormControl, FormLabel, FormErrorMessage, FormHelperText, } from '@chakra-ui/react'
 import { Input } from "@chakra-ui/react";
-import { Button, ButtonGroup } from "@chakra-ui/react";
-import { CheckCircleIcon, NotAllowedIcon } from '@chakra-ui/icons'
+import { Button } from "@chakra-ui/react";
+
+// Import Chakra Icons
+import { NotAllowedIcon } from '@chakra-ui/icons'
 
 export default function Auth(props) {
   const appCtx = useAppCtx();
-
-  // -----------------------------------
-  // Styling
-  // -----------------------------------
 
   // Brings in color pallet from props
   const colorPallet = props.colorPallet
@@ -27,12 +28,10 @@ export default function Auth(props) {
     }
   }
   
-    // -----------------------------------
+  // -----------------------------------
   // HANDLES LOGIN
   // -----------------------------------
-
   const [userLoginData, setUserLoginData] = useState({ email: "", password: "" });
-
   const [loginError, setLoginError] = useState(false)
 
   function handleInputChangeLogin(e) {
@@ -41,7 +40,6 @@ export default function Auth(props) {
 
   async function handleFormSubmitLogin(e) {
     e.preventDefault();
-    // const apiPath = usage === "signup" ? "/" : "/auth";
     const finalPath = `/api/user/auth`;
 
     try {
@@ -58,9 +56,6 @@ export default function Auth(props) {
         window.location.href = "/";
       } else {
         setLoginError(true)
-        // setTimeout(() => {
-        //   setLoginError("")
-        // }, 3000)
       }
     } catch (err) {
       console.log(err.message);
@@ -100,11 +95,7 @@ export default function Auth(props) {
         
       } else {
         setSignupError(true)
-        // setTimeout(() => {
-        //   setLoginError("")
-        // }, 3000)
       }
-
     } catch (err) {
       console.log(err.message);
     } 
@@ -113,8 +104,6 @@ export default function Auth(props) {
   useEffect(() => {
     setUserData({ ...userData, email: appCtx.user.email || "" });
   }, [appCtx]);
-
-
 
 
   return (
@@ -128,7 +117,6 @@ export default function Auth(props) {
       bgRepeat="no-repeat"
     >
       <Wrap
-        // flexDir="column" 
         justify="center"
         w="100%"
         minHeight="70vh"

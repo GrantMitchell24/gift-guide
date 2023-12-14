@@ -1,15 +1,13 @@
-// import Container from 'react-bootstrap/Container';
-// import Nav from 'react-bootstrap/Nav';
-// import Navbar from 'react-bootstrap/Navbar';
-// import NavDropdown from 'react-bootstrap/NavDropdown';
+// Import Components
 import { NavBar } from "./index.js";
+
+// Import Utls
 import { useAppCtx } from "../utils/AppProvider";
-import { Image } from '@chakra-ui/react'
+
 
 //import from Chakra
-import { Box, Flex, Heading, Button, Spacer } from "@chakra-ui/react";
-import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink } from "@chakra-ui/react";
+import { Image } from '@chakra-ui/react'
+import { Box, Flex, Spacer } from "@chakra-ui/react";
 
 export default function Header(props) {
 

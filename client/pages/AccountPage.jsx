@@ -1,12 +1,10 @@
-import { useState, useEffect } from "react";
-import React from "react";
+// Import React
+import React, { useState, useEffect } from "react";
 import { useAppCtx } from "../utils/AppProvider";
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from '@chakra-ui/react';
 import Cookie from "js-cookie"
 
 // Import Components
 import CustomModal from "../components/CustomModal";
-
 
 // Chakra Imports
 import { Box, Flex, Heading, Text, FormControl, FormLabel, Spacer, Center } from "@chakra-ui/react";
@@ -127,65 +125,114 @@ export default function AccountPage(props) {
         bgRepeat="no-repeat"
       >
         <Center>
-        <Box >
+          <Box >
 
-        <Heading color={colorPallet.c1}> Account</Heading>
-        <Text color={colorPallet.c5} mb="20px">
-          Hello, {helloName}!
-        </Text>
+            <Heading color={colorPallet.c1}> Account</Heading>
+            <Text color={colorPallet.c5} mb="20px">
+              Hello, {helloName}!
+            </Text>
 
-        <form onSubmit={handleFormSubmit} style={{ maxWidth: "400px", padding: "20px 20px 5px 20px", border: `solid 1px ${colorPallet.c1}`, borderRadius: "20px", backgroundColor: colorPallet.c4 }}>
-          <FormControl isRequired mb="20px">
-            <FormLabel >Name:</FormLabel>
-            <Input defaultValue={userInfo.name} type="text" name="name" backgroundColor="#fff" style={styling.formInput} onChange={handleInputChange}></Input>
-          </FormControl>
+            <form
+              onSubmit={handleFormSubmit}
+              style={{
+                maxWidth: "400px",
+                padding: "20px 20px 5px 20px",
+                border: `solid 1px ${colorPallet.c1}`,
+                borderRadius: "20px",
+                backgroundColor: colorPallet.c4
+              }}
+            >
+              <FormControl isRequired mb="20px">
+                <FormLabel >Name:</FormLabel>
+                <Input
+                  defaultValue={userInfo.name}
+                  type="text"
+                  name="name"
+                  backgroundColor="#fff"
+                  style={styling.formInput}
+                  onChange={handleInputChange}
+                >
+                </Input>
+              </FormControl>
 
-          <FormControl isRequired mb="20px">
-            <FormLabel>Username:</FormLabel>
-            <Input defaultValue={userInfo.username} type="text" name="username" backgroundColor="#fff" style={styling.formInput} onChange={handleInputChange}></Input>
-          </FormControl>
+              <FormControl isRequired mb="20px">
+                <FormLabel>Username:</FormLabel>
+                <Input
+                  defaultValue={userInfo.username}
+                  type="text"
+                  name="username"
+                  backgroundColor="#fff"
+                  style={styling.formInput}
+                  onChange={handleInputChange}>
+                </Input>
+              </FormControl>
 
-          <FormControl isRequired mb="20px">
-            <FormLabel >Email:</FormLabel>
-            <Input defaultValue={userInfo.email} type="email" name="email" backgroundColor="#fff" style={styling.formInput} onChange={handleInputChange}></Input>
-          </FormControl>
+              <FormControl isRequired mb="20px">
+                <FormLabel >Email:</FormLabel>
+                <Input
+                  defaultValue={userInfo.email}
+                  type="email"
+                  name="email"
+                  backgroundColor="#fff"
+                  style={styling.formInput}
+                  onChange={handleInputChange}>
+                </Input>
+              </FormControl>
 
-          {error === true &&
-            <Text fontSize='md' color={colorPallet.c5} mb="20px">
-              <NotAllowedIcon p="3px" boxSize="25px" backgroundColor={colorPallet.c5} color={colorPallet.c4} borderRadius="50%" /> The username or email you're trying to switch to is already taken. Please try another.</Text>
-          }
+              {error === true &&
+                <Text fontSize='md' color={colorPallet.c5} mb="20px">
+                  <NotAllowedIcon p="3px" boxSize="25px" backgroundColor={colorPallet.c5} color={colorPallet.c4} borderRadius="50%" /> The username or email you're trying to switch to is already taken. Please try another.</Text>
+              }
 
-          {error === false &&
-            <Flex>
-              <CheckCircleIcon color={colorPallet.c2} mr="8px" />
-              <Text fontSize='md' color={colorPallet.c2} mb="20px">Account updated!</Text>
-            </Flex>
-          }
+              {error === false &&
+                <Flex>
+                  <CheckCircleIcon color={colorPallet.c2} mr="8px" />
+                  <Text fontSize='md' color={colorPallet.c2} mb="20px">Account updated!</Text>
+                </Flex>
+              }
 
-          <Box flexDir="column">
-            <Button minW="140px" mb="10px" type="submit" backgroundColor={colorPallet.c1} color="white" _hover={{ backgroundColor: colorPallet.c2 }}>Submit</Button>
-            <Text onClick={() => setDeleteAccount()} backgroundColor="transparent" color={colorPallet.c5} _hover={{ color: "#9B2C2C", cursor: "pointer" }} fontSize="1rem" mr={3}>Delete My Account</Text>
+              <Box flexDir="column">
+                <Button
+                  minW="140px"
+                  mb="10px"
+                  type="submit"
+                  backgroundColor={colorPallet.c1}
+                  color="white"
+                  _hover={{ backgroundColor: colorPallet.c2 }}
+                >
+                  Submit
+                </Button>
+                <Text
+                  onClick={() => setDeleteAccount()}
+                  backgroundColor="transparent"
+                  color={colorPallet.c5}
+                  _hover={{ color: "#9B2C2C", cursor: "pointer" }}
+                  fontSize="1rem"
+                  mr={3}
+                >
+                  Delete My Account
+                </Text>
+              </Box>
+            </form>
+
+            <CustomModal isOpen={deleteAccount !== null} onClose={() => setDeleteAccount(null)}>
+              <FormControl>
+                <Heading color={colorPallet.c5} fontSize="1.8rem">Deleting Account</Heading>
+                <FormLabel py="20px" color={colorPallet.c5}>Are you sure you want to delete this account? If you are the Admin of any groups, those will also be deleted!</FormLabel>
+              </FormControl>
+              <Flex>
+                <Button
+                  onClick={() => deleteActBtn(deleteAccount)} backgroundColor={colorPallet.c5} color="white" _hover={{ backgroundColor: colorPallet.c5 }} mr={3}>
+                  Yes
+                </Button>
+                <Spacer />
+                <Button
+                  onClick={() => setDeleteAccount(null)} backgroundColor={colorPallet.c2} color="white">
+                  No
+                </Button>
+              </Flex>
+            </CustomModal>
           </Box>
-        </form>
-
-        <CustomModal isOpen={deleteAccount !== null} onClose={() => setDeleteAccount(null)}>
-          <FormControl>
-            <Heading color={colorPallet.c5} fontSize="1.8rem">Deleting Account</Heading>
-            <FormLabel py="20px" color={colorPallet.c5}>Are you sure you want to delete this account? If you are the Admin of any groups, those will also be deleted!</FormLabel>
-          </FormControl>
-          <Flex>
-            <Button
-              onClick={() => deleteActBtn(deleteAccount)} backgroundColor={colorPallet.c5} color="white" _hover={{ backgroundColor: colorPallet.c5 }} mr={3}>
-              Yes
-            </Button>
-            <Spacer />
-            <Button
-              onClick={() => setDeleteAccount(null)} backgroundColor={colorPallet.c2} color="white">
-              No
-            </Button>
-          </Flex>
-        </CustomModal>
-        </Box>
         </Center>
       </Box>
     </>
